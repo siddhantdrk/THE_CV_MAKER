@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "siddhantdrk",
+      "name": "Siddhantdrk",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/58393179?v=4",
+      "profile": "https://www.linkedin.com/in/siddhant-khobragade-582a76174/",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "THE_CV_MAKER_OOM_MINI_PROJECT",
+  "projectOwner": "siddhantdrk",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
