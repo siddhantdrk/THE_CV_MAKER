@@ -1,6 +1,6 @@
 # THE CV MAKER
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Abstract of the project
@@ -34,6 +34,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://www.linkedin.com/in/siddhant-khobragade-582a76174/"><img src="https://avatars3.githubusercontent.com/u/58393179?v=4" width="100px;" alt=""/><br /><sub><b>Siddhantdrk</b></sub></a><br /><a href="https://github.com/siddhantdrk/THE_CV_MAKER_OOM_MINI_PROJECT/commits?author=siddhantdrk" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/Mandar16"><img src="https://avatars1.githubusercontent.com/u/58388338?v=4" width="100px;" alt=""/><br /><sub><b>Mandar16</b></sub></a><br /><a href="https://github.com/siddhantdrk/THE_CV_MAKER_OOM_MINI_PROJECT/commits?author=Mandar16" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Devildarkfire"><img src="https://avatars0.githubusercontent.com/u/58392520?v=4" width="100px;" alt=""/><br /><sub><b>Devildarkfire</b></sub></a><br /><a href="https://github.com/siddhantdrk/THE_CV_MAKER_OOM_MINI_PROJECT/commits?author=Devildarkfire" title="Code">💻</a></td>
   </tr>
 </table>
 
