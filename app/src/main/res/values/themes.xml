@@ -15,7 +15,7 @@
     </style>
 
     <style name="splash_theme" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="android:windowBackground">@drawable/splash_drawable</item>
+        <item name="android:windowBackground">@drawable/cvlogo</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 </resources>
