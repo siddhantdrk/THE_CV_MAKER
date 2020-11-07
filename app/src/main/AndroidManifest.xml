@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TheCvMaker">
-        <activity android:name=".PersonalDetails"></activity>
+        <activity android:name=".PersonalDetailsActivity"></activity>
+        <activity android:name=".PersonalDetails" />
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="portrait" />
