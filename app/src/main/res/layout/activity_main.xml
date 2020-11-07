@@ -4,15 +4,141 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/LightGray"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@android:color/white"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_8sdp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/upload_user_photo"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/cvlogo" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/personal_details_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@android:color/white"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:drawablePadding="@dimen/_8sdp"
+                android:drawableTint="@color/design_default_color_primary"
+                android:fontFamily="sans-serif-medium"
+                android:padding="@dimen/_8sdp"
+                android:text="Personal Info"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_16ssp"
+                app:drawableStartCompat="@drawable/ic_outline_account_circle_24" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@android:color/white"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:drawablePadding="@dimen/_8sdp"
+                android:drawableTint="@color/design_default_color_primary"
+                android:fontFamily="sans-serif-medium"
+                android:padding="@dimen/_8sdp"
+                android:text="Education"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_16ssp"
+                app:drawableStartCompat="@drawable/ic_outline_cast_for_education_24" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@android:color/white"
+                android:drawableStart="@drawable/ic_outline_business_center_24"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:drawablePadding="@dimen/_8sdp"
+                android:drawableTint="@color/design_default_color_primary"
+                android:fontFamily="sans-serif-medium"
+                android:padding="@dimen/_8sdp"
+                android:text="Work Experience"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_16ssp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@android:color/white"
+                android:drawableStart="@drawable/ic_baseline_laptop_mac_24"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:drawablePadding="@dimen/_8sdp"
+                android:drawableTint="@color/design_default_color_primary"
+                android:fontFamily="sans-serif-medium"
+                android:padding="@dimen/_8sdp"
+                android:text="Project Details &amp; Contribution"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_16ssp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:background="@android:color/white"
+                android:drawableStart="@drawable/ic_baseline_stars_24"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
+                android:drawablePadding="@dimen/_8sdp"
+                android:drawableTint="@color/design_default_color_primary"
+                android:fontFamily="sans-serif-medium"
+                android:padding="@dimen/_8sdp"
+                android:text="Others &amp; Skills"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_16ssp" />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
+        android:padding="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_6sdp"
+            android:text="generate pdf"
+            android:textSize="@dimen/_16ssp"
+            app:cornerRadius="@dimen/_8sdp" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
