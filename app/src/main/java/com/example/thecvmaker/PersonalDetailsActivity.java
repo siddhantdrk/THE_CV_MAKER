@@ -43,14 +43,9 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_details2);
 
-        Name = EditTextFullName.getText().toString();
-        Address = editTextAddress.getText().toString();
-        PhoneNumber = editTextPhone.getText().toString();
-        Dob = editTextDOB.getText().toString();
-        EmailAddress = editTextEmail.getText().toString();
-        Nationality = editTextNationality.getText().toString();
-        //Gender = editText7.getText().toString();
-        Language = editTextLanguage.getText().toString();
+        initViews();
+        setPersonalDetails();
+
 
         editTextDOB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,4 +91,16 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         editTextNationality = findViewById(R.id.nationality_edt);
         GenderRadioGrp = (RadioGroup) findViewById(R.id.genderGrp);
     }
+
+    private void setPersonalDetails() {
+        Name = EditTextFullName.getText().toString();
+        Address = editTextAddress.getText().toString();
+        PhoneNumber = editTextPhone.getText().toString();
+        Dob = editTextDOB.getText().toString();
+        EmailAddress = editTextEmail.getText().toString();
+        Nationality = editTextNationality.getText().toString();
+        //Gender = editText7.getText().toString();
+        Language = editTextLanguage.getText().toString();
+    }
+
 }
