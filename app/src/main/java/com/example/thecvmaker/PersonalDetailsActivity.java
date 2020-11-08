@@ -1,7 +1,5 @@
 package com.example.thecvmaker;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,6 +10,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Calendar;
 
 public class PersonalDetailsActivity extends AppCompatActivity {
@@ -21,10 +21,11 @@ public class PersonalDetailsActivity extends AppCompatActivity {
     EditText editTextPhone;
     EditText editTextNationality;
     EditText editTextDOB;
-    EditText editTextGender;
+    // EditText editTextGender;
     EditText editTextLanguage;
     EditText editTextAddress;
     RadioGroup GenderRadioGrp;
+    RadioButton GenderRadiobtn;
 
     private String Name;
     private String Address;
@@ -78,11 +79,9 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             }
         };
 
-
-         Gender = ((RadioButton)findViewById(GenderRadioGrp.getCheckedRadioButtonId()))
-                        .getText().toString();
-
-
+        int selectedId = GenderRadioGrp.getCheckedRadioButtonId();
+        GenderRadiobtn = (RadioButton) findViewById(selectedId);
+        Gender = GenderRadiobtn.getText().toString();
 
 
     }
