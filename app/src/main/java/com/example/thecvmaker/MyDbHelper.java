@@ -114,7 +114,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 contact.setRole(cursor.getString(2));
                 contact.setDescription(cursor.getString(2));
                 contact.setTeamSize(cursor.getString(2));
-                contactList.add(contact);
+                //contactList.add(contact);
             }while(cursor.moveToNext());
         }
         return contactList;
