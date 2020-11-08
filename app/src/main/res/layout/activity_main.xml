@@ -45,7 +45,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="@android:color/white"
-                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
                 android:drawablePadding="@dimen/_8sdp"
                 android:drawableTint="@color/design_default_color_primary"
                 android:fontFamily="sans-serif-medium"
@@ -53,14 +52,14 @@
                 android:text="Personal Info"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_16ssp"
-                app:drawableStartCompat="@drawable/ic_outline_account_circle_24" />
+                app:drawableStartCompat="@drawable/ic_outline_account_circle_24"
+                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="@android:color/white"
-                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
                 android:drawablePadding="@dimen/_8sdp"
                 android:drawableTint="@color/design_default_color_primary"
                 android:fontFamily="sans-serif-medium"
@@ -68,37 +67,38 @@
                 android:text="Education"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_16ssp"
-                app:drawableStartCompat="@drawable/ic_outline_cast_for_education_24" />
+                app:drawableStartCompat="@drawable/ic_outline_cast_for_education_24"
+                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="@android:color/white"
-                android:drawableStart="@drawable/ic_outline_business_center_24"
-                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
                 android:drawablePadding="@dimen/_8sdp"
                 android:drawableTint="@color/design_default_color_primary"
                 android:fontFamily="sans-serif-medium"
                 android:padding="@dimen/_8sdp"
                 android:text="Work Experience"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_16ssp" />
+                android:textSize="@dimen/_16ssp"
+                app:drawableStartCompat="@drawable/ic_outline_business_center_24"
+                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="@android:color/white"
-                android:drawableStart="@drawable/ic_baseline_laptop_mac_24"
-                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
                 android:drawablePadding="@dimen/_8sdp"
                 android:drawableTint="@color/design_default_color_primary"
                 android:fontFamily="sans-serif-medium"
                 android:padding="@dimen/_8sdp"
                 android:text="Project Details &amp; Contribution"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_16ssp" />
+                android:textSize="@dimen/_16ssp"
+                app:drawableStartCompat="@drawable/ic_baseline_laptop_mac_24"
+                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -106,15 +106,15 @@
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:background="@android:color/white"
-                android:drawableStart="@drawable/ic_baseline_stars_24"
-                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
                 android:drawablePadding="@dimen/_8sdp"
                 android:drawableTint="@color/design_default_color_primary"
                 android:fontFamily="sans-serif-medium"
                 android:padding="@dimen/_8sdp"
                 android:text="Others &amp; Skills"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_16ssp" />
+                android:textSize="@dimen/_16ssp"
+                app:drawableStartCompat="@drawable/ic_baseline_stars_24"
+                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
 
         </LinearLayout>
