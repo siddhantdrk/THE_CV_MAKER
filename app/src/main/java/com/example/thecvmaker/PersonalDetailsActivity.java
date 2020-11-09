@@ -75,7 +75,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         };
 
         int selectedId = GenderRadioGrp.getCheckedRadioButtonId();
-        GenderRadiobtn = (RadioButton) findViewById(selectedId);
+        GenderRadiobtn = findViewById(selectedId);
         Gender = GenderRadiobtn.getText().toString();
 
 
