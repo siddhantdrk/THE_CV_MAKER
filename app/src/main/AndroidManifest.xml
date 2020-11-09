@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,7 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TheCvMaker">
-        <activity android:name=".PersonalDetailsActivity"></activity>
+        <activity
+            android:name=".PersonalDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OthersAndSkillsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProjectContributionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WorkExperienceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EducationActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".WelcomeActivity"
