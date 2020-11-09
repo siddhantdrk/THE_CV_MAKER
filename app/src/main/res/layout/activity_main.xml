@@ -68,7 +68,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_16ssp"
                 app:drawableStartCompat="@drawable/ic_outline_cast_for_education_24"
-                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+                app:drawableEndCompat="@drawable/ic_baseline_add_24" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_16ssp"
                 app:drawableStartCompat="@drawable/ic_outline_business_center_24"
-                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+                app:drawableEndCompat="@drawable/ic_baseline_add_24" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -98,7 +98,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_16ssp"
                 app:drawableStartCompat="@drawable/ic_baseline_laptop_mac_24"
-                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+                app:drawableEndCompat="@drawable/ic_baseline_add_24" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -114,7 +114,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_16ssp"
                 app:drawableStartCompat="@drawable/ic_baseline_stars_24"
-                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+                app:drawableEndCompat="@drawable/ic_baseline_add_24" />
 
 
         </LinearLayout>
