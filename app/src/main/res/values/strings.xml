@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">TheCvMaker</string>
+    <string-array name="DegreeArray">
+        <item>Select</item>
+        <item>Ph.D</item>
+        <item>Master\'s degree</item>
+        <item>Bachelor\'s degree</item>
+        <item>Associate degree</item>
+        <item>Intermediate</item>
+        <item>MBA</item>
+    </string-array>
 </resources>

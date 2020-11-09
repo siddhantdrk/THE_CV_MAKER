@@ -35,14 +35,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        personalDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PersonalDetailsActivity.class);
-                startActivity(intent);
+        personalDetails.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, PersonalDetailsActivity.class);
+            startActivity(intent);
 
 
-            }
+        });
+
+        educationalDetails.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, EducationActivity.class);
+            startActivity(intent);
         });
     }
 

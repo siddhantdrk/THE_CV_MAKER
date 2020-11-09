@@ -6,4 +6,162 @@
     android:layout_height="match_parent"
     tools:context=".EducationActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="@dimen/_16sdp"
+        app:layout_constraintBottom_toTopOf="@+id/materialButton"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/education_rv_container"
+            android:layout_width="match_parent"
+            android:layout_above="@id/add_education_btn"
+            android:layout_below="@id/education_input_container"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/education_input_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="Education"
+                android:textColor="@color/purple_500"
+                android:textSize="@dimen/_18ssp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="Start Date *"
+                android:textSize="@dimen/_12ssp" />
+
+            <EditText
+                android:id="@+id/start_date_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple_200"
+                android:focusableInTouchMode="false"
+                android:hint="Select"
+                android:inputType="text"
+                android:textColor="@color/black"
+                tools:ignore="TextFields" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/end_date_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="End Date *"
+                    android:textSize="@dimen/_12ssp" />
+
+                <EditText
+                    android:id="@+id/end_date_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/end_date_txt"
+                    android:backgroundTint="@color/purple_200"
+                    android:focusableInTouchMode="false"
+                    android:hint="Select"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    tools:ignore="TextFields" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:buttonTint="@color/design_default_color_primary"
+                    android:text="I'm still enrolled" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="School / Institute / University name *"
+                android:textSize="@dimen/_12ssp" />
+
+            <EditText
+                android:id="@+id/school_name_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple_200"
+                android:hint="Oxford University"
+                android:inputType="textMultiLine"
+                android:textColor="@color/black"
+                tools:ignore="TextFields" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Degree *"
+                android:textSize="@dimen/_12ssp" />
+
+            <Spinner
+                android:id="@+id/degree_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/DegreeArray"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:theme="@style/SpinnerTheme" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description / Branch *"
+                android:textSize="@dimen/_12ssp" />
+
+            <EditText
+                android:id="@+id/edu_description_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple_200"
+                android:hint="Information Technology"
+                android:inputType="textMultiLine"
+                android:textColor="@color/black"
+                tools:ignore="TextFields" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/add_education_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Other Education"
+            android:textColor="@color/purple_700"
+            android:textSize="@dimen/_14ssp"
+            android:drawableStart="@drawable/ic_baseline_add_24"
+            android:drawableTint="@color/purple_700"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:text="next : work experience"
+        android:backgroundTint="@color/purple_500"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16ssp"
+        android:padding="@dimen/_6sdp"
+        app:cornerRadius="@dimen/_4sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
