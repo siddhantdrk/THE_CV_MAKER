@@ -15,7 +15,12 @@
     </style>
 
     <style name="splash_theme" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="android:windowBackground">@drawable/cvlogo</item>
+        <item name="android:windowBackground">@drawable/splash_drawable</item>
         <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="SpinnerTheme" parent="TextAppearance.AppCompat.Widget.TextView.SpinnerItem">
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>

@@ -58,7 +58,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
 
                 DatePickerDialog dialog = new DatePickerDialog(PersonalDetailsActivity.this,
                         mDateSetListener, year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 dialog.show();
 
 
@@ -73,10 +73,11 @@ public class PersonalDetailsActivity extends AppCompatActivity {
                 editTextDOB.setText(date);
             }
         };
-
-        int selectedId = GenderRadioGrp.getCheckedRadioButtonId();
-        GenderRadiobtn = findViewById(selectedId);
-        Gender = GenderRadiobtn.getText().toString();
+        if (GenderRadioGrp.isActivated()) {
+            int selectedId = GenderRadioGrp.getCheckedRadioButtonId();
+            GenderRadiobtn = findViewById(selectedId);
+            Gender = GenderRadiobtn.getText().toString();
+        }
 
 
     }

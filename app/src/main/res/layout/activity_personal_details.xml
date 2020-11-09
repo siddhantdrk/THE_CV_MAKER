@@ -186,7 +186,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/purple_200"
                 android:hint="San Francisco, CA"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:textColor="@color/black" />
 
         </LinearLayout>
@@ -198,6 +198,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_16sdp"
         android:text="next : education"
+        android:backgroundTint="@color/purple_500"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16ssp"
+        android:padding="@dimen/_6sdp"
         app:cornerRadius="@dimen/_4sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

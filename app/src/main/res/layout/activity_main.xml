@@ -139,6 +139,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/_6sdp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/design_default_color_primary"
             android:text="generate pdf"
             android:textSize="@dimen/_16ssp"
             app:cornerRadius="@dimen/_8sdp" />
