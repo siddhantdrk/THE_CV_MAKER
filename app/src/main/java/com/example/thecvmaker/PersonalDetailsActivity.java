@@ -25,7 +25,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
     EditText editTextLanguage;
     EditText editTextAddress;
     RadioGroup GenderRadioGrp;
-    RadioButton GenderRadiobtn;
+    RadioButton GenderRadioBtn;
 
     private String Name;
     private String Address;
@@ -75,8 +75,8 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         };
         if (GenderRadioGrp.isActivated()) {
             int selectedId = GenderRadioGrp.getCheckedRadioButtonId();
-            GenderRadiobtn = findViewById(selectedId);
-            Gender = GenderRadiobtn.getText().toString();
+            GenderRadioBtn = findViewById(selectedId);
+            Gender = GenderRadioBtn.getText().toString();
         }
 
 
@@ -90,7 +90,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         editTextAddress = findViewById(R.id.address_edt);
         editTextPhone = findViewById(R.id.phone_edt);
         editTextNationality = findViewById(R.id.nationality_edt);
-        GenderRadioGrp = (RadioGroup) findViewById(R.id.genderGrp);
+        GenderRadioGrp = findViewById(R.id.genderGrp);
     }
 
     private void setPersonalDetails() {
