@@ -11,14 +11,16 @@
         android:layout_height="0dp"
         android:padding="@dimen/_16sdp"
         app:layout_constraintBottom_toTopOf="@+id/next_Education"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/education_rv_container"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_above="@id/add_education_btn"
-            android:layout_below="@id/education_input_container"
-            android:layout_height="wrap_content" />
+            android:layout_below="@id/education_input_container" />
 
         <LinearLayout
             android:id="@+id/education_input_container"
@@ -141,14 +143,14 @@
             android:id="@+id/add_education_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Other Education"
-            android:textColor="@color/purple_700"
-            android:textSize="@dimen/_14ssp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_8sdp"
             android:drawableStart="@drawable/ic_baseline_add_24"
             android:drawableTint="@color/purple_700"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"/>
+            android:text="Add Other Education"
+            android:textColor="@color/purple_700"
+            android:textSize="@dimen/_14ssp" />
     </RelativeLayout>
 
     <com.google.android.material.button.MaterialButton

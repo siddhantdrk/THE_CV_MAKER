@@ -6,4 +6,100 @@
     android:layout_height="match_parent"
     tools:context=".OthersAndSkillsActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="@dimen/_16sdp"
+        app:layout_constraintBottom_toTopOf="@+id/next_skills_others"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/skills_hobbies_rv_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/add_project_btn"
+            android:layout_below="@id/experience_input_container" />
+
+        <LinearLayout
+            android:id="@+id/experience_input_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="Skills &amp; Others"
+                android:textColor="@color/purple_500"
+                android:textSize="@dimen/_18ssp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Skill / Hobby name *"
+                android:textSize="@dimen/_12ssp" />
+
+            <EditText
+                android:id="@+id/skill_hobby_name_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple_200"
+                android:hint="Java / Table Tennis / Reading"
+                android:inputType="textMultiLine"
+                android:textColor="@color/black"
+                tools:ignore="TextFields" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description / Experience Level *"
+                android:textSize="@dimen/_12ssp" />
+
+            <EditText
+                android:id="@+id/skill_hobby_description_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple_200"
+                android:hint="Intermediate / College Team Player"
+                android:inputType="textMultiLine"
+                android:textColor="@color/black"
+                tools:ignore="TextFields" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/add_project_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:drawableStart="@drawable/ic_baseline_add_24"
+            android:drawableTint="@color/purple_700"
+            android:text="Add Skill &amp; Others"
+            android:textColor="@color/purple_700"
+            android:textSize="@dimen/_14ssp" />
+    </RelativeLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/next_skills_others"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:backgroundTint="@color/purple_500"
+        android:padding="@dimen/_6sdp"
+        android:text="Save and Proceed"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_11ssp"
+        app:cornerRadius="@dimen/_4sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

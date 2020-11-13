@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EducationActivity">
+    tools:context=".WorkExperienceActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="@dimen/_16sdp"
         app:layout_constraintBottom_toTopOf="@+id/next_project_contribution"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -32,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
-                android:text="Experience"
+                android:text="Work Experience"
                 android:textColor="@color/purple_500"
                 android:textSize="@dimen/_18ssp" />
 
