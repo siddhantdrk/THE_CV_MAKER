@@ -1,89 +1,127 @@
 package com.example.thecvmaker;
 
-public class CvUser {
-    public static String Name;
-    public static String Address;
-    public static String PhoneNumber;
-    public static String EmailAddress;
-    public static String Dob;
-    public static String Nationality;
-    public static String Gender;
-    public static String Language;
-    private int id;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class CvUser implements Parcelable {
+    public static final Creator<CvUser> CREATOR = new Creator<CvUser>() {
+        @Override
+        public CvUser createFromParcel(Parcel in) {
+            return new CvUser(in);
+        }
+
+        @Override
+        public CvUser[] newArray(int size) {
+            return new CvUser[size];
+        }
+    };
+    private String Name;
+    private String Address;
+    private String PhoneNumber;
+    private String EmailAddress;
+    private String Dob;
+    private String Nationality;
+    private String Gender;
+    private String Language;
+
+    protected CvUser(Parcel in) {
+        Name = in.readString();
+        Address = in.readString();
+        PhoneNumber = in.readString();
+        EmailAddress = in.readString();
+        Dob = in.readString();
+        Nationality = in.readString();
+        Gender = in.readString();
+        Language = in.readString();
+    }
+
+    public CvUser() {
+
+    }
 
     public static void setPersonalDetail(String name) {
 
     }
 
-    public static String getName() {
+    public String getName() {
         return Name;
     }
 
-    public static void setName(String name) {
+    public void setName(String name) {
         Name = name;
     }
 
-    public static String getAddress() {
+    public String getAddress() {
         return Address;
     }
 
-    public static void setAddress(String address) {
+    public void setAddress(String address) {
         Address = address;
     }
 
-    public static String getPhoneNumber() {
+    public String getPhoneNumber() {
         return PhoneNumber;
     }
 
-    public static void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         PhoneNumber = phoneNumber;
     }
 
-    public static String getEmailAddress() {
+    public String getEmailAddress() {
         return EmailAddress;
     }
 
-    public static void setEmailAddress(String emailAddress) {
+    public void setEmailAddress(String emailAddress) {
         EmailAddress = emailAddress;
     }
 
-    public static String getDob() {
+    public String getDob() {
         return Dob;
     }
 
-    public static void setDob(String dob) {
+    public void setDob(String dob) {
         Dob = dob;
     }
 
-    public static String getNationality() {
+    public String getNationality() {
         return Nationality;
     }
 
-    public static void setNationality(String nationality) {
+    public void setNationality(String nationality) {
         Nationality = nationality;
     }
 
-    public static String getGender() {
+    public String getGender() {
         return Gender;
     }
 
-    public static void setGender(String gender) {
+    public void setGender(String gender) {
         Gender = gender;
     }
 
-    public static String getLanguage() {
+    public String getLanguage() {
         return Language;
     }
 
-    public static void setLanguage(String language) {
+    public void setLanguage(String language) {
         Language = language;
     }
 
-    public int getId() {
-        return id;
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(Name);
+        parcel.writeString(Address);
+        parcel.writeString(PhoneNumber);
+        parcel.writeString(EmailAddress);
+        parcel.writeString(Dob);
+        parcel.writeString(Nationality);
+        parcel.writeString(Gender);
+        parcel.writeString(Language);
     }
 }

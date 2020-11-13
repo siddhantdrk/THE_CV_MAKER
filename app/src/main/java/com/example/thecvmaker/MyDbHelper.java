@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MyDbHelper extends SQLiteOpenHelper {
 
     public MyDbHelper(Context context) {
@@ -38,7 +35,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     }
 
-    public void addContact(CvData cvData){
+    public void addContact(CvUser cvData) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -50,24 +47,24 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put(Params.KEY_NATIONALITY, cvData.getNationality());
         values.put(Params.KEY_ADDRESS, cvData.getAddress());
         values.put(Params.KEY_LANGUAGE, cvData.getLanguage());
-        values.put(Params.KEY_SCHOOL_NAME, cvData.getSchoolName());
-        values.put(Params.KEY_COLLEGE_NAME, cvData.getCollegeName());
-        values.put(Params.KEY_SCORE_PERCENTAGE, cvData.getPercentage());
-        values.put(Params.KEY_YEAR_OF_PASSING, cvData.getPassingYear());
-        values.put(Params.KEY_DESIGNATION, cvData.getDesignation());
-        values.put(Params.KEY_ORGANISATION_NAME, cvData.getOrganisationName());
-        values.put(Params.KEY_WORKING_PERIOD, cvData.getWorkingPeriod());
-        values.put(Params.KEY_FIELD_OF_INTEREST, cvData.getInterestedField());
-        values.put(Params.KEY_SKILLS, cvData.getSkills());
-        values.put(Params.KEY_HOBBY, cvData.getHobby());
-        values.put(Params.KEY_STRENGTH, cvData.getStrength());
-        values.put(Params.KEY_ACHIEVEMENT, cvData.getAchievement());
-        values.put(Params.KEY_CARRIER_OBJECTIVE, cvData.getCarrierObjective());
-        values.put(Params.KEY_TITLE, cvData.getTitle());
-        values.put(Params.KEY_PERIOD,cvData.getPeriod());
-        values.put(Params.KEY_ROLE, cvData.getRole());
-        values.put(Params.KEY_DESCRIPTION, cvData.getDescription());
-        values.put(Params.KEY_TEAM_SIZE, cvData.getTeamSize());
+//        values.put(Params.KEY_SCHOOL_NAME, cvData.getSchoolName());
+//        values.put(Params.KEY_COLLEGE_NAME, cvData.getCollegeName());
+//        values.put(Params.KEY_SCORE_PERCENTAGE, cvData.getPercentage());
+//        values.put(Params.KEY_YEAR_OF_PASSING, cvData.getPassingYear());
+//        values.put(Params.KEY_DESIGNATION, cvData.getDesignation());
+//        values.put(Params.KEY_ORGANISATION_NAME, cvData.getOrganisationName());
+//        values.put(Params.KEY_WORKING_PERIOD, cvData.getWorkingPeriod());
+//        values.put(Params.KEY_FIELD_OF_INTEREST, cvData.getInterestedField());
+//        values.put(Params.KEY_SKILLS, cvData.getSkills());
+//        values.put(Params.KEY_HOBBY, cvData.getHobby());
+//        values.put(Params.KEY_STRENGTH, cvData.getStrength());
+//        values.put(Params.KEY_ACHIEVEMENT, cvData.getAchievement());
+//        values.put(Params.KEY_CARRIER_OBJECTIVE, cvData.getCarrierObjective());
+//        values.put(Params.KEY_TITLE, cvData.getTitle());
+//        values.put(Params.KEY_PERIOD,cvData.getPeriod());
+//        values.put(Params.KEY_ROLE, cvData.getRole());
+//        values.put(Params.KEY_DESCRIPTION, cvData.getDescription());
+//        values.put(Params.KEY_TEAM_SIZE, cvData.getTeamSize());
 
         db.insert(Params.TABLE_NAME1, null, values);
         Log.d("dev", "Successfully inserted");
@@ -76,7 +73,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<CvData> getAllContacts(){
+   /* public List<CvData> getAllContacts(){
         List<CvData> contactList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -118,9 +115,9 @@ public class MyDbHelper extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
         return contactList;
-    }
+    }*/
 
-    public int updateContact(CvData cvData){
+  /*  public int updateContact(CvUser cvData){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -154,7 +151,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         //Lets update now
         return db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
                 new String[]{String.valueOf(cvData.getId())});
-    }
+    }*/
 
     public int getCount(){
         String query = "SELECT  * FROM " + Params.TABLE_NAME1;

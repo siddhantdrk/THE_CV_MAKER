@@ -1,6 +1,7 @@
 package com.example.thecvmaker;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.button.MaterialButton;
 
 import java.util.Calendar;
 
@@ -26,6 +29,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
     EditText editTextAddress;
     RadioGroup GenderRadioGrp;
     RadioButton GenderRadioBtn;
+    MaterialButton nextToEducation;
 
     private String Name;
     private String Address;
@@ -78,6 +82,19 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             GenderRadioBtn = findViewById(selectedId);
             Gender = GenderRadioBtn.getText().toString();
         }
+        CvUser obj = new CvUser();
+        obj.setName(Name);
+        obj.setAddress(Address);
+        obj.setPhoneNumber(PhoneNumber);
+        nextToEducation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PersonalDetailsActivity.this, EducationActivity.class);
+                intent.putExtra("Example", obj);
+
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -91,6 +108,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         editTextPhone = findViewById(R.id.phone_edt);
         editTextNationality = findViewById(R.id.nationality_edt);
         GenderRadioGrp = findViewById(R.id.genderGrp);
+        nextToEducation = findViewById(R.id.next_Education);
     }
 
     private void setPersonalDetails() {
