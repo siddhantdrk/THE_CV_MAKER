@@ -17,17 +17,14 @@ public class EducationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_education);
         initViews();
         Intent intent = getIntent();
-        CvUser obj = (CvUser) intent.getParcelableExtra("Example");
-        String name = obj.getName();
-
-        if (name == "Mandar") {
-            Intent intent1 = new Intent(EducationActivity.this, ProjectContributionActivity.class);
-            startActivity(intent1);
+        if (intent.getStringExtra("FromActivity").equals("PersonalDetailsActivity")) {
+            CvUser obj = intent.getParcelableExtra("Example");
+            String name = obj.getName();
+            Log.d("CheckParcelable", name);
         }
-        Log.d("qwerty", name);
     }
 
     private void initViews() {
-        startDateEdt = findViewById(R.id.start_date_edt);
+        startDateEdt = findViewById(R.id.edu_start_date_edt);
     }
 }

@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +37,11 @@ public class MainActivity extends AppCompatActivity {
         personalDetails.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, PersonalDetailsActivity.class);
             startActivity(intent);
-
-
         });
 
         educationalDetails.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, EducationActivity.class);
+            intent.putExtra("FromActivity", "MainActivity");
             startActivity(intent);
         });
     }

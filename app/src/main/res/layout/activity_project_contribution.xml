@@ -4,6 +4,167 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProjectContributionActivity">
+    tools:context=".EducationActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="@dimen/_16sdp"
+        app:layout_constraintBottom_toTopOf="@+id/next_skills_others"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/projects_rv_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/add_project_btn"
+            android:layout_below="@id/experience_input_container" />
+
+        <LinearLayout
+            android:id="@+id/experience_input_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="Project Details &amp; Conotribution"
+                android:textColor="@color/purple_500"
+                android:textSize="@dimen/_18ssp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="Start Date *"
+                android:textSize="@dimen/_12ssp" />
+
+            <EditText
+                android:id="@+id/project_start_date_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple_200"
+                android:focusableInTouchMode="false"
+                android:hint="Select"
+                android:inputType="text"
+                android:textColor="@color/black"
+                tools:ignore="TextFields" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/end_date_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="End Date *"
+                    android:textSize="@dimen/_12ssp" />
+
+                <EditText
+                    android:id="@+id/project_end_date_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/end_date_txt"
+                    android:backgroundTint="@color/purple_200"
+                    android:focusableInTouchMode="false"
+                    android:hint="Select"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    tools:ignore="TextFields" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/project_in_progress_radio_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:buttonTint="@color/design_default_color_primary"
+                    android:text="In progress" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Project name *"
+                android:textSize="@dimen/_12ssp" />
+
+            <EditText
+                android:id="@+id/project_name_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple_200"
+                android:hint="OnTimePro"
+                android:inputType="textMultiLine"
+                android:textColor="@color/black"
+                tools:ignore="TextFields" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Category *"
+                android:textSize="@dimen/_12ssp" />
+
+            <EditText
+                android:id="@+id/project_category_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple_200"
+                android:hint="Android/Web Application"
+                android:inputType="textMultiLine"
+                android:textColor="@color/black"
+                tools:ignore="TextFields" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Project description / Role *"
+                android:textSize="@dimen/_12ssp" />
+
+            <EditText
+                android:id="@+id/project_description_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple_200"
+                android:hint="Describe your role / contribution in this project."
+                android:inputType="textMultiLine"
+                android:textColor="@color/black"
+                tools:ignore="TextFields" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/add_project_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:drawableStart="@drawable/ic_baseline_add_24"
+            android:drawableTint="@color/purple_700"
+            android:text="Add Project"
+            android:textColor="@color/purple_700"
+            android:textSize="@dimen/_14ssp" />
+    </RelativeLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/next_skills_others"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:backgroundTint="@color/purple_500"
+        android:padding="@dimen/_6sdp"
+        android:text="next : Skills &amp; others"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_11ssp"
+        app:cornerRadius="@dimen/_4sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

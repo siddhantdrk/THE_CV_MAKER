@@ -114,7 +114,7 @@
                 android:drawableTint="@color/design_default_color_primary"
                 android:fontFamily="sans-serif-medium"
                 android:padding="@dimen/_8sdp"
-                android:text="Others &amp; Skills"
+                android:text="Skills &amp; Others"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_16ssp"
                 app:drawableStartCompat="@drawable/ic_baseline_stars_24"

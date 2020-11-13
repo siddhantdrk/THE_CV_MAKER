@@ -48,8 +48,6 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_personal_details);
 
         initViews();
-        setPersonalDetails();
-
 
         editTextDOB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,26 +75,28 @@ public class PersonalDetailsActivity extends AppCompatActivity {
                 editTextDOB.setText(date);
             }
         };
+
         if (GenderRadioGrp.isActivated()) {
             int selectedId = GenderRadioGrp.getCheckedRadioButtonId();
             GenderRadioBtn = findViewById(selectedId);
             Gender = GenderRadioBtn.getText().toString();
         }
-        CvUser obj = new CvUser();
-        obj.setName(Name);
-        obj.setAddress(Address);
-        obj.setPhoneNumber(PhoneNumber);
+
+
         nextToEducation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setPersonalDetails();
+                CvUser obj = new CvUser();
+                obj.setName(Name);
+                obj.setAddress(Address);
+                obj.setPhoneNumber(PhoneNumber);
                 Intent intent = new Intent(PersonalDetailsActivity.this, EducationActivity.class);
                 intent.putExtra("Example", obj);
-
+                intent.putExtra("FromActivity", "PersonalDetailsActivity");
                 startActivity(intent);
             }
         });
-
-
     }
 
     private void initViews() {
@@ -118,7 +118,6 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         Dob = editTextDOB.getText().toString();
         EmailAddress = editTextEmail.getText().toString();
         Nationality = editTextNationality.getText().toString();
-        //Gender = editText7.getText().toString();
         Language = editTextLanguage.getText().toString();
     }
 

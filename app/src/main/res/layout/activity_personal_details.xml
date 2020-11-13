@@ -24,9 +24,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/_16sdp"
         android:fillViewport="true"
+        android:layout_marginBottom="@dimen/_16sdp"
         app:layout_constraintBottom_toTopOf="@+id/next_Education"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8">
 
         <LinearLayout
@@ -109,8 +111,8 @@
                 android:id="@+id/date_of_birth_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusableInTouchMode="false"
                 android:backgroundTint="@color/purple_200"
+                android:focusableInTouchMode="false"
                 android:hint="Select"
                 android:inputType="text"
                 android:textColor="@color/black" />
@@ -189,19 +191,22 @@
                 android:inputType="textMultiLine"
                 android:textColor="@color/black" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/next_Education"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_16sdp"
-                android:backgroundTint="@color/purple_500"
-                android:padding="@dimen/_6sdp"
-                android:text="next : education"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16ssp"
-                app:cornerRadius="@dimen/_4sdp" />
-
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/next_Education"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:backgroundTint="@color/purple_500"
+        android:padding="@dimen/_6sdp"
+        android:text="next : education"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16ssp"
+        app:cornerRadius="@dimen/_4sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

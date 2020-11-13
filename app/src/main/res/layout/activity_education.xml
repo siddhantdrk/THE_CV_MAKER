@@ -44,7 +44,7 @@
                 android:textSize="@dimen/_12ssp" />
 
             <EditText
-                android:id="@+id/start_date_edt"
+                android:id="@+id/edu_start_date_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/purple_200"
@@ -66,7 +66,7 @@
                     android:textSize="@dimen/_12ssp" />
 
                 <EditText
-                    android:id="@+id/end_date_edt"
+                    android:id="@+id/edu_end_date_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/end_date_txt"
@@ -78,6 +78,7 @@
                     tools:ignore="TextFields" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/edu_current_radio_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -128,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/purple_200"
-                android:hint="Information Technology"
+                android:hint="Describe what you did in your Education."
                 android:inputType="textMultiLine"
                 android:textColor="@color/black"
                 tools:ignore="TextFields" />
@@ -143,6 +144,7 @@
             android:text="Add Other Education"
             android:textColor="@color/purple_700"
             android:textSize="@dimen/_14ssp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:drawableStart="@drawable/ic_baseline_add_24"
             android:drawableTint="@color/purple_700"
             android:layout_centerHorizontal="true"
