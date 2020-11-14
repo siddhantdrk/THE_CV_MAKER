@@ -85,8 +85,8 @@
                         android:textColor="@color/black"
                         tools:ignore="TextFields" />
 
-                    <com.google.android.material.radiobutton.MaterialRadioButton
-                        android:id="@+id/edu_current_radio_btn"
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/edu_current_check_box"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -162,7 +162,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/next_Education"
+        android:id="@+id/next_work_experience"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_16sdp"
