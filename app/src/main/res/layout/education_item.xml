@@ -50,10 +50,20 @@
             android:text="30/08/2001" />
 
         <TextView
-            android:id="@+id/edu_description_txt"
+            android:id="@+id/edu_school_college_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/edu_start_date_txt"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_toStartOf="@id/remove_btn_img"
+            android:text="Indian Institute of Information Technology" />
+
+
+        <TextView
+            android:id="@+id/edu_description_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edu_school_college_txt"
             android:layout_marginTop="@dimen/_2sdp"
             android:layout_toStartOf="@id/remove_btn_img"
             android:text="Information Technology" />
