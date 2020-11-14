@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.thecvmaker.adapter.WorkExperienceArrayAdapter;
+import com.example.thecvmaker.models.WorkExpItem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,9 +27,9 @@ public class WorkExperienceActivity extends AppCompatActivity {
     EditText DescriptionWorkExp;
     RadioButton current_working;
 
-    List<WorkExperienceArrayAdapter> ExperienceList = new ArrayList<>();
+    List<WorkExpItem> ExperienceList = new ArrayList<>();
     TextView AnotherExp;
-    WorkExperienceArrayAdapter expItem;
+    WorkExpItem expItem;
     UserCv userCv = new UserCv();
     private DatePickerDialog.OnDateSetListener mDateSetListener1;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
@@ -109,7 +109,7 @@ public class WorkExperienceActivity extends AppCompatActivity {
     }
 
     private void setWorkExperienceArrayAdapterDetails() {
-        expItem = new WorkExperienceArrayAdapter();
+        expItem = new WorkExpItem();
         expItem.setStart_date(StartDateWorkExp.getText().toString());
         if (current_working.isChecked()) {
             expItem.setEnd_date(current_working.getText().toString());
