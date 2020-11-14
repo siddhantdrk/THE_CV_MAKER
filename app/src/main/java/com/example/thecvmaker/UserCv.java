@@ -3,16 +3,16 @@ package com.example.thecvmaker;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class CvUser implements Parcelable {
-    public static final Creator<CvUser> CREATOR = new Creator<CvUser>() {
+public class UserCv implements Parcelable {
+    public static final Creator<UserCv> CREATOR = new Creator<UserCv>() {
         @Override
-        public CvUser createFromParcel(Parcel in) {
-            return new CvUser(in);
+        public UserCv createFromParcel(Parcel in) {
+            return new UserCv(in);
         }
 
         @Override
-        public CvUser[] newArray(int size) {
-            return new CvUser[size];
+        public UserCv[] newArray(int size) {
+            return new UserCv[size];
         }
     };
     private String Name;
@@ -24,7 +24,7 @@ public class CvUser implements Parcelable {
     private String Gender;
     private String Language;
 
-    protected CvUser(Parcel in) {
+    protected UserCv(Parcel in) {
         Name = in.readString();
         Address = in.readString();
         PhoneNumber = in.readString();
@@ -35,11 +35,7 @@ public class CvUser implements Parcelable {
         Language = in.readString();
     }
 
-    public CvUser() {
-
-    }
-
-    public static void setPersonalDetail(String name) {
+    public UserCv() {
 
     }
 

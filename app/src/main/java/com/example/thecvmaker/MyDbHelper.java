@@ -35,7 +35,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     }
 
-    public void addContact(CvUser cvData) {
+    public void addContact(UserCv cvData) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

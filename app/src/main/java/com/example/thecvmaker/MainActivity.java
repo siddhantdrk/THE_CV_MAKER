@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, PICK_PHOTO);
             } else {
 
-                Toast.makeText(getApplicationContext(), "You dont have permission to acess this media", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "You don't have permission to access this media", Toast.LENGTH_SHORT);
             }
             return;
         }

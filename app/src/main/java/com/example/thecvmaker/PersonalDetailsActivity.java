@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,17 +20,17 @@ import java.util.Calendar;
 
 public class PersonalDetailsActivity extends AppCompatActivity {
 
-    EditText EditTextFullName;
-    EditText editTextEmail;
-    EditText editTextPhone;
-    EditText editTextNationality;
-    EditText editTextDOB;
+    private EditText EditTextFullName;
+    private EditText editTextEmail;
+    private EditText editTextPhone;
+    private EditText editTextNationality;
+    private EditText editTextDOB;
     // EditText editTextGender;
-    EditText editTextLanguage;
-    EditText editTextAddress;
-    RadioGroup GenderRadioGrp;
-    RadioButton GenderRadioBtn;
-    MaterialButton nextToEducation;
+    private EditText editTextLanguage;
+    private EditText editTextAddress;
+    private RadioGroup GenderRadioGrp;
+    private RadioButton GenderRadioBtn;
+    private MaterialButton nextToEducation;
 
     private String Name;
     private String Address;
@@ -39,6 +40,8 @@ public class PersonalDetailsActivity extends AppCompatActivity {
     private String Nationality;
     private String Gender;
     private String Language;
+
+    private UserCv userCV;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -86,15 +89,17 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         nextToEducation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setPersonalDetails();
-                CvUser obj = new CvUser();
-                obj.setName(Name);
-                obj.setAddress(Address);
-                obj.setPhoneNumber(PhoneNumber);
-                Intent intent = new Intent(PersonalDetailsActivity.this, EducationActivity.class);
-                intent.putExtra("Example", obj);
-                intent.putExtra("FromActivity", "PersonalDetailsActivity");
-                startActivity(intent);
+                if (isAllDetailsFilled()) {
+                    setPersonalDetails();
+                    userCV = new UserCv();
+                    setUserCVPersonalDetails();
+                    Intent intent = new Intent(PersonalDetailsActivity.this, EducationActivity.class);
+                    intent.putExtra("SharedUserCv", userCV);
+                    intent.putExtra("FromActivity", "PersonalDetailsActivity");
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(PersonalDetailsActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -111,6 +116,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         nextToEducation = findViewById(R.id.next_Education);
     }
 
+
     private void setPersonalDetails() {
         Name = EditTextFullName.getText().toString();
         Address = editTextAddress.getText().toString();
@@ -119,6 +125,23 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         EmailAddress = editTextEmail.getText().toString();
         Nationality = editTextNationality.getText().toString();
         Language = editTextLanguage.getText().toString();
+    }
+
+    private boolean isAllDetailsFilled() {
+        return Name != null && Name.length() != 0 && Address != null && Address.length() != 0 && PhoneNumber != null && PhoneNumber.length() != 0 &&
+                Dob != null && Dob.length() != 0 && EmailAddress != null && EmailAddress.length() != 0 && Nationality != null && Nationality.length() != 0
+                && Language != null && Language.length() != 0;
+    }
+
+    public void setUserCVPersonalDetails() {
+        userCV.setName(Name);
+        userCV.setAddress(Address);
+        userCV.setDob(Dob);
+        userCV.setEmailAddress(EmailAddress);
+        userCV.setGender(Gender);
+        userCV.setLanguage(Language);
+        userCV.setNationality(Nationality);
+        userCV.setPhoneNumber(PhoneNumber);
     }
 
 }

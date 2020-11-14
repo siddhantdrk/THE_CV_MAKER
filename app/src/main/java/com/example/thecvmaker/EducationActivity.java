@@ -18,7 +18,7 @@ public class EducationActivity extends AppCompatActivity {
         initViews();
         Intent intent = getIntent();
         if (intent.getStringExtra("FromActivity").equals("PersonalDetailsActivity")) {
-            CvUser obj = intent.getParcelableExtra("Example");
+            UserCv obj = intent.getParcelableExtra("Example");
             String name = obj.getName();
             Log.d("CheckParcelable", name);
         }
