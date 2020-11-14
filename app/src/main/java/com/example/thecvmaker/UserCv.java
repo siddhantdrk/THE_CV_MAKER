@@ -3,7 +3,19 @@ package com.example.thecvmaker;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserCv implements Parcelable {
+
+    private String Name;
+    private String Address;
+    private String PhoneNumber;
+    private String EmailAddress;
+    private String Dob;
+    private String Nationality;
+    private String Gender;
+    private String Language;
     public static final Creator<UserCv> CREATOR = new Creator<UserCv>() {
         @Override
         public UserCv createFromParcel(Parcel in) {
@@ -15,14 +27,16 @@ public class UserCv implements Parcelable {
             return new UserCv[size];
         }
     };
-    private String Name;
-    private String Address;
-    private String PhoneNumber;
-    private String EmailAddress;
-    private String Dob;
-    private String Nationality;
-    private String Gender;
-    private String Language;
+    private List<EducationActivity> EducationDetList = new ArrayList<>();
+    private List<WorkExperienceActivity> WorkExpList = new ArrayList<>();
+    private List<OthersAndSkillsActivity> OtherSkillstList = new ArrayList<>();
+
+
+    public UserCv() {
+
+    }
+
+    private List<ProjectContributionActivity> ProContriList = new ArrayList<>();
 
     protected UserCv(Parcel in) {
         Name = in.readString();
@@ -33,10 +47,6 @@ public class UserCv implements Parcelable {
         Nationality = in.readString();
         Gender = in.readString();
         Language = in.readString();
-    }
-
-    public UserCv() {
-
     }
 
     public String getName() {
