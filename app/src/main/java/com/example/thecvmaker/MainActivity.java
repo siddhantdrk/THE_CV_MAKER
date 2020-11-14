@@ -1,17 +1,20 @@
 package com.example.thecvmaker;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -34,6 +37,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        PICK_PHOTO);
+
+
+            }
+        });
         personalDetails.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, PersonalDetailsActivity.class);
             startActivity(intent);
@@ -41,6 +53,21 @@ public class MainActivity extends AppCompatActivity {
 
         educationalDetails.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, EducationActivity.class);
+            intent.putExtra("FromActivity", "MainActivity");
+            startActivity(intent);
+        });
+        workExperience.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, WorkExperienceActivity.class);
+            intent.putExtra("FromActivity", "MainActivity");
+            startActivity(intent);
+        });
+        projectDetailContributions.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, ProjectContributionActivity.class);
+            intent.putExtra("FromActivity", "MainActivity");
+            startActivity(intent);
+        });
+        OtherSkills.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, OthersAndSkillsActivity.class);
             intent.putExtra("FromActivity", "MainActivity");
             startActivity(intent);
         });
