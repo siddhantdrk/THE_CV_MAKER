@@ -14,10 +14,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.thecvmaker.adapter.EducationRvAdapter;
+import com.example.thecvmaker.adapter.WorkExperienceRvAdapter;
 import com.example.thecvmaker.models.EducationItem;
+import com.example.thecvmaker.models.WorkExpItem;
 import com.google.android.material.button.MaterialButton;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -28,8 +34,12 @@ public class EducationActivity extends AppCompatActivity {
     private Spinner eduDegreeSpinner;
     private TextView addEducationBtn;
     private MaterialButton nextToWorkExperience;
-    private List<EducationItem> EducationList;
+    private final List<EducationItem> EducationList= new ArrayList<>();
 
+    RecyclerView recyclerView;
+    EducationRvAdapter recyclerViewAdapter;
+    EducationItem educationItem;
+    UserCv userCv = new UserCv();
     private DatePickerDialog.OnDateSetListener mDateSetListener1;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
 
@@ -96,6 +106,42 @@ public class EducationActivity extends AppCompatActivity {
                 eduEndDateEdt.setText(date);
             }
         };
+        addEducationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setEducationalArrayAdapterDetails();
+                ResetEducationalDetails();
+            }
+        });
+
+        //Dummy WorkExperience List
+        EducationList.add(new EducationItem());
+        EducationList.add(new EducationItem());
+
+        setEducationRecyclerview();
+    }
+
+    private void setEducationRecyclerview() {
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL, false));
+        recyclerViewAdapter = new EducationRvAdapter(EducationActivity.this, EducationList);
+        recyclerView.setAdapter(recyclerViewAdapter);
+    }
+
+    private void setEducationalArrayAdapterDetails() {
+        educationItem = new EducationItem();
+        educationItem.setEduStartDate(eduStartDateEdt.getText().toString());
+        if (eduCurrentCheckBox.isChecked()) {
+            educationItem.setEduEndDate(eduCurrentCheckBox.getText().toString());
+
+        } else {
+            educationItem.setEduEndDate(eduEndDateEdt.getText().toString());
+        }
+
+        educationItem.setEduSchoolInstitute(eduSchoolInstituteEdt.getText().toString());
+        educationItem.setEduDegreeTitle(String.valueOf(eduDegreeSpinner.getSelectedItem()));
+        educationItem.setEduDescription(eduDescriptionEdt.getText().toString());
+        EducationList.add(educationItem);
     }
 
     private void initViews() {
@@ -107,5 +153,14 @@ public class EducationActivity extends AppCompatActivity {
         eduDescriptionEdt = findViewById(R.id.edu_description_edt);
         addEducationBtn = findViewById(R.id.add_education_btn);
         nextToWorkExperience = findViewById(R.id.next_work_experience);
+        recyclerView = findViewById(R.id.education_rv_container);
+    }
+
+    public void ResetEducationalDetails() {
+        eduStartDateEdt.setText("");
+        eduEndDateEdt.setText("");
+        eduSchoolInstituteEdt.setText("");
+        eduDegreeSpinner.setSelected(false);
+        eduDescriptionEdt.setText("");
     }
 }
