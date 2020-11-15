@@ -91,7 +91,14 @@ public class PersonalDetailsActivity extends AppCompatActivity {
                     intent.putExtra("FromActivity", "PersonalDetailsActivity");
                     startActivity(intent);
                 } else {
-                    Toast.makeText(PersonalDetailsActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PersonalDetailsActivity.this, "Please check and fill all the Details" + "Name = " + Name + "" +
+                                    "Address" + Address +
+                                    "number" + PhoneNumber +
+                                    "mail" + EmailAddress +
+                                    "DOB" + Dob +
+                                    "Nationality" + Nationality +
+                                    "language" + Language + "   gender" + Gender
+                            , Toast.LENGTH_LONG).show();
                 }
             }
         });
