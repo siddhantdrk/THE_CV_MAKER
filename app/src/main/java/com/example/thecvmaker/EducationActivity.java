@@ -15,9 +15,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.thecvmaker.models.EducationItem;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class EducationActivity extends AppCompatActivity {
 
@@ -26,6 +28,8 @@ public class EducationActivity extends AppCompatActivity {
     private Spinner eduDegreeSpinner;
     private TextView addEducationBtn;
     private MaterialButton nextToWorkExperience;
+    private List<EducationItem> EducationList;
+
     private DatePickerDialog.OnDateSetListener mDateSetListener1;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
 

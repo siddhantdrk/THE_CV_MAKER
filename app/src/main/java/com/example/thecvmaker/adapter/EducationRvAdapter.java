@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,14 @@ public class EducationRvAdapter extends RecyclerView.Adapter<EducationRvAdapter.
         holder.eduEndDate.setText(EducationList.get(position).getEduEndDate());
         holder.eduSchoolInstitute.setText(EducationList.get(position).getEduSchoolInstitute());
         holder.eduDescription.setText(EducationList.get(position).getEduDescription());
+
+        holder.removeImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EducationList.remove(position);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -48,7 +57,7 @@ public class EducationRvAdapter extends RecyclerView.Adapter<EducationRvAdapter.
 
     public static class EducationViewHolder extends RecyclerView.ViewHolder {
         TextView degreeTitle, eduStartDate, eduEndDate, eduSchoolInstitute, eduDescription;
-
+        ImageView removeImgBtn;
         public EducationViewHolder(@NonNull View itemView) {
             super(itemView);
             degreeTitle = itemView.findViewById(R.id.degree_title_text);
@@ -56,6 +65,7 @@ public class EducationRvAdapter extends RecyclerView.Adapter<EducationRvAdapter.
             eduEndDate = itemView.findViewById(R.id.edu_end_date_txt);
             eduSchoolInstitute = itemView.findViewById(R.id.edu_school_college_txt);
             eduDescription = itemView.findViewById(R.id.edu_description_txt);
+            removeImgBtn = itemView.findViewById(R.id.remove_btn_img);
         }
     }
 }

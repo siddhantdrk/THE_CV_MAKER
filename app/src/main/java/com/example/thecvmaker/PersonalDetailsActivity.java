@@ -79,18 +79,11 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             }
         };
 
-        if (GenderRadioGrp.isActivated()) {
-            int selectedId = GenderRadioGrp.getCheckedRadioButtonId();
-            GenderRadioBtn = findViewById(selectedId);
-            Gender = GenderRadioBtn.getText().toString();
-        }
-
-
         nextToEducation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setPersonalDetails();
                 if (isAllDetailsFilled()) {
-                    setPersonalDetails();
                     userCV = new UserCv();
                     setUserCVPersonalDetails();
                     Intent intent = new Intent(PersonalDetailsActivity.this, EducationActivity.class);
@@ -125,12 +118,17 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         EmailAddress = editTextEmail.getText().toString();
         Nationality = editTextNationality.getText().toString();
         Language = editTextLanguage.getText().toString();
+        if (GenderRadioGrp.isActivated()) {
+            int selectedId = GenderRadioGrp.getCheckedRadioButtonId();
+            GenderRadioBtn = findViewById(selectedId);
+            Gender = GenderRadioBtn.getText().toString();
+        }
     }
 
     private boolean isAllDetailsFilled() {
         return Name != null && Name.length() != 0 && Address != null && Address.length() != 0 && PhoneNumber != null && PhoneNumber.length() != 0 &&
                 Dob != null && Dob.length() != 0 && EmailAddress != null && EmailAddress.length() != 0 && Nationality != null && Nationality.length() != 0
-                && Language != null && Language.length() != 0;
+                && Language != null && Language.length() != 0 && Gender != null && Gender.length() != 0;
     }
 
     public void setUserCVPersonalDetails() {

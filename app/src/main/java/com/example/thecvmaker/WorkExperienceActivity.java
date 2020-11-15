@@ -5,9 +5,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,17 +20,16 @@ import java.util.List;
 
 public class WorkExperienceActivity extends AppCompatActivity {
 
-    EditText StartDateWorkExp;
-    EditText EndDateWorkExp;
-    EditText CompNameWorkExp;
-    EditText PositionWorkExp;
-    EditText DescriptionWorkExp;
-    RadioButton current_working;
-
-    List<WorkExpItem> ExperienceList = new ArrayList<>();
-    TextView AnotherExp;
-    WorkExpItem expItem;
-    UserCv userCv = new UserCv();
+    private final List<WorkExpItem> ExperienceList = new ArrayList<>();
+    private final UserCv userCv = new UserCv();
+    private EditText StartDateWorkExp;
+    private EditText EndDateWorkExp;
+    private EditText CompNameWorkExp;
+    private EditText PositionWorkExp;
+    private EditText DescriptionWorkExp;
+    private CheckBox current_working;
+    private TextView AnotherExp;
+    private WorkExpItem expItem;
     private DatePickerDialog.OnDateSetListener mDateSetListener1;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
 
@@ -104,7 +103,7 @@ public class WorkExperienceActivity extends AppCompatActivity {
         CompNameWorkExp = findViewById(R.id.company_name_edt);
         PositionWorkExp = findViewById(R.id.position_edt);
         DescriptionWorkExp = findViewById(R.id.job_description_edt);
-        current_working = findViewById(R.id.exp_current_radio_btn);
+        current_working = findViewById(R.id.exp_current_checkbox_btn);
         AnotherExp = findViewById(R.id.add_experience_btn);
     }
 
