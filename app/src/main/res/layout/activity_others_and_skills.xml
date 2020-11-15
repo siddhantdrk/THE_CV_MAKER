@@ -19,7 +19,7 @@
             android:id="@+id/skills_hobbies_rv_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/add_project_btn"
+            android:layout_above="@id/add_skill_btn"
             android:layout_below="@id/experience_input_container" />
 
         <LinearLayout

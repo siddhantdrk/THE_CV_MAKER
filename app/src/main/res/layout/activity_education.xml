@@ -25,6 +25,9 @@
                 android:id="@+id/education_rv_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingStart="0dp"
+                android:paddingEnd="@dimen/_24sdp"
                 android:layout_above="@id/add_education_btn"
                 android:layout_below="@id/education_input_container" />
 

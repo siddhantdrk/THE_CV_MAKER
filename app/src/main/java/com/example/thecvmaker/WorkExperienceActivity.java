@@ -35,8 +35,8 @@ public class WorkExperienceActivity extends AppCompatActivity {
     private WorkExpItem expItem;
     private DatePickerDialog.OnDateSetListener mDateSetListener1;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
-    RecyclerView recyclerView;
-    WorkExperienceRvAdapter recyclerViewAdapter;
+    RecyclerView workExpRecyclerView;
+    WorkExperienceRvAdapter workExperienceRvAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,14 +97,19 @@ public class WorkExperienceActivity extends AppCompatActivity {
                 ResetWorkExpDetails();
             }
         });
-        recyclerView = findViewById(R.id.experience_rv_container);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerViewAdapter = new WorkExperienceRvAdapter(WorkExperienceActivity.this, ExperienceList);
-        recyclerView.setAdapter(recyclerViewAdapter);
+        //Dummy WorkExperience List
+        ExperienceList.add(new WorkExpItem());
+        ExperienceList.add(new WorkExpItem());
 
+        setWorkExpRecyclerview();
+    }
 
+    private void setWorkExpRecyclerview() {
+        workExpRecyclerView.setHasFixedSize(true);
+        workExpRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        workExperienceRvAdapter = new WorkExperienceRvAdapter(WorkExperienceActivity.this, ExperienceList);
+        workExpRecyclerView.setAdapter(workExperienceRvAdapter);
     }
 
     private void initViews() {
@@ -116,6 +121,7 @@ public class WorkExperienceActivity extends AppCompatActivity {
         DescriptionWorkExp = findViewById(R.id.job_description_edt);
         current_working = findViewById(R.id.exp_current_checkbox_btn);
         AnotherExp = findViewById(R.id.add_experience_btn);
+        workExpRecyclerView = findViewById(R.id.experience_rv_container);
     }
 
     private void setWorkExperienceArrayAdapterDetails() {
@@ -140,18 +146,6 @@ public class WorkExperienceActivity extends AppCompatActivity {
         CompNameWorkExp.setText("");
         PositionWorkExp.setText("");
         DescriptionWorkExp.setText("");
-
+        current_working.setChecked(false);
     }
-  /*  public void setUserCVWorkExpDetails() {
-        userCV.setName(Name);
-        userCV.setAddress(Address);
-        userCV.setDob(Dob);
-        userCV.setEmailAddress(EmailAddress);
-        userCV.setGender(Gender);
-        userCV.setLanguage(Language);
-        userCV.setNationality(Nationality);
-        userCV.setPhoneNumber(PhoneNumber);
-    }*/
-
-
 }

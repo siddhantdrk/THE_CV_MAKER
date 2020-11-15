@@ -27,6 +27,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/experience_rv_container"
+            android:clipToPadding="false"
+            android:paddingStart="0dp"
+            android:paddingEnd="@dimen/_24sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/add_experience_btn"
@@ -174,7 +177,7 @@
         android:padding="@dimen/_6sdp"
         android:text="next : project details &amp; contributon"
         android:textColor="@color/white"
-        android:textSize="@dimen/_11ssp"
+        android:textSize="@dimen/_10ssp"
         app:cornerRadius="@dimen/_4sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
