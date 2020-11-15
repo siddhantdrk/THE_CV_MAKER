@@ -160,7 +160,8 @@ public class EducationActivity extends AppCompatActivity {
         eduStartDateEdt.setText("");
         eduEndDateEdt.setText("");
         eduSchoolInstituteEdt.setText("");
-        eduDegreeSpinner.setSelected(false);
+        eduDegreeSpinner.setSelection(0);
         eduDescriptionEdt.setText("");
+        eduCurrentCheckBox.setChecked(false);
     }
 }
