@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_8sdp"
+    app:cardElevation="@dimen/_4sdp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_12sdp">
+
+        <TextView
+            android:id="@+id/company_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/remove_btn_img"
+            android:fontFamily="sans-serif"
+            android:text="Company"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp" />
+
+
+        <TextView
+            android:id="@+id/exp_start_date_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/company_title_text"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:text="30/08/2001" />
+
+        <TextView
+            android:id="@+id/dash_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/company_title_text"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_toEndOf="@id/exp_start_date_txt"
+            android:text="-" />
+
+        <TextView
+            android:id="@+id/exp_end_date_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/company_title_text"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_toEndOf="@id/dash_txt"
+            android:text="30/08/2001" />
+
+        <TextView
+            android:id="@+id/exp_school_college_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/exp_start_date_txt"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_toStartOf="@id/remove_btn_img"
+            android:text="Position" />
+
+
+        <TextView
+            android:id="@+id/exp_description_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/exp_school_college_txt"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_toStartOf="@id/remove_btn_img"
+            android:text="Information Technology" />
+
+        <ImageView
+            android:id="@+id/remove_btn_img"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:src="@drawable/ic_baseline_remove_circle_outline_24"
+            app:tint="@color/black" />
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
