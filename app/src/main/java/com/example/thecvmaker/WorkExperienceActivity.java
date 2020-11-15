@@ -11,7 +11,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.thecvmaker.adapter.WorkExperienceRvAdapter;
 import com.example.thecvmaker.models.WorkExpItem;
 
 import java.util.ArrayList;
@@ -32,6 +35,8 @@ public class WorkExperienceActivity extends AppCompatActivity {
     private WorkExpItem expItem;
     private DatePickerDialog.OnDateSetListener mDateSetListener1;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
+    RecyclerView recyclerView;
+    WorkExperienceRvAdapter recyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +97,12 @@ public class WorkExperienceActivity extends AppCompatActivity {
                 ResetWorkExpDetails();
             }
         });
+        recyclerView = findViewById(R.id.experience_rv_container);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerViewAdapter = new WorkExperienceRvAdapter(WorkExperienceActivity.this, ExperienceList);
+        recyclerView.setAdapter(recyclerViewAdapter);
 
 
     }

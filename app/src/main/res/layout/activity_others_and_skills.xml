@@ -74,7 +74,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/add_project_btn"
+            android:id="@+id/add_skill_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
