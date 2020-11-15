@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,7 +26,8 @@ public class EducationActivity extends AppCompatActivity {
     private Spinner eduDegreeSpinner;
     private TextView addEducationBtn;
     private MaterialButton nextToWorkExperience;
-    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private DatePickerDialog.OnDateSetListener mDateSetListener1;
+    private DatePickerDialog.OnDateSetListener mDateSetListener2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +51,21 @@ public class EducationActivity extends AppCompatActivity {
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(EducationActivity.this,
-                        mDateSetListener, year, month, day);
+                        mDateSetListener1, year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 dialog.show();
 
             }
         });
+
+        mDateSetListener1 = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = day + "/" + month + "/" + year;
+                eduStartDateEdt.setText(date);
+            }
+        };
 
         eduEndDateEdt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,12 +77,21 @@ public class EducationActivity extends AppCompatActivity {
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(EducationActivity.this,
-                        mDateSetListener, year, month, day);
+                        mDateSetListener2, year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 dialog.show();
 
             }
         });
+
+        mDateSetListener2 = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = day + "/" + month + "/" + year;
+                eduEndDateEdt.setText(date);
+            }
+        };
     }
 
     private void initViews() {
