@@ -48,15 +48,6 @@ public class WorkExperienceRvAdapter extends RecyclerView.Adapter<WorkExperience
                 notifyDataSetChanged();
             }
         });
-
-
-        holder.removeImgBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WorkExpList.remove(position);
-                notifyDataSetChanged();
-            }
-        });
     }
 
     @Override
