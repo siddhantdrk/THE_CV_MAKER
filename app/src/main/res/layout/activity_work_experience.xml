@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".WorkExperienceActivity">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/next_project_contribution"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -153,6 +163,7 @@
             android:textColor="@color/purple_700"
             android:textSize="@dimen/_14ssp" />
     </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/next_project_contribution"

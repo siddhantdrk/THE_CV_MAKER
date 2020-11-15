@@ -82,7 +82,7 @@ public class WorkExperienceActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 String date = day + "/" + month + "/" + year;
-                StartDateWorkExp.setText(date);
+                EndDateWorkExp.setText(date);
             }
         };
         AnotherExp.setOnClickListener(new View.OnClickListener() {
