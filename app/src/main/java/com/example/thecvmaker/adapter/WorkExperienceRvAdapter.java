@@ -41,7 +41,13 @@ public class WorkExperienceRvAdapter extends RecyclerView.Adapter<WorkExperience
         holder.expEndDate.setText(WorkExpList.get(position).getEnd_date());
         holder.expPosition.setText(WorkExpList.get(position).getPosition());
         holder.expDescription.setText(WorkExpList.get(position).getDescription());
-
+        holder.removeImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WorkExpList.remove(position);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -62,6 +68,7 @@ public class WorkExperienceRvAdapter extends RecyclerView.Adapter<WorkExperience
             expEndDate = itemView.findViewById(R.id.exp_end_date_txt);
             expPosition = itemView.findViewById(R.id.position_text);
             expDescription = itemView.findViewById(R.id.exp_description_txt);
+            removeImgBtn = itemView.findViewById(R.id.remove_btn_img);
         }
     }
 }
