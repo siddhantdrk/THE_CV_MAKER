@@ -118,11 +118,14 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         EmailAddress = editTextEmail.getText().toString();
         Nationality = editTextNationality.getText().toString();
         Language = editTextLanguage.getText().toString();
-        if (GenderRadioGrp.isActivated()) {
-            int selectedId = GenderRadioGrp.getCheckedRadioButtonId();
+        int selectedId = GenderRadioGrp.getCheckedRadioButtonId();
+        if (selectedId == -1) {
+            Gender = null;
+        } else {
             GenderRadioBtn = findViewById(selectedId);
             Gender = GenderRadioBtn.getText().toString();
         }
+
     }
 
     private boolean isAllDetailsFilled() {
