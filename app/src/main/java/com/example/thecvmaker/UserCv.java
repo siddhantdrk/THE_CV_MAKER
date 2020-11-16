@@ -3,7 +3,11 @@ package com.example.thecvmaker;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
+import com.example.thecvmaker.models.EducationItem;
+import com.example.thecvmaker.models.ProjectContributionItem;
+import com.example.thecvmaker.models.SkillsItem;
+import com.example.thecvmaker.models.WorkExpItem;
+
 import java.util.List;
 
 public class UserCv implements Parcelable {
@@ -13,9 +17,48 @@ public class UserCv implements Parcelable {
     private String PhoneNumber;
     private String EmailAddress;
     private String Dob;
+
+    private List<EducationItem> EducationList;
+    private List<WorkExpItem> WorkExpList;
+    private List<ProjectContributionItem> ProjectContributionList;
+    private List<SkillsItem> SkillsOthersList;
+
+    public List<EducationItem> getEducationList() {
+        return EducationList;
+    }
+
+    public void setEducationList(List<EducationItem> educationList) {
+        EducationList = educationList;
+    }
+
+    public List<WorkExpItem> getWorkExpList() {
+        return WorkExpList;
+    }
+
+    public void setWorkExpList(List<WorkExpItem> workExpList) {
+        WorkExpList = workExpList;
+    }
+
     private String Nationality;
     private String Gender;
     private String Language;
+
+    public List<ProjectContributionItem> getProjectContributionList() {
+        return ProjectContributionList;
+    }
+
+    public void setProjectContributionList(List<ProjectContributionItem> projectContributionList) {
+        ProjectContributionList = projectContributionList;
+    }
+
+    public List<SkillsItem> getSkillsOthersList() {
+        return SkillsOthersList;
+    }
+
+    public void setSkillsOthersList(List<SkillsItem> skillsOthersList) {
+        SkillsOthersList = skillsOthersList;
+    }
+
     public static final Creator<UserCv> CREATOR = new Creator<UserCv>() {
         @Override
         public UserCv createFromParcel(Parcel in) {
@@ -27,16 +70,11 @@ public class UserCv implements Parcelable {
             return new UserCv[size];
         }
     };
-    private List<EducationActivity> EducationDetList = new ArrayList<>();
-    private List<WorkExperienceActivity> WorkExpList = new ArrayList<>();
-    private List<OthersAndSkillsActivity> OtherSkillstList = new ArrayList<>();
-
 
     public UserCv() {
 
     }
 
-    private List<ProjectContributionActivity> ProContriList = new ArrayList<>();
 
     protected UserCv(Parcel in) {
         Name = in.readString();

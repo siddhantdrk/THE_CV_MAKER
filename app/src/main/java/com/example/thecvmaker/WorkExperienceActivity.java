@@ -1,9 +1,11 @@
 package com.example.thecvmaker;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -24,8 +26,7 @@ import java.util.List;
 
 public class WorkExperienceActivity extends AppCompatActivity {
 
-    private final List<WorkExpItem> ExperienceList = new ArrayList<>();
-    private final UserCv userCv = new UserCv();
+    private List<WorkExpItem> WorkExperienceList;
     private EditText StartDateWorkExp;
     private EditText EndDateWorkExp;
     private EditText CompNameWorkExp;
@@ -36,14 +37,23 @@ public class WorkExperienceActivity extends AppCompatActivity {
     private WorkExpItem expItem;
     private DatePickerDialog.OnDateSetListener mDateSetListener1;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
-    RecyclerView workExpRecyclerView;
-    WorkExperienceRvAdapter workExperienceRvAdapter;
+    private RecyclerView workExpRecyclerView;
+    private WorkExperienceRvAdapter workExperienceRvAdapter;
+    private UserCv userCv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_experience);
         initViews();
+        WorkExperienceList = new ArrayList<>();
+
+        Intent intent = getIntent();
+        if (intent.getStringExtra("FromActivity").equals("EducationActivity")) {
+            userCv = intent.getParcelableExtra("SharedUserCv");
+            Log.i("WorkExperienceActivity", "" + userCv.getEducationList().size());
+        }
 
         StartDateWorkExp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,14 +117,13 @@ public class WorkExperienceActivity extends AppCompatActivity {
 //        //Dummy WorkExperience List
 //        ExperienceList.add(new WorkExpItem());
 //        ExperienceList.add(new WorkExpItem());
-
         setWorkExpRecyclerview();
     }
 
     private void setWorkExpRecyclerview() {
         workExpRecyclerView.setHasFixedSize(true);
         workExpRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        workExperienceRvAdapter = new WorkExperienceRvAdapter(WorkExperienceActivity.this, ExperienceList);
+        workExperienceRvAdapter = new WorkExperienceRvAdapter(WorkExperienceActivity.this, WorkExperienceList);
         workExpRecyclerView.setAdapter(workExperienceRvAdapter);
     }
 
@@ -150,7 +159,7 @@ public class WorkExperienceActivity extends AppCompatActivity {
         expItem.setCompany(CompNameWorkExp.getText().toString());
         expItem.setPosition(PositionWorkExp.getText().toString());
         expItem.setDescription(DescriptionWorkExp.getText().toString());
-        ExperienceList.add(expItem);
+        WorkExperienceList.add(expItem);
     }
 
     public void ResetWorkExpDetails() {

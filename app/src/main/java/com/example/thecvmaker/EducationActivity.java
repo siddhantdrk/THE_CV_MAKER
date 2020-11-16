@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -19,9 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thecvmaker.adapter.EducationRvAdapter;
-import com.example.thecvmaker.adapter.WorkExperienceRvAdapter;
 import com.example.thecvmaker.models.EducationItem;
-import com.example.thecvmaker.models.WorkExpItem;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
@@ -35,12 +32,11 @@ public class EducationActivity extends AppCompatActivity {
     private Spinner eduDegreeSpinner;
     private TextView addEducationBtn;
     private MaterialButton nextToWorkExperience;
-    private final List<EducationItem> EducationList= new ArrayList<>();
-
-    RecyclerView recyclerView;
-    EducationRvAdapter recyclerViewAdapter;
-    EducationItem educationItem;
-    UserCv userCv = new UserCv();
+    private List<EducationItem> EducationList;
+    private RecyclerView recyclerView;
+    private EducationRvAdapter recyclerViewAdapter;
+    private EducationItem educationItem;
+    private UserCv userCv;
     private DatePickerDialog.OnDateSetListener mDateSetListener1;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
 
@@ -49,11 +45,11 @@ public class EducationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_education);
         initViews();
+        EducationList = new ArrayList<>();
+
         Intent intent = getIntent();
         if (intent.getStringExtra("FromActivity").equals("PersonalDetailsActivity")) {
-            UserCv obj = intent.getParcelableExtra("SharedUserCv");
-            String name = obj.getName();
-            Log.d("CheckParcelable", name);
+            userCv = intent.getParcelableExtra("SharedUserCv");
         }
 
         eduStartDateEdt.setOnClickListener(new View.OnClickListener() {
@@ -107,20 +103,36 @@ public class EducationActivity extends AppCompatActivity {
                 eduEndDateEdt.setText(date);
             }
         };
+
         addEducationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isAllDetailsFilled()){
+                if (isAllDetailsFilled()) {
                     setEducationalArrayAdapterDetails();
                     ResetEducationalDetails();
-                }
-                else{
+                } else {
                     Toast.makeText(EducationActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
+        nextToWorkExperience.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EducationActivity.this, WorkExperienceActivity.class);
+                intent.putExtra("FromActivity", "EducationActivity");
+                intent.putExtra("SharedUserCv", userCv);
+                if (EducationList.size() != 0) {
+                    userCv.setEducationList(EducationList);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(EducationActivity.this, "Please add your education details !", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         //Dummy WorkExperience List
+        EducationList.add(new EducationItem());
         EducationList.add(new EducationItem());
         EducationList.add(new EducationItem());
 
@@ -135,9 +147,9 @@ public class EducationActivity extends AppCompatActivity {
     }
 
     private boolean isAllDetailsFilled() {
-        return eduStartDateEdt != null && eduStartDateEdt.length() != 0 && eduEndDateEdt != null && eduEndDateEdt.length() != 0 &&
-                eduSchoolInstituteEdt != null && eduSchoolInstituteEdt.length() != 0
-                && eduDescriptionEdt != null && eduDescriptionEdt.length() != 0;
+        return eduStartDateEdt.getText() != null && eduStartDateEdt.getText().length() != 0 && eduEndDateEdt.getText() != null && eduEndDateEdt.getText().length() != 0 &&
+                eduSchoolInstituteEdt.getText() != null && eduSchoolInstituteEdt.getText().length() != 0
+                && eduDescriptionEdt.getText() != null && eduDescriptionEdt.getText().length() != 0 && eduDegreeSpinner.getSelectedItemPosition() != 0;
     }
 
     private void setEducationalArrayAdapterDetails() {
