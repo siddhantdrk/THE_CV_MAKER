@@ -6,8 +6,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.thecvmaker.adapter.SkillsRvAdapter;
 import com.example.thecvmaker.models.SkillsItem;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
     String hobby, skill_description;
     TextView AddAnotherSkill;
     List<SkillsItem> skills_List = new ArrayList<SkillsItem>();
+    private SkillsRvAdapter skillsRvAdapter;
 
 
     @Override
@@ -35,6 +38,7 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
                 ResetSkills();
             }
         });
+        setSkillsRecyclerview();
     }
 
     public void initViews() {
@@ -56,6 +60,13 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
     public void ResetSkills() {
         Hobby.setText("");
         sklDescription.setText("");
+    }
+
+    private void setSkillsRecyclerview() {
+        recyclerViewSkills.setHasFixedSize(true);
+        recyclerViewSkills.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        skillsRvAdapter = new SkillsRvAdapter(OthersAndSkillsActivity.this, skills_List);
+        recyclerViewSkills.setAdapter(skillsRvAdapter);
     }
 
 

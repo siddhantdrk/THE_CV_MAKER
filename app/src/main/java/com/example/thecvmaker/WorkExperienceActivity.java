@@ -98,9 +98,9 @@ public class WorkExperienceActivity extends AppCompatActivity {
             }
         });
 
-        //Dummy WorkExperience List
-        ExperienceList.add(new WorkExpItem());
-        ExperienceList.add(new WorkExpItem());
+//        //Dummy WorkExperience List
+//        ExperienceList.add(new WorkExpItem());
+//        ExperienceList.add(new WorkExpItem());
 
         setWorkExpRecyclerview();
     }
