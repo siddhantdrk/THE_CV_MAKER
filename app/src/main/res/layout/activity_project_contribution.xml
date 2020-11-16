@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ProjectContributionActivity">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/next_skills_others"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -82,13 +92,13 @@
                     android:textColor="@color/black"
                     tools:ignore="TextFields" />
 
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/project_in_progress_radio_btn"
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/pro_current_checkbox_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:buttonTint="@color/design_default_color_primary"
-                    android:text="In progress" />
+                    android:text="I currently work here" />
 
             </RelativeLayout>
 
@@ -156,6 +166,8 @@
             android:textColor="@color/purple_700"
             android:textSize="@dimen/_14ssp" />
     </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/next_skills_others"

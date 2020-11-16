@@ -1,47 +1,45 @@
 package com.example.thecvmaker.models;
 
-import android.widget.TextView;
-
 public class ProjectContributionItem {
-    private TextView projectTitle, projectStartDate, projectEndDate, projectCategory, projectDescription;
+    private String projectTitle, projectStartDate, projectEndDate, projectCategory, projectDescription;
 
-    public TextView getProjectTitle() {
+    public String getProjectTitle() {
         return projectTitle;
     }
 
-    public void setProjectTitle(TextView projectTitle) {
+    public void setProjectTitle(String projectTitle) {
         this.projectTitle = projectTitle;
     }
 
-    public TextView getProjectStartDate() {
+    public String getProjectStartDate() {
         return projectStartDate;
     }
 
-    public void setProjectStartDate(TextView projectStartDate) {
+    public void setProjectStartDate(String projectStartDate) {
         this.projectStartDate = projectStartDate;
     }
 
-    public TextView getProjectEndDate() {
+    public String getProjectEndDate() {
         return projectEndDate;
     }
 
-    public void setProjectEndDate(TextView projectEndDate) {
+    public void setProjectEndDate(String projectEndDate) {
         this.projectEndDate = projectEndDate;
     }
 
-    public TextView getProjectCategory() {
+    public String getProjectCategory() {
         return projectCategory;
     }
 
-    public void setProjectCategory(TextView projectCategory) {
+    public void setProjectCategory(String projectCategory) {
         this.projectCategory = projectCategory;
     }
 
-    public TextView getProjectDescription() {
+    public String getProjectDescription() {
         return projectDescription;
     }
 
-    public void setProjectDescription(TextView projectDescription) {
+    public void setProjectDescription(String projectDescription) {
         this.projectDescription = projectDescription;
     }
 }

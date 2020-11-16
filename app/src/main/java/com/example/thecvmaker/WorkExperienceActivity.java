@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -93,8 +94,13 @@ public class WorkExperienceActivity extends AppCompatActivity {
         AnotherExp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setWorkExperienceArrayAdapterDetails();
-                ResetWorkExpDetails();
+                if(isAllDetailsFilled()) {
+                    setWorkExperienceArrayAdapterDetails();
+                    ResetWorkExpDetails();
+                }
+                else{
+                    Toast.makeText(WorkExperienceActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -110,6 +116,13 @@ public class WorkExperienceActivity extends AppCompatActivity {
         workExpRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         workExperienceRvAdapter = new WorkExperienceRvAdapter(WorkExperienceActivity.this, ExperienceList);
         workExpRecyclerView.setAdapter(workExperienceRvAdapter);
+    }
+
+    private boolean isAllDetailsFilled() {
+        return StartDateWorkExp != null && StartDateWorkExp.length() != 0 && EndDateWorkExp != null
+                && EndDateWorkExp.length() != 0 && CompNameWorkExp != null
+                && CompNameWorkExp.length() != 0 && PositionWorkExp != null
+                && PositionWorkExp.length() != 0 && DescriptionWorkExp != null && DescriptionWorkExp.length() != 0;
     }
 
     private void initViews() {

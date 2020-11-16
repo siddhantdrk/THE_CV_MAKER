@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -109,8 +110,13 @@ public class EducationActivity extends AppCompatActivity {
         addEducationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setEducationalArrayAdapterDetails();
-                ResetEducationalDetails();
+                if(isAllDetailsFilled()){
+                    setEducationalArrayAdapterDetails();
+                    ResetEducationalDetails();
+                }
+                else{
+                    Toast.makeText(EducationActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -126,6 +132,12 @@ public class EducationActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL, false));
         recyclerViewAdapter = new EducationRvAdapter(EducationActivity.this, EducationList);
         recyclerView.setAdapter(recyclerViewAdapter);
+    }
+
+    private boolean isAllDetailsFilled() {
+        return eduStartDateEdt != null && eduStartDateEdt.length() != 0 && eduEndDateEdt != null && eduEndDateEdt.length() != 0 &&
+                eduSchoolInstituteEdt != null && eduSchoolInstituteEdt.length() != 0
+                && eduDescriptionEdt != null && eduDescriptionEdt.length() != 0;
     }
 
     private void setEducationalArrayAdapterDetails() {
