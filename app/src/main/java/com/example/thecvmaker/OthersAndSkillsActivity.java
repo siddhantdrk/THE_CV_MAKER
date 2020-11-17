@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,8 +35,13 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
         AddAnotherSkill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setSkills();
-                ResetSkills();
+                if(isAllDetailsFilled()) {
+                    setSkills();
+                    ResetSkills();
+                }
+                else{
+                    Toast.makeText(OthersAndSkillsActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
+                }
             }
         });
         setSkillsRecyclerview();
@@ -45,6 +51,11 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
         Hobby = findViewById(R.id.skill_hobby_name_edt);
         sklDescription = findViewById(R.id.skill_hobby_description_edt);
         AddAnotherSkill = findViewById(R.id.add_skill_btn);
+    }
+
+    private boolean isAllDetailsFilled() {
+        return Hobby.getText() != null && Hobby.getText().length() != 0 && sklDescription.getText() != null
+                && sklDescription.getText().length() != 0 ;
     }
 
     public void setSkills() {

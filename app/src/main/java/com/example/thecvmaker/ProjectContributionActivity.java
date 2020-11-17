@@ -125,10 +125,11 @@ public class ProjectContributionActivity extends AppCompatActivity {
     }
 
     private boolean isAllDetailsFilled() {
-        return proStartDateEdt != null && proStartDateEdt.length() != 0 && proEndDateEdt != null &&
-                proEndDateEdt.length() != 0 && proProjectName != null && proProjectName.length() != 0
-                && proCategory != null && proCategory.length() != 0 && proDescriptionRole != null &&
-                proDescriptionRole.length() != 0;
+        return proStartDateEdt.getText() != null && proStartDateEdt.getText().length() != 0 &&
+                proEndDateEdt.getText() != null && proEndDateEdt.getText().length() != 0 &&
+                proProjectName.getText() != null && proProjectName.getText().length() != 0 &&
+                proCategory.getText() != null && proCategory.getText().length() != 0 &&
+                proDescriptionRole.getText() != null && proDescriptionRole.getText().length() != 0;
     }
 
     private void initViews() {

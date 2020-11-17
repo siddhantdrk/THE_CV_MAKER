@@ -23,6 +23,7 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class EducationActivity extends AppCompatActivity {
 
@@ -31,7 +32,7 @@ public class EducationActivity extends AppCompatActivity {
     private Spinner eduDegreeSpinner;
     private TextView addEducationBtn;
     private MaterialButton nextToWorkExperience;
-    private ArrayList<EducationItem> EducationList;
+    private List<EducationItem> EducationList;
     private RecyclerView recyclerView;
     private EducationRvAdapter recyclerViewAdapter;
     private EducationItem educationItem;

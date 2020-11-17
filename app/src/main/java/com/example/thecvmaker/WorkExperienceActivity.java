@@ -128,10 +128,10 @@ public class WorkExperienceActivity extends AppCompatActivity {
     }
 
     private boolean isAllDetailsFilled() {
-        return StartDateWorkExp != null && StartDateWorkExp.length() != 0 && EndDateWorkExp != null
-                && EndDateWorkExp.length() != 0 && CompNameWorkExp != null
-                && CompNameWorkExp.length() != 0 && PositionWorkExp != null
-                && PositionWorkExp.length() != 0 && DescriptionWorkExp != null && DescriptionWorkExp.length() != 0;
+        return StartDateWorkExp.getText() != null && StartDateWorkExp.getText().length() != 0 && EndDateWorkExp.getText() != null
+                && EndDateWorkExp.getText().length() != 0 && CompNameWorkExp.getText() != null
+                && CompNameWorkExp.getText().length() != 0 && PositionWorkExp.getText() != null
+                && PositionWorkExp.getText().length() != 0 && DescriptionWorkExp.getText() != null && DescriptionWorkExp.getText().length() != 0;
     }
 
     private void initViews() {
