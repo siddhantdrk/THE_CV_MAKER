@@ -23,8 +23,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:padding="32dp">
 
             <ImageView
@@ -35,41 +35,23 @@
                 android:layout_marginTop="64dp"
                 android:src="@drawable/cvlogo" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:text="TEXT2"
-                android:textAlignment="center"
-                android:textSize="32sp" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="TEXT1"
-                android:textAlignment="center"
-                android:textSize="14sp" />
-
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/create_cv_btn"
+                android:id="@+id/generate_cv_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="32dp"
-                android:text="Create Cv"
+                android:text="Generate &amp; Preview Cv"
                 app:cornerRadius="4dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/update_cv_btn"
+                android:id="@+id/download_cv_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
-                android:text="update cv"
+                android:text="Download cv"
                 app:cornerRadius="4dp" />
         </LinearLayout>
     </ScrollView>

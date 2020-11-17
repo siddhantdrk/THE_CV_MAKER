@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TheCvMaker">
+        <activity android:name=".GenerateDownloadCvActivity"></activity>
         <activity
             android:name=".PersonalDetailsActivity"
             android:screenOrientation="portrait" />
@@ -27,7 +28,6 @@
         <activity
             android:name=".EducationActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="portrait" />
