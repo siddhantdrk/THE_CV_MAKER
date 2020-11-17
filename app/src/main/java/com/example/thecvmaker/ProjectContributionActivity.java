@@ -1,10 +1,7 @@
 package com.example.thecvmaker;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,12 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.thecvmaker.adapter.ProjectContributionRvAdapter;
-import com.example.thecvmaker.adapter.WorkExperienceRvAdapter;
 import com.example.thecvmaker.models.ProjectContributionItem;
-import com.example.thecvmaker.models.WorkExpItem;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.radiobutton.MaterialRadioButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,7 +30,7 @@ public class ProjectContributionActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
 
     private List<ProjectContributionItem> ProjectContributionItemList;
-    private final UserCv userCv = new UserCv();
+    private UserCv userCv;
 
     private CheckBox current_working;
     private TextView AddProject;
@@ -41,12 +38,18 @@ public class ProjectContributionActivity extends AppCompatActivity {
     RecyclerView projectContributionRecyclerView;
     ProjectContributionRvAdapter projectContributionRvAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_contribution);
 
         initViews();
+
+        Intent intent = getIntent();
+        if (intent.getStringExtra("FromActivity").equals("EducationActivity")) {
+            userCv = intent.getParcelableExtra("SharedUserCv");
+        }
         ProjectContributionItemList = new ArrayList<>();
         proStartDateEdt.setOnClickListener(new View.OnClickListener() {
             @Override

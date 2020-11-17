@@ -25,6 +25,9 @@ public class UserCv implements Parcelable {
         Gender = in.readString();
         Language = in.readString();
         EducationListString = in.readString();
+        WorkExpListString = in.readString();
+        ProjectContributionListString = in.readString();
+        SkillsOthersListString = in.readString();
     }
 
     public String getWorkExpListString() {
@@ -149,6 +152,7 @@ public class UserCv implements Parcelable {
     }
 
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -165,5 +169,8 @@ public class UserCv implements Parcelable {
         parcel.writeString(Gender);
         parcel.writeString(Language);
         parcel.writeString(EducationListString);
+        parcel.writeString(WorkExpListString);
+        parcel.writeString(ProjectContributionListString);
+        parcel.writeString(SkillsOthersListString);
     }
 }

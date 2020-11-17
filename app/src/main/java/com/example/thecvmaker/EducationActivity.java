@@ -141,9 +141,9 @@ public class EducationActivity extends AppCompatActivity {
         });
 
         //Dummy WorkExperience List
-        EducationList.add(new EducationItem());
-        EducationList.add(new EducationItem());
-        EducationList.add(new EducationItem());
+//        EducationList.add(new EducationItem());
+//        EducationList.add(new EducationItem());
+//        EducationList.add(new EducationItem());
 
         setEducationRecyclerview();
     }
