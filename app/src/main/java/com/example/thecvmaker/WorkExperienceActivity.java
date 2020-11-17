@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -55,8 +54,8 @@ public class WorkExperienceActivity extends AppCompatActivity {
         if (intent.getStringExtra("FromActivity").equals("EducationActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
 //            EducationList = intent.getParcelableArrayListExtra("EducationList");
-            EducationList = userCv.getEducationListFromString();
-            Log.i("WorkExperienceActivity", "" + EducationList.size());
+            String EducationListString = userCv.getEducationListString();
+            Toast.makeText(this, EducationListString, Toast.LENGTH_SHORT).show();
         }
 
         StartDateWorkExp.setOnClickListener(new View.OnClickListener() {
