@@ -119,10 +119,10 @@ public class EducationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EducationActivity.this, WorkExperienceActivity.class);
-                intent.putExtra("FromActivity", "EducationActivity");
-                intent.putExtra("SharedUserCv", userCv);
                 if (EducationList.size() != 0) {
-                    intent.putParcelableArrayListExtra("EducationList", EducationList);
+                    userCv.setEducationListString(EducationList);
+                    intent.putExtra("FromActivity", "EducationActivity");
+                    intent.putExtra("SharedUserCv", userCv);
                     startActivity(intent);
                 } else {
                     Toast.makeText(EducationActivity.this, "Please add your education details !", Toast.LENGTH_LONG).show();

@@ -28,7 +28,7 @@ import java.util.List;
 public class WorkExperienceActivity extends AppCompatActivity {
 
     private List<WorkExpItem> WorkExperienceList;
-    private ArrayList<EducationItem> EducationList;
+    private List<EducationItem> EducationList;
     private EditText StartDateWorkExp;
     private EditText EndDateWorkExp;
     private EditText CompNameWorkExp;
@@ -54,7 +54,8 @@ public class WorkExperienceActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getStringExtra("FromActivity").equals("EducationActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
-            EducationList = intent.getParcelableArrayListExtra("EducationList");
+//            EducationList = intent.getParcelableArrayListExtra("EducationList");
+            EducationList = userCv.getEducationListFromString();
             Log.i("WorkExperienceActivity", "" + EducationList.size());
         }
 
