@@ -32,7 +32,7 @@ public class ProjectContributionActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener1;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
 
-    private final List<ProjectContributionItem> ProjectContributionItemList = new ArrayList<>();
+    private List<ProjectContributionItem> ProjectContributionItemList;
     private final UserCv userCv = new UserCv();
 
     private CheckBox current_working;
@@ -47,7 +47,7 @@ public class ProjectContributionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_project_contribution);
 
         initViews();
-
+        ProjectContributionItemList = new ArrayList<>();
         proStartDateEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
