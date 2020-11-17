@@ -111,7 +111,13 @@ public class WorkExperienceActivity extends AppCompatActivity {
         current_working.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EndDateWorkExp.setText("");
+                if(current_working.isChecked()) {
+                    EndDateWorkExp.setText("");
+                    EndDateWorkExp.setHint("Currently working");
+                }
+                else{
+                    EndDateWorkExp.setHint("Select");
+                }
             }
         });
 

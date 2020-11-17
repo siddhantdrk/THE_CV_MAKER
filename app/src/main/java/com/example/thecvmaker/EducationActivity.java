@@ -91,6 +91,7 @@ public class EducationActivity extends AppCompatActivity {
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 if(!eduCurrentCheckBox.isChecked()){
                     dialog.show();
+
                 }
             }
         });
@@ -107,7 +108,13 @@ public class EducationActivity extends AppCompatActivity {
         eduCurrentCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                eduEndDateEdt.setText("");
+                if(eduCurrentCheckBox.isChecked()) {
+                    eduEndDateEdt.setText("");
+                    eduEndDateEdt.setHint("currently enrolled");
+                }
+                else{
+                    eduEndDateEdt.setHint("Select");
+                }
             }
         });
 

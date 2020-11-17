@@ -107,7 +107,13 @@ public class ProjectContributionActivity extends AppCompatActivity {
         current_working.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                proEndDateEdt.setText("");
+                if(current_working.isChecked()) {
+                    proEndDateEdt.setText("");
+                    proEndDateEdt.setHint("Currently working");
+                }
+                else{
+                    proEndDateEdt.setHint("Select");
+                }
             }
         });
 
