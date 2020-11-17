@@ -19,6 +19,7 @@
             android:id="@+id/skills_hobbies_rv_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            tools:listitem="@layout/skills_others_item"
             android:layout_above="@id/add_skill_btn"
             android:layout_below="@id/experience_input_container" />
 
@@ -48,9 +49,9 @@
                 android:id="@+id/skill_hobby_name_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:backgroundTint="@color/purple_200"
                 android:hint="Java / Table Tennis / Reading"
-                android:inputType="textMultiLine"
                 android:textColor="@color/black"
                 tools:ignore="TextFields" />
 
