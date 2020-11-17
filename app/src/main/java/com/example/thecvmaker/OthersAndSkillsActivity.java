@@ -22,7 +22,7 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
     RecyclerView recyclerViewSkills;
     String hobby, skill_description;
     TextView AddAnotherSkill;
-    List<SkillsItem> skills_List = new ArrayList<SkillsItem>();
+    private List<SkillsItem> skills_List;
     private SkillsRvAdapter skillsRvAdapter;
 
 
@@ -32,6 +32,7 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_others_and_skills);
 
         initViews();
+        skills_List= new ArrayList<>();
         AddAnotherSkill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
