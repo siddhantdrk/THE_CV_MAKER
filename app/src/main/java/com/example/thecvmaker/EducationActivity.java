@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.thecvmaker.adapter.EducationRvAdapter;
 import com.example.thecvmaker.models.EducationItem;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -120,7 +121,9 @@ public class EducationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(EducationActivity.this, WorkExperienceActivity.class);
                 if (EducationList.size() != 0) {
-                    userCv.setEducationListString(EducationList);
+                    String EducationListString = new Gson().toJson(EducationList);
+                    userCv.setEducationListString(EducationListString);
+                    Toast.makeText(EducationActivity.this, EducationListString, Toast.LENGTH_SHORT).show();
                     intent.putExtra("FromActivity", "EducationActivity");
                     intent.putExtra("SharedUserCv", userCv);
                     startActivity(intent);

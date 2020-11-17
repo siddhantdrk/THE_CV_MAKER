@@ -7,8 +7,6 @@ import com.example.thecvmaker.models.EducationItem;
 import com.example.thecvmaker.models.ProjectContributionItem;
 import com.example.thecvmaker.models.SkillsItem;
 import com.example.thecvmaker.models.WorkExpItem;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +24,12 @@ public class UserCv implements Parcelable {
     private List<ProjectContributionItem> ProjectContributionList;
     private List<SkillsItem> SkillsOthersList;
 
-    public List<EducationItem> getEducationListFromString() {
-        return new Gson().fromJson(EducationListString, new TypeToken<List<EducationItem>>() {
-        }.getType());
+    public String getEducationListString() {
+        return EducationListString;
     }
 
-    public void setEducationListString(List<EducationItem> EducationList) {
-        this.EducationListString = new Gson().toJson(EducationList);
+    public void setEducationListString(String educationListString) {
+        EducationListString = educationListString;
     }
 
     public ArrayList<EducationItem> getEducationList() {
