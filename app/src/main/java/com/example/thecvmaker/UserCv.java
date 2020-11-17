@@ -8,6 +8,7 @@ import com.example.thecvmaker.models.ProjectContributionItem;
 import com.example.thecvmaker.models.SkillsItem;
 import com.example.thecvmaker.models.WorkExpItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserCv implements Parcelable {
@@ -18,16 +19,16 @@ public class UserCv implements Parcelable {
     private String EmailAddress;
     private String Dob;
 
-    private List<EducationItem> EducationList;
+    private ArrayList<EducationItem> EducationList;
     private List<WorkExpItem> WorkExpList;
     private List<ProjectContributionItem> ProjectContributionList;
     private List<SkillsItem> SkillsOthersList;
 
-    public List<EducationItem> getEducationList() {
+    public ArrayList<EducationItem> getEducationList() {
         return EducationList;
     }
 
-    public void setEducationList(List<EducationItem> educationList) {
+    public void setEducationList(ArrayList<EducationItem> educationList) {
         EducationList = educationList;
     }
 

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thecvmaker.adapter.WorkExperienceRvAdapter;
+import com.example.thecvmaker.models.EducationItem;
 import com.example.thecvmaker.models.WorkExpItem;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import java.util.List;
 public class WorkExperienceActivity extends AppCompatActivity {
 
     private List<WorkExpItem> WorkExperienceList;
+    private ArrayList<EducationItem> EducationList;
     private EditText StartDateWorkExp;
     private EditText EndDateWorkExp;
     private EditText CompNameWorkExp;
@@ -52,7 +54,8 @@ public class WorkExperienceActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getStringExtra("FromActivity").equals("EducationActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
-            Log.i("WorkExperienceActivity", "" + userCv.getEducationList().size());
+            EducationList = intent.getParcelableArrayListExtra("EducationList");
+            Log.i("WorkExperienceActivity", "" + EducationList.size());
         }
 
         StartDateWorkExp.setOnClickListener(new View.OnClickListener() {

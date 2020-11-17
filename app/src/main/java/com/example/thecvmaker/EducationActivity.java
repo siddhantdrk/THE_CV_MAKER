@@ -23,7 +23,6 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class EducationActivity extends AppCompatActivity {
 
@@ -32,7 +31,7 @@ public class EducationActivity extends AppCompatActivity {
     private Spinner eduDegreeSpinner;
     private TextView addEducationBtn;
     private MaterialButton nextToWorkExperience;
-    private List<EducationItem> EducationList;
+    private ArrayList<EducationItem> EducationList;
     private RecyclerView recyclerView;
     private EducationRvAdapter recyclerViewAdapter;
     private EducationItem educationItem;
@@ -123,7 +122,7 @@ public class EducationActivity extends AppCompatActivity {
                 intent.putExtra("FromActivity", "EducationActivity");
                 intent.putExtra("SharedUserCv", userCv);
                 if (EducationList.size() != 0) {
-                    userCv.setEducationList(EducationList);
+                    intent.putParcelableArrayListExtra("EducationList", EducationList);
                     startActivity(intent);
                 } else {
                     Toast.makeText(EducationActivity.this, "Please add your education details !", Toast.LENGTH_LONG).show();

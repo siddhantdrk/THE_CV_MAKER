@@ -1,10 +1,47 @@
 package com.example.thecvmaker.models;
 
-public class EducationItem {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class EducationItem implements Parcelable {
     private String EduDegreeTitle, EduStartDate, EduEndDate, EduSchoolInstitute, EduDescription;
 
     public EducationItem() {
 
+    }
+
+    public static final Creator<EducationItem> CREATOR = new Creator<EducationItem>() {
+        @Override
+        public EducationItem createFromParcel(Parcel in) {
+            return new EducationItem(in);
+        }
+
+        @Override
+        public EducationItem[] newArray(int size) {
+            return new EducationItem[size];
+        }
+    };
+
+    protected EducationItem(Parcel in) {
+        EduDegreeTitle = in.readString();
+        EduStartDate = in.readString();
+        EduEndDate = in.readString();
+        EduSchoolInstitute = in.readString();
+        EduDescription = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(EduDegreeTitle);
+        dest.writeString(EduStartDate);
+        dest.writeString(EduEndDate);
+        dest.writeString(EduSchoolInstitute);
+        dest.writeString(EduDescription);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public String getEduDegreeTitle() {
