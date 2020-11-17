@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="@dimen/_16sdp"
-        app:layout_constraintBottom_toTopOf="@+id/next_skills_others"
+        app:layout_constraintBottom_toTopOf="@+id/save_proceed_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -88,7 +88,7 @@
     </RelativeLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/next_skills_others"
+        android:id="@+id/save_proceed_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_16sdp"

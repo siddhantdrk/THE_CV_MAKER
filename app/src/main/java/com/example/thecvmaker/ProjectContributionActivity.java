@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thecvmaker.adapter.ProjectContributionRvAdapter;
 import com.example.thecvmaker.models.ProjectContributionItem;
+import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,19 +27,17 @@ import java.util.List;
 
 public class ProjectContributionActivity extends AppCompatActivity {
 
-    private EditText proStartDateEdt, proEndDateEdt,proProjectName,proCategory,proDescriptionRole;
+    private EditText proStartDateEdt, proEndDateEdt, proProjectName, proCategory, proDescriptionRole;
     private DatePickerDialog.OnDateSetListener mDateSetListener1;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
 
     private List<ProjectContributionItem> ProjectContributionItemList;
     private UserCv userCv;
-
     private CheckBox current_working;
     private TextView AddProject;
-    private ProjectContributionItem proItem;
-    RecyclerView projectContributionRecyclerView;
-    ProjectContributionRvAdapter projectContributionRvAdapter;
-
+    MaterialButton nextToOthersSkills;
+    private RecyclerView projectContributionRecyclerView;
+    private ProjectContributionRvAdapter projectContributionRvAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ public class ProjectContributionActivity extends AppCompatActivity {
             userCv = intent.getParcelableExtra("SharedUserCv");
         }
         ProjectContributionItemList = new ArrayList<>();
+
         proStartDateEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,15 +117,27 @@ public class ProjectContributionActivity extends AppCompatActivity {
                 if(isAllDetailsFilled()) {
                     setProjectContributionArrayAdapterDetails();
                     ResetProjectContributionDetails();
-                }
-                else{
+                } else {
                     Toast.makeText(ProjectContributionActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        ProjectContributionItemList.add(new ProjectContributionItem());
         setProjectContributionRecyclerView();
+
+        nextToOthersSkills.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProjectContributionActivity.this, OthersAndSkillsActivity.class);
+                if (ProjectContributionItemList.size() != 0) {
+                    String ProjectContributionListString = new Gson().toJson(ProjectContributionItemList);
+                    userCv.setProjectContributionListString(ProjectContributionListString);
+                    intent.putExtra("SharedUserCv", userCv);
+                    intent.putExtra("FromActivity", "ProjectContributionActivity");
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void setProjectContributionRecyclerView() {
@@ -152,10 +165,11 @@ public class ProjectContributionActivity extends AppCompatActivity {
         current_working = findViewById(R.id.pro_current_checkbox_btn);
         AddProject = findViewById(R.id.add_project_btn);
         projectContributionRecyclerView = findViewById(R.id.projects_rv_container);
+        nextToOthersSkills = findViewById(R.id.next_skills_others);
     }
 
     private void setProjectContributionArrayAdapterDetails() {
-        proItem = new ProjectContributionItem();
+        ProjectContributionItem proItem = new ProjectContributionItem();
         proItem.setProjectStartDate(proStartDateEdt.getText().toString());
         if (current_working.isChecked()) {
             proItem.setProjectEndDate(current_working.getText().toString());
