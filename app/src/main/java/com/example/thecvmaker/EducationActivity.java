@@ -123,7 +123,6 @@ public class EducationActivity extends AppCompatActivity {
                 if (EducationList.size() != 0) {
                     String EducationListString = new Gson().toJson(EducationList);
                     userCv.setEducationListString(EducationListString);
-                    Toast.makeText(EducationActivity.this, EducationListString, Toast.LENGTH_SHORT).show();
                     intent.putExtra("FromActivity", "EducationActivity");
                     intent.putExtra("SharedUserCv", userCv);
                     startActivity(intent);

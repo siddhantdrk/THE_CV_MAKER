@@ -53,9 +53,6 @@ public class WorkExperienceActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getStringExtra("FromActivity").equals("EducationActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
-//            EducationList = intent.getParcelableArrayListExtra("EducationList");
-            String EducationListString = userCv.getEducationListString();
-            Toast.makeText(this, EducationListString, Toast.LENGTH_SHORT).show();
         }
 
         StartDateWorkExp.setOnClickListener(new View.OnClickListener() {

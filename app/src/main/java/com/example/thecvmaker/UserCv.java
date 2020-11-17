@@ -3,14 +3,6 @@ package com.example.thecvmaker;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.thecvmaker.models.EducationItem;
-import com.example.thecvmaker.models.ProjectContributionItem;
-import com.example.thecvmaker.models.SkillsItem;
-import com.example.thecvmaker.models.WorkExpItem;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class UserCv implements Parcelable {
 
     private String Name;
@@ -18,11 +10,45 @@ public class UserCv implements Parcelable {
     private String PhoneNumber;
     private String EmailAddress;
     private String Dob;
+
+    private String WorkExpListString;
+    private String ProjectContributionListString;
+    private String SkillsOthersListString;
+
+    protected UserCv(Parcel in) {
+        Name = in.readString();
+        Address = in.readString();
+        PhoneNumber = in.readString();
+        EmailAddress = in.readString();
+        Dob = in.readString();
+        Nationality = in.readString();
+        Gender = in.readString();
+        Language = in.readString();
+        EducationListString = in.readString();
+    }
+
+    public String getWorkExpListString() {
+        return WorkExpListString;
+    }
+
+    public void setWorkExpListString(String workExpListString) {
+        WorkExpListString = workExpListString;
+    }
+
     private String EducationListString;
-    private ArrayList<EducationItem> EducationList;
-    private List<WorkExpItem> WorkExpList;
-    private List<ProjectContributionItem> ProjectContributionList;
-    private List<SkillsItem> SkillsOthersList;
+
+    public String getProjectContributionListString() {
+        return ProjectContributionListString;
+    }
+
+    public void setProjectContributionListString(String projectContributionListString) {
+        ProjectContributionListString = projectContributionListString;
+    }
+
+    public String getSkillsOthersListString() {
+        return SkillsOthersListString;
+    }
+
 
     public String getEducationListString() {
         return EducationListString;
@@ -32,41 +58,11 @@ public class UserCv implements Parcelable {
         EducationListString = educationListString;
     }
 
-    public ArrayList<EducationItem> getEducationList() {
-        return EducationList;
-    }
-
-    public void setEducationList(ArrayList<EducationItem> educationList) {
-        EducationList = educationList;
-    }
-
-    public List<WorkExpItem> getWorkExpList() {
-        return WorkExpList;
-    }
-
-    public void setWorkExpList(List<WorkExpItem> workExpList) {
-        WorkExpList = workExpList;
-    }
 
     private String Nationality;
     private String Gender;
     private String Language;
 
-    public List<ProjectContributionItem> getProjectContributionList() {
-        return ProjectContributionList;
-    }
-
-    public void setProjectContributionList(List<ProjectContributionItem> projectContributionList) {
-        ProjectContributionList = projectContributionList;
-    }
-
-    public List<SkillsItem> getSkillsOthersList() {
-        return SkillsOthersList;
-    }
-
-    public void setSkillsOthersList(List<SkillsItem> skillsOthersList) {
-        SkillsOthersList = skillsOthersList;
-    }
 
     public static final Creator<UserCv> CREATOR = new Creator<UserCv>() {
         @Override
@@ -84,16 +80,8 @@ public class UserCv implements Parcelable {
 
     }
 
-
-    protected UserCv(Parcel in) {
-        Name = in.readString();
-        Address = in.readString();
-        PhoneNumber = in.readString();
-        EmailAddress = in.readString();
-        Dob = in.readString();
-        Nationality = in.readString();
-        Gender = in.readString();
-        Language = in.readString();
+    public void setSkillsOthersListString(String skillsOthersListString) {
+        SkillsOthersListString = skillsOthersListString;
     }
 
     public String getName() {
@@ -176,5 +164,6 @@ public class UserCv implements Parcelable {
         parcel.writeString(Nationality);
         parcel.writeString(Gender);
         parcel.writeString(Language);
+        parcel.writeString(EducationListString);
     }
 }
