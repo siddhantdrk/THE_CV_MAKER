@@ -86,7 +86,9 @@ public class ProjectContributionActivity extends AppCompatActivity {
                 DatePickerDialog dialog = new DatePickerDialog(ProjectContributionActivity.this,
                         mDateSetListener2, year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                dialog.show();
+                if(!current_working.isChecked()) {
+                    dialog.show();
+                }
 
             }
         });
@@ -99,6 +101,13 @@ public class ProjectContributionActivity extends AppCompatActivity {
                 proEndDateEdt.setText(date);
             }
         };
+
+        current_working.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                proEndDateEdt.setText("");
+            }
+        });
 
         AddProject.setOnClickListener(new View.OnClickListener() {
             @Override

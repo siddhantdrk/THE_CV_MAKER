@@ -90,7 +90,9 @@ public class WorkExperienceActivity extends AppCompatActivity {
                 DatePickerDialog dialog = new DatePickerDialog(WorkExperienceActivity.this,
                         mDateSetListener2, year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                dialog.show();
+                if(!current_working.isChecked()) {
+                    dialog.show();
+                }
             }
         });
         mDateSetListener2 = new DatePickerDialog.OnDateSetListener() {
@@ -101,6 +103,14 @@ public class WorkExperienceActivity extends AppCompatActivity {
                 EndDateWorkExp.setText(date);
             }
         };
+
+        current_working.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EndDateWorkExp.setText("");
+            }
+        });
+
         AnotherExp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

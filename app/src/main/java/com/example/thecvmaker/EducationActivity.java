@@ -90,8 +90,9 @@ public class EducationActivity extends AppCompatActivity {
                 DatePickerDialog dialog = new DatePickerDialog(EducationActivity.this,
                         mDateSetListener2, year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                dialog.show();
-
+                if(!eduCurrentCheckBox.isChecked()){
+                    dialog.show();
+                }
             }
         });
 
@@ -103,6 +104,13 @@ public class EducationActivity extends AppCompatActivity {
                 eduEndDateEdt.setText(date);
             }
         };
+
+        eduCurrentCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                eduEndDateEdt.setText("");
+            }
+        });
 
         addEducationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,7 +166,6 @@ public class EducationActivity extends AppCompatActivity {
         educationItem.setEduStartDate(eduStartDateEdt.getText().toString());
         if (eduCurrentCheckBox.isChecked()) {
             educationItem.setEduEndDate(eduCurrentCheckBox.getText().toString());
-
         } else {
             educationItem.setEduEndDate(eduEndDateEdt.getText().toString());
         }
