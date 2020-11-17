@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.thecvmaker.adapter.WorkExperienceRvAdapter;
 import com.example.thecvmaker.models.EducationItem;
 import com.example.thecvmaker.models.WorkExpItem;
+import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,6 +43,7 @@ public class WorkExperienceActivity extends AppCompatActivity {
     private RecyclerView workExpRecyclerView;
     private WorkExperienceRvAdapter workExperienceRvAdapter;
     private UserCv userCv;
+    private MaterialButton nextToProjectContribution;
 
 
     @Override
@@ -104,13 +107,29 @@ public class WorkExperienceActivity extends AppCompatActivity {
         AnotherExp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isAllDetailsFilled()) {
+                if (isAllDetailsFilled()) {
                     setWorkExperienceArrayAdapterDetails();
                     ResetWorkExpDetails();
-                }
-                else{
+                } else {
                     Toast.makeText(WorkExperienceActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+        nextToProjectContribution.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WorkExperienceActivity.this, ProjectContributionActivity.class);
+                if (WorkExperienceList.size() != 0) {
+                    String WorkExpListString = new Gson().toJson(WorkExperienceList);
+                    userCv.setWorkExpListString(WorkExpListString);
+                    intent.putExtra("FromActivity", "WorkExperienceActivity");
+                    intent.putExtra("SharedUserCv", userCv);
+                    startActivity(intent);
+
+                } else {
+                    Toast.makeText(WorkExperienceActivity.this, "please add your experience details !", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -144,6 +163,7 @@ public class WorkExperienceActivity extends AppCompatActivity {
         current_working = findViewById(R.id.exp_current_checkbox_btn);
         AnotherExp = findViewById(R.id.add_experience_btn);
         workExpRecyclerView = findViewById(R.id.experience_rv_container);
+        nextToProjectContribution = findViewById(R.id.next_project_contribution);
     }
 
     private void setWorkExperienceArrayAdapterDetails() {
