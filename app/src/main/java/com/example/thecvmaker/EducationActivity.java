@@ -65,7 +65,6 @@ public class EducationActivity extends AppCompatActivity {
                         mDateSetListener1, year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 dialog.show();
-
             }
         });
 
