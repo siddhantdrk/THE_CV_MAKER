@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.thecvmaker.adapter.SkillsRvAdapter;
 import com.example.thecvmaker.models.SkillsItem;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
     private SkillsRvAdapter skillsRvAdapter;
     private MaterialButton SaveProceedBtn;
     private UserCv userCv;
-
+    private TextView test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,23 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
             }
         });
         setSkillsRecyclerview();
+
+        SaveProceedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(OthersAndSkillsActivity.this, GenerateDownloadCvActivity.class);
+                if (skills_List.size() != 0) {
+                    String OthersAndSkillsListString = new Gson().toJson(skills_List);
+                    userCv.setSkillsOthersListString(OthersAndSkillsListString);
+                    intent.putExtra("SharedUserCv", userCv);
+                    intent.putExtra("FromActivity", "OthersAndSkillsActivity");
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(OthersAndSkillsActivity.this, "Please add your Project and Contribution details !", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        //test.setText(userCv.getName());
     }
 
     public void initViews() {
