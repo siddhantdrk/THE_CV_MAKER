@@ -47,7 +47,7 @@ public class ProjectContributionActivity extends AppCompatActivity {
         initViews();
 
         Intent intent = getIntent();
-        if (intent.getStringExtra("FromActivity").equals("EducationActivity")) {
+        if (intent.getStringExtra("FromActivity").equals("WorkExperienceActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
         }
         ProjectContributionItemList = new ArrayList<>();
@@ -142,6 +142,8 @@ public class ProjectContributionActivity extends AppCompatActivity {
                     intent.putExtra("SharedUserCv", userCv);
                     intent.putExtra("FromActivity", "ProjectContributionActivity");
                     startActivity(intent);
+                } else {
+                    Toast.makeText(ProjectContributionActivity.this, "Please add your Project and Contribution details !", Toast.LENGTH_LONG).show();
                 }
             }
         });
