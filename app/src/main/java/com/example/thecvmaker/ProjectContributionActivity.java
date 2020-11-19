@@ -108,11 +108,12 @@ public class ProjectContributionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(current_working.isChecked()) {
-                    proEndDateEdt.setText("");
+                    proEndDateEdt.setText("currently working");
                     proEndDateEdt.setHint("Currently working");
                 }
                 else{
                     proEndDateEdt.setHint("Select");
+                    proEndDateEdt.setText("");
                 }
             }
         });
@@ -144,6 +145,8 @@ public class ProjectContributionActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
     private void setProjectContributionRecyclerView() {

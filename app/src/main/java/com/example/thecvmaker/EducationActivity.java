@@ -109,11 +109,12 @@ public class EducationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(eduCurrentCheckBox.isChecked()) {
-                    eduEndDateEdt.setText("");
+                    eduEndDateEdt.setText("currently enrolled");
                     eduEndDateEdt.setHint("currently enrolled");
                 }
                 else{
                     eduEndDateEdt.setHint("Select");
+                    eduEndDateEdt.setText("");
                 }
             }
         });
