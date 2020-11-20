@@ -11,8 +11,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.TheCvMaker">
-        <activity android:name=".GenerateDownloadCvActivity"></activity>
+        <activity android:name=".GenerateDownloadCvActivity" />
         <activity
             android:name=".PersonalDetailsActivity"
             android:screenOrientation="portrait" />

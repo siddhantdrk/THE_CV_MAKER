@@ -148,6 +148,7 @@ public class ProjectContributionActivity extends AppCompatActivity {
             }
         });
 
+        ProjectContributionItemList.add(new ProjectContributionItem());
 
     }
 
