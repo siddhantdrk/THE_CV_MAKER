@@ -85,6 +85,9 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         Type OtherSkillListType = new TypeToken<ArrayList<SkillsItem>>(){}.getType();
         OtherSkillList = new Gson().fromJson(extractOtherSkillString, OtherSkillListType);
 
+        MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
+        db.addCv(userCv);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
