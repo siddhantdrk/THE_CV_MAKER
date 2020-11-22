@@ -47,6 +47,9 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         });
         Test.setText(userCv.getName());
 
+        MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
+        db.addCv(userCv);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
