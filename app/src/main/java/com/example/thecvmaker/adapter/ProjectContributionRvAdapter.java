@@ -45,6 +45,7 @@ public class ProjectContributionRvAdapter extends RecyclerView.Adapter<ProjectCo
             @Override
             public void onClick(View view) {
                 ProjectContributionList.remove(position);
+                notifyDataSetChanged();
             }
         });
     }

@@ -1,7 +1,34 @@
 package com.example.thecvmaker.models;
 
-public class ProjectContributionItem {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ProjectContributionItem implements Parcelable {
     private String projectTitle, projectStartDate, projectEndDate, projectCategory, projectDescription;
+
+    public ProjectContributionItem(){
+
+    }
+
+    protected ProjectContributionItem(Parcel in) {
+        projectTitle = in.readString();
+        projectStartDate = in.readString();
+        projectEndDate = in.readString();
+        projectCategory = in.readString();
+        projectDescription = in.readString();
+    }
+
+    public static final Creator<ProjectContributionItem> CREATOR = new Creator<ProjectContributionItem>() {
+        @Override
+        public ProjectContributionItem createFromParcel(Parcel in) {
+            return new ProjectContributionItem(in);
+        }
+
+        @Override
+        public ProjectContributionItem[] newArray(int size) {
+            return new ProjectContributionItem[size];
+        }
+    };
 
     public String getProjectTitle() {
         return projectTitle;
@@ -41,5 +68,19 @@ public class ProjectContributionItem {
 
     public void setProjectDescription(String projectDescription) {
         this.projectDescription = projectDescription;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(projectTitle);
+        parcel.writeString(projectStartDate);
+        parcel.writeString(projectEndDate);
+        parcel.writeString(projectCategory);
+        parcel.writeString(projectDescription);
     }
 }

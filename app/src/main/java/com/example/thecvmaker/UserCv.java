@@ -48,6 +48,10 @@ public class UserCv implements Parcelable {
         ProjectContributionListString = projectContributionListString;
     }
 
+    public void setSkillsOthersListString(String skillsOthersListString) {
+        SkillsOthersListString = skillsOthersListString;
+    }
+
     public String getSkillsOthersListString() {
         return SkillsOthersListString;
     }
@@ -81,10 +85,6 @@ public class UserCv implements Parcelable {
 
     public UserCv() {
 
-    }
-
-    public void setSkillsOthersListString(String skillsOthersListString) {
-        SkillsOthersListString = skillsOthersListString;
     }
 
     public String getName() {

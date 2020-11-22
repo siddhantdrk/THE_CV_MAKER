@@ -35,7 +35,6 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_others_and_skills);
-
         initViews();
         skills_List = new ArrayList<>();
 
@@ -72,7 +71,7 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
                 }
             }
         });
-        skills_List.add(new SkillsItem());
+        //skills_List.add(new SkillsItem());
         //test.setText(userCv.getName());
     }
 

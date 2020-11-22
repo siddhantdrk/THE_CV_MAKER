@@ -150,7 +150,6 @@
                 android:textColor="@color/black"
                 tools:ignore="TextFields" />
 
-
         </LinearLayout>
 
         <TextView
