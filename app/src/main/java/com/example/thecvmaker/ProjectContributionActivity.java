@@ -35,9 +35,10 @@ public class ProjectContributionActivity extends AppCompatActivity {
     private UserCv userCv;
     private CheckBox current_working;
     private TextView AddProject;
-    MaterialButton nextToOthersSkills;
+    private MaterialButton nextToOthersSkills;
     private RecyclerView projectContributionRecyclerView;
     private ProjectContributionRvAdapter projectContributionRvAdapter;
+    private MaterialButton updateProjectDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,9 @@ public class ProjectContributionActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getStringExtra("FromActivity").equals("WorkExperienceActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
+        } else {
+            nextToOthersSkills.setVisibility(View.GONE);
+            updateProjectDetails.setVisibility(View.VISIBLE);
         }
         ProjectContributionItemList = new ArrayList<>();
 
@@ -178,6 +182,7 @@ public class ProjectContributionActivity extends AppCompatActivity {
         AddProject = findViewById(R.id.add_project_btn);
         projectContributionRecyclerView = findViewById(R.id.projects_rv_container);
         nextToOthersSkills = findViewById(R.id.next_skills_others);
+        updateProjectDetails = findViewById(R.id.update_project_details_contribution);
     }
 
     private void setProjectContributionArrayAdapterDetails() {

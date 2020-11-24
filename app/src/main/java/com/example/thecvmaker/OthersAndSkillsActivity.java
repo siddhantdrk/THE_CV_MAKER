@@ -30,6 +30,7 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
     private MaterialButton SaveProceedBtn;
     private UserCv userCv;
     private TextView test;
+    private MaterialButton updateSkillsAndOthers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,9 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getStringExtra("FromActivity").equals("ProjectContributionActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
+        } else {
+            SaveProceedBtn.setVisibility(View.GONE);
+            updateSkillsAndOthers.setVisibility(View.VISIBLE);
         }
 
         AddAnotherSkill.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +85,7 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
         recyclerViewSkills = findViewById(R.id.skills_hobbies_rv_container);
         AddAnotherSkill = findViewById(R.id.add_skill_btn);
         SaveProceedBtn = findViewById(R.id.save_proceed_btn);
+        updateSkillsAndOthers = findViewById(R.id.update_skills);
     }
 
     private boolean isAllDetailsFilled() {

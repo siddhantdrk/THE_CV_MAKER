@@ -32,6 +32,7 @@ public class EducationActivity extends AppCompatActivity {
     private Spinner eduDegreeSpinner;
     private TextView addEducationBtn;
     private MaterialButton nextToWorkExperience;
+    private MaterialButton updateEducation;
     private ArrayList<EducationItem> EducationList;
     private RecyclerView recyclerView;
     private EducationRvAdapter recyclerViewAdapter;
@@ -50,6 +51,9 @@ public class EducationActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getStringExtra("FromActivity").equals("PersonalDetailsActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
+        } else {
+            nextToWorkExperience.setVisibility(View.GONE);
+            updateEducation.setVisibility(View.VISIBLE);
         }
 
         eduStartDateEdt.setOnClickListener(new View.OnClickListener() {
@@ -193,6 +197,7 @@ public class EducationActivity extends AppCompatActivity {
         addEducationBtn = findViewById(R.id.add_education_btn);
         nextToWorkExperience = findViewById(R.id.next_work_experience);
         recyclerView = findViewById(R.id.education_rv_container);
+        updateEducation = findViewById(R.id.update_education);
     }
 
     public void ResetEducationalDetails() {

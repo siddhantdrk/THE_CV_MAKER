@@ -44,6 +44,7 @@ public class WorkExperienceActivity extends AppCompatActivity {
     private WorkExperienceRvAdapter workExperienceRvAdapter;
     private UserCv userCv;
     private MaterialButton nextToProjectContribution;
+    private MaterialButton updateWorkExperience;
 
 
     @Override
@@ -56,6 +57,9 @@ public class WorkExperienceActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getStringExtra("FromActivity").equals("EducationActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
+        } else {
+            nextToProjectContribution.setVisibility(View.GONE);
+            updateWorkExperience.setVisibility(View.VISIBLE);
         }
 
         StartDateWorkExp.setOnClickListener(new View.OnClickListener() {
@@ -182,6 +186,7 @@ public class WorkExperienceActivity extends AppCompatActivity {
         AnotherExp = findViewById(R.id.add_experience_btn);
         workExpRecyclerView = findViewById(R.id.experience_rv_container);
         nextToProjectContribution = findViewById(R.id.next_project_contribution);
+        updateWorkExperience = findViewById(R.id.update_work_experience);
     }
 
     private void setWorkExperienceArrayAdapterDetails() {
