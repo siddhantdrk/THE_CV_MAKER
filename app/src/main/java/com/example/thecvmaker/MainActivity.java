@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.google.android.material.button.MaterialButton;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     TextView OtherSkills;
     private static final int PICK_PHOTO = 1;
     CircleImageView image;
+    MaterialButton GeneratePdfBtn;
     Uri selectedImage;
 
 
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         projectDetailContributions = findViewById(R.id.project_con_txt);
         OtherSkills = findViewById(R.id.other_skills_txt);
         image = findViewById(R.id.upload_user_photo);
-
+        GeneratePdfBtn = findViewById(R.id.generate_pdf_btn);
     }
 
     @Override

@@ -32,7 +32,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
     private RadioGroup GenderRadioGrp;
     private RadioButton GenderRadioBtn;
     private MaterialButton nextToEducation;
-
+    private MaterialButton updatePersonalDetails;
     private String Name;
     private String Address;
     private String PhoneNumber;
@@ -51,13 +51,13 @@ public class PersonalDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_details);
+        initViews();
 
 
         Intent intent = getIntent();
         String msg = intent.getStringExtra("FromActivity");
 
         if (msg.equals("WelcomeActivity")) {
-            initViews();
 
             editTextDOB.setOnClickListener(new View.OnClickListener() {
 
@@ -108,7 +108,11 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         }
 
         if (msg.equals("MainActivity")) {
-            initViews();
+
+            nextToEducation.setVisibility(View.GONE);
+
+            updatePersonalDetails.setVisibility(View.VISIBLE);
+
             MyDbHelper db = new MyDbHelper(PersonalDetailsActivity.this);
             CvList = db.getAllCv();
             UserCv demoitem = new UserCv();
@@ -120,7 +124,6 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             editTextEmail.setText(demoitem.getEmailAddress());
             editTextAddress.setText(demoitem.getAddress());
             editTextPhone.setText(demoitem.getPhoneNumber());
-
         }
 
 
@@ -136,6 +139,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         editTextNationality = findViewById(R.id.nationality_edt);
         GenderRadioGrp = findViewById(R.id.genderGrp);
         nextToEducation = findViewById(R.id.next_Education);
+        updatePersonalDetails = findViewById(R.id.personal_details_update);
     }
 
 
