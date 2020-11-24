@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".WelcomeActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/welcome_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/purple_200"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
 
     <ScrollView
         android:id="@+id/scroll_view_login"
@@ -40,18 +52,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="64dp"
-                android:text="TEXT2"
+                android:fontFamily="sans-serif-medium"
+                android:text="Welcome To TheCvMaker"
+                android:textColor="@color/purple_500"
                 android:textAlignment="center"
-                android:textSize="32sp" />
+                android:textSize="@dimen/_20ssp" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="TEXT1"
+                android:text="Username"
+                android:textColor="@color/black"
                 android:textAlignment="center"
-                android:textSize="14sp" />
+                android:textSize="@dimen/_18ssp" />
 
 
             <com.google.android.material.button.MaterialButton

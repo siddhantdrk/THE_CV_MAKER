@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "832190165633",
+    "firebase_url": "https://thecvmaker-327d5.firebaseio.com",
+    "project_id": "thecvmaker-327d5",
+    "storage_bucket": "thecvmaker-327d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832190165633:android:2e1ff4f8ca0cbacab8d380",
+        "android_client_info": {
+          "package_name": "com.example.thecvmaker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "832190165633-2tpfcsu0apb74nt1hnetehi3qb0sa03u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiUfXks3SHrOEzt7IJCLZDYui6a6ftUto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832190165633-2tpfcsu0apb74nt1hnetehi3qb0sa03u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
