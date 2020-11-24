@@ -3,6 +3,7 @@ package com.example.thecvmaker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,8 +22,24 @@ public class WelcomeActivity extends AppCompatActivity {
         createCvButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(WelcomeActivity.this, MainActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, PersonalDetailsActivity.class);
+                intent.putExtra("FromWelcome Activity", "CreateCv");
                 startActivity(intent);
+            }
+        });
+        MyDbHelper db = new MyDbHelper(WelcomeActivity.this);
+
+
+        updateCvButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (db.getCount() == 0) {
+                    Toast.makeText(WelcomeActivity.this, "First Make Your Cv", Toast.LENGTH_SHORT);
+                } else {
+                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
     }

@@ -46,31 +46,31 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        personalDetails.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, PersonalDetailsActivity.class);
-            startActivity(intent);
-        });
-
-        educationalDetails.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, EducationActivity.class);
-            intent.putExtra("FromActivity", "MainActivity");
-            startActivity(intent);
-        });
-        workExperience.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, WorkExperienceActivity.class);
-            intent.putExtra("FromActivity", "MainActivity");
-            startActivity(intent);
-        });
-        projectDetailContributions.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, ProjectContributionActivity.class);
-            intent.putExtra("FromActivity", "MainActivity");
-            startActivity(intent);
-        });
-        OtherSkills.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, OthersAndSkillsActivity.class);
-            intent.putExtra("FromActivity", "MainActivity");
-            startActivity(intent);
-        });
+//        personalDetails.setOnClickListener(view -> {
+//            Intent intent = new Intent(MainActivity.this, PersonalDetailsActivity.class);
+//            startActivity(intent);
+//        });
+//
+//        educationalDetails.setOnClickListener(view -> {
+//            Intent intent = new Intent(MainActivity.this, EducationActivity.class);
+//            intent.putExtra("FromActivity", "MainActivity");
+//            startActivity(intent);
+//        });
+//        workExperience.setOnClickListener(view -> {
+//            Intent intent = new Intent(MainActivity.this, WorkExperienceActivity.class);
+//            intent.putExtra("FromActivity", "MainActivity");
+//            startActivity(intent);
+//        });
+//        projectDetailContributions.setOnClickListener(view -> {
+//            Intent intent = new Intent(MainActivity.this, ProjectContributionActivity.class);
+//            intent.putExtra("FromActivity", "MainActivity");
+//            startActivity(intent);
+//        });
+//        OtherSkills.setOnClickListener(view -> {
+//            Intent intent = new Intent(MainActivity.this, OthersAndSkillsActivity.class);
+//            intent.putExtra("FromActivity", "MainActivity");
+//            startActivity(intent);
+//        });
     }
 
     public void initViews() {
