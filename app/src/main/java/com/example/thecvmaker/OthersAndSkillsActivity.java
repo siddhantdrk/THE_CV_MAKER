@@ -71,7 +71,7 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
                 }
             }
         });
-        //skills_List.add(new SkillsItem());
+        skills_List.add(new SkillsItem());
         //test.setText(userCv.getName());
     }
 

@@ -53,7 +53,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
 
         db.insert(Params.TABLE_NAME1, null, values);
-        Log.d("dev", "Successfully inserted");
+        Log.d("dev", "Successfully inserted" + cvData.getName());
         db.close();
 
 
