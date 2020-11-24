@@ -20,10 +20,10 @@ public class MyDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String create = "CREATE TABLE " + Params.TABLE_NAME1 + "("
                 + Params.KEY_NAME + " TEXT,"
-                + Params.KEY_EMAIL + " TEXT," + Params.KEY_PHONE_NUMBER + " TEXT," + Params.KEY_DOB + " TEXT,"
-                + Params.KEY_GENDER + " TEXT," + Params.KEY_NATIONALITY + " TEXT," + Params.KEY_ADDRESS + " TEXT,"
-                + Params.KEY_LANGUAGE + " TEXT," + Params.KEY_EDUCATION + " Text, " + Params.KEY_WORKEXPERIENCE +
-                " Text, " + Params.KEY_PROJECTCONTRIBUTIONS + " Text, " + Params.KEY_OTHERSKILLS + " Text, " + ")";
+                + Params.KEY_EMAIL + " TEXT, " + Params.KEY_PHONE_NUMBER + " TEXT, " + Params.KEY_DOB + " TEXT,"
+                + Params.KEY_GENDER + " TEXT," + Params.KEY_NATIONALITY + " TEXT, " + Params.KEY_ADDRESS + " TEXT,"
+                + Params.KEY_LANGUAGE + " TEXT, " + Params.KEY_EDUCATION + " TEXT, " + Params.KEY_WORKEXPERIENCE +
+                " TEXT, " + Params.KEY_PROJECTCONTRIBUTIONS + " TEXT, " + Params.KEY_OTHERSKILLS + " TEXT" + ")";
 
         Log.d("dbharry", "Query being run is : "+ create);
         db.execSQL(create);
