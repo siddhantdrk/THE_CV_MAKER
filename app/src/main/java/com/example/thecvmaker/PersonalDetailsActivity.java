@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class PersonalDetailsActivity extends AppCompatActivity {
 
@@ -42,6 +43,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
     private String Language;
 
     private UserCv userCV;
+    List<UserCv> CvList;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -50,51 +52,78 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_details);
 
-        initViews();
 
-        editTextDOB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        Intent intent = getIntent();
+        String msg = intent.getStringExtra("FromActivity");
 
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
+        if (msg.equals("WelcomeActivity")) {
+            initViews();
 
-                DatePickerDialog dialog = new DatePickerDialog(PersonalDetailsActivity.this,
-                        mDateSetListener, year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                dialog.show();
+            editTextDOB.setOnClickListener(new View.OnClickListener() {
 
 
-            }
-        });
+                @Override
+                public void onClick(View view) {
 
-        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String date = day + "/" + month + "/" + year;
-                editTextDOB.setText(date);
-            }
-        };
+                    Calendar calendar = Calendar.getInstance();
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+                    int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        nextToEducation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setPersonalDetails();
-                if (isAllDetailsFilled()) {
-                    userCV = new UserCv();
-                    setUserCVPersonalDetails();
-                    Intent intent = new Intent(PersonalDetailsActivity.this, EducationActivity.class);
-                    intent.putExtra("SharedUserCv", userCV);
-                    intent.putExtra("FromActivity", "PersonalDetailsActivity");
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(PersonalDetailsActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
+                    DatePickerDialog dialog = new DatePickerDialog(PersonalDetailsActivity.this,
+                            mDateSetListener, year, month, day);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                    dialog.show();
+
+
                 }
-            }
-        });
+            });
+
+            mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    month = month + 1;
+                    String date = day + "/" + month + "/" + year;
+                    editTextDOB.setText(date);
+                }
+            };
+
+            nextToEducation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    setPersonalDetails();
+                    if (isAllDetailsFilled()) {
+                        userCV = new UserCv();
+                        setUserCVPersonalDetails();
+                        Intent intent = new Intent(PersonalDetailsActivity.this, EducationActivity.class);
+                        intent.putExtra("SharedUserCv", userCV);
+                        intent.putExtra("FromActivity", "PersonalDetailsActivity");
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(PersonalDetailsActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
+        }
+
+        if (msg.equals("MainActivity")) {
+            initViews();
+            MyDbHelper db = new MyDbHelper(PersonalDetailsActivity.this);
+            CvList = db.getAllCv();
+            UserCv demoitem = new UserCv();
+            demoitem = CvList.get(0);
+            EditTextFullName.setText(demoitem.getName());
+            editTextDOB.setText(demoitem.getDob());
+            editTextLanguage.setText(demoitem.getLanguage());
+            editTextNationality.setText(demoitem.getNationality());
+            editTextEmail.setText(demoitem.getEmailAddress());
+            editTextAddress.setText(demoitem.getAddress());
+            editTextPhone.setText(demoitem.getPhoneNumber());
+
+        }
+
+
     }
 
     private void initViews() {

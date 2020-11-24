@@ -23,7 +23,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(WelcomeActivity.this, PersonalDetailsActivity.class);
-                intent.putExtra("FromWelcome Activity", "CreateCv");
+                intent.putExtra("FromActivity", "WelcomeActivity");
                 startActivity(intent);
             }
         });

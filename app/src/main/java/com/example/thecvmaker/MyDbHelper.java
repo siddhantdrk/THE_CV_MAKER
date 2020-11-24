@@ -59,7 +59,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<UserCv> getAllContacts() {
+    public List<UserCv> getAllCv() {
         List<UserCv> CvList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
