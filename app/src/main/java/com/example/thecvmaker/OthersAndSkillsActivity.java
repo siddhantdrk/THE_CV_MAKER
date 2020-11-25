@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,7 +70,7 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
                     userCv.setSkillsOthersListString(OthersAndSkillsListString);
                     intent.putExtra("SharedUserCv", userCv);
                     intent.putExtra("FromActivity", "OthersAndSkillsActivity");
-                    startActivity(intent);
+                    startActivityForResult(intent, 500);
                 } else {
                     Toast.makeText(OthersAndSkillsActivity.this, "Please add your Project and Contribution details !", Toast.LENGTH_LONG).show();
                 }
@@ -112,5 +113,13 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
         recyclerViewSkills.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         skillsRvAdapter = new SkillsRvAdapter(OthersAndSkillsActivity.this, skills_List);
         recyclerViewSkills.setAdapter(skillsRvAdapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 500) {
+            finish();
+        }
     }
 }

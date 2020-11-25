@@ -49,7 +49,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class GenerateDownloadCvActivity extends AppCompatActivity {
 
-    private MaterialButton GeneratePreviewCvBtn, DownloadCvBtn;
+    private MaterialButton GeneratePreviewCvBtn, DownloadCvBtn, BackToHomeBtn;
     private UserCv userCv;
     private TextView Test;
     private String StartDate;
@@ -101,19 +101,27 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
-                m_Text=enterPdfFileName();
-                fileName = '/'+ m_Text +".pdf";
-                if(isImageSelected) {
-                    createMyPDF(view);
-                }else{
-                    Toast.makeText(GenerateDownloadCvActivity.this,"Please select image",Toast.LENGTH_LONG).show();
+                MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
+                db.addCv(userCv);
+                if (isImageSelected) {
+                    enterPdfFileName();
+                } else {
+                    Toast.makeText(GenerateDownloadCvActivity.this, "Please select image", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        BackToHomeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
         // here we retrieving data of education detail
         String extractEducationString = userCv.getEducationListString();
-        Type EducationListType = new TypeToken<ArrayList<EducationItem>>(){}.getType();
+        Type EducationListType = new TypeToken<ArrayList<EducationItem>>() {
+        }.getType();
         EductionList = new Gson().fromJson(extractEducationString, EducationListType);
         //Test.setText(EductionList.get(0).getEduSchoolInstitute());
         noOfEducationList = EductionList.size();
@@ -137,14 +145,9 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         }.getType();
         OtherSkillList = new Gson().fromJson(extractOtherSkillString, OtherSkillListType);
         noOfOthersSkillsList = OtherSkillList.size();
-
-//        MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
-//        db.addCv(userCv);
-
-
     }
 
-    private String enterPdfFileName() {
+    private void enterPdfFileName() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter name for pdf");
 
@@ -158,8 +161,8 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                m_Text = input.getText().toString();
-                Toast.makeText(GenerateDownloadCvActivity.this, m_Text, Toast.LENGTH_SHORT).show();
+                fileName = "/" + input.getText().toString() + ".pdf";
+                createMyPDF();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -170,19 +173,18 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         });
 
         builder.show();
-        return m_Text;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void createMyPDF(View view) {
+    public void createMyPDF() {
 
         PdfDocument myPdfDocument = new PdfDocument();
-        PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder( 595,842,1).create();
+        PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
         PdfDocument.Page myPage = myPdfDocument.startPage(myPageInfo);
 
         Paint myPaint = new Paint();
         myPaint.setTextSize(16);
-        int x=10,y = 80;
+        int x = 10, y = 80;
 
         Canvas canvas = myPage.getCanvas();
         canvas.drawBitmap(scaleBitmap,360,40,myPaint);
@@ -305,6 +307,7 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         myPdfDocument.finishPage(myPage);
 
         String myFilePath = Environment.getExternalStorageDirectory().getPath() + fileName;
+        Toast.makeText(this, myFilePath, Toast.LENGTH_SHORT).show();
         File myFile = new File(myFilePath);
         try {
             myPdfDocument.writeTo(new FileOutputStream(myFile));
@@ -319,6 +322,7 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
     private void initViews() {
         GeneratePreviewCvBtn = findViewById(R.id.generate_cv_btn);
         DownloadCvBtn = findViewById(R.id.download_cv_btn);
+        BackToHomeBtn = findViewById(R.id.back_to_home_btn);
     }
 
 
