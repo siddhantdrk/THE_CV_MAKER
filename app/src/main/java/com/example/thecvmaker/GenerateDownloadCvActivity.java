@@ -66,6 +66,7 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
     private static final int PICK_PHOTO = 1;
     CircleImageView image;
     Bitmap scaleBitmap;
+    Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,22 +112,21 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
 
         // here we retrieving data of projectContribution detail
         String extractProjectContributionString = userCv.getProjectContributionListString();
-        Type ProjectContributionListType = new TypeToken<ArrayList<ProjectContributionItem>>(){}.getType();
+        Type ProjectContributionListType = new TypeToken<ArrayList<ProjectContributionItem>>() {
+        }.getType();
         ProjectContributionList = new Gson().fromJson(extractProjectContributionString, ProjectContributionListType);
         noOfProjectContributionList = ProjectContributionList.size();
 
         // here we retrieving data of othersSkills detail
         String extractOtherSkillString = userCv.getSkillsOthersListString();
-        Type OtherSkillListType = new TypeToken<ArrayList<SkillsItem>>(){}.getType();
+        Type OtherSkillListType = new TypeToken<ArrayList<SkillsItem>>() {
+        }.getType();
         OtherSkillList = new Gson().fromJson(extractOtherSkillString, OtherSkillListType);
-        noOfOthersSkillsList=OtherSkillList.size();
+        noOfOthersSkillsList = OtherSkillList.size();
 
-        MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
-        db.addCv(userCv);
+//        MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
+//        db.addCv(userCv);
 
-        BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
-        Bitmap bitmap = drawable.getBitmap();
-        scaleBitmap = Bitmap.createScaledBitmap(bitmap,100,100,false);
 
     }
 
@@ -256,8 +256,11 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
             try {
                 InputStream inputStream = getContentResolver().openInputStream(selectedImage);
 
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                bitmap = BitmapFactory.decodeStream(inputStream);
                 image.setImageBitmap(bitmap);
+                BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
+                bitmap = drawable.getBitmap();
+                scaleBitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
 
 
             } catch (FileNotFoundException e) {
