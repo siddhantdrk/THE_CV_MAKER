@@ -9,7 +9,7 @@ import android.util.Log;
 
 public class MyDbHelper extends SQLiteOpenHelper {
 
-    private final boolean insertNum1 = true;
+    private boolean insertNum1 = true;
 
     public MyDbHelper(Context context) {
         super(context, Params.KEY_DATABASE, null, Params.KEY_DATABASE_VERSION);
@@ -51,11 +51,13 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put(Params.KEY_PROJECTCONTRIBUTIONS, cvData.getWorkExpListString());
         values.put(Params.KEY_OTHERSKILLS, cvData.getSkillsOthersListString());
 
-        if (insertNum1)
+        if (insertNum1) {
             db.insert(Params.TABLE_NAME1, null, values);
-        else
+            insertNum1 = false;
+        } else {
             db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
                     new String[]{String.valueOf(cursor.moveToLast())});
+        }
 
         Log.d("dev", "Successfully inserted" + cvData.getName());
         db.close();
@@ -88,7 +90,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         return Cv;
     }
 
-    public void updateContact(UserCv cvData) {
+    public void updatePersonDetails(UserCv cvData) {
         SQLiteDatabase db = this.getWritableDatabase();
         String select = "SELECT * FROM " + Params.TABLE_NAME1;
         Cursor cursor = db.rawQuery(select, null);
@@ -108,7 +110,51 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public int getCount(){
+    public void updateEducationDetails(UserCv cvData) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String select = "SELECT * FROM " + Params.TABLE_NAME1;
+        Cursor cursor = db.rawQuery(select, null);
+        ContentValues values = new ContentValues();
+        values.put(Params.KEY_EDUCATION, cvData.getEducationListString());
+        db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
+                new String[]{String.valueOf(cursor.moveToLast())});
+        db.close();
+    }
+
+    public void updateWorkExperienceDetails(UserCv cvData) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String select = "SELECT * FROM " + Params.TABLE_NAME1;
+        Cursor cursor = db.rawQuery(select, null);
+        ContentValues values = new ContentValues();
+        values.put(Params.KEY_EDUCATION, cvData.getWorkExpListString());
+        db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
+                new String[]{String.valueOf(cursor.moveToLast())});
+        db.close();
+    }
+
+    public void updateProjectDetails(UserCv cvData) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String select = "SELECT * FROM " + Params.TABLE_NAME1;
+        Cursor cursor = db.rawQuery(select, null);
+        ContentValues values = new ContentValues();
+        values.put(Params.KEY_EDUCATION, cvData.getProjectContributionListString());
+        db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
+                new String[]{String.valueOf(cursor.moveToLast())});
+        db.close();
+    }
+
+    public void updateSkillsDetails(UserCv cvData) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String select = "SELECT * FROM " + Params.TABLE_NAME1;
+        Cursor cursor = db.rawQuery(select, null);
+        ContentValues values = new ContentValues();
+        values.put(Params.KEY_EDUCATION, cvData.getSkillsOthersListString());
+        db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
+                new String[]{String.valueOf(cursor.moveToLast())});
+        db.close();
+    }
+
+    public int getCount() {
         String query = "SELECT  * FROM " + Params.TABLE_NAME1;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
