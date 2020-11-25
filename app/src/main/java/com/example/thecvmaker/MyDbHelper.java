@@ -12,6 +12,8 @@ import java.util.List;
 
 public class MyDbHelper extends SQLiteOpenHelper {
 
+    private final boolean insertNum1 = true;
+
     public MyDbHelper(Context context) {
         super(context, Params.KEY_DATABASE, null, Params.KEY_DATABASE_VERSION);
     }
@@ -36,7 +38,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     public void addCv(UserCv cvData) {
         SQLiteDatabase db = this.getWritableDatabase();
-
+        String select = "SELECT * FROM " + Params.TABLE_NAME1;
+        Cursor cursor = db.rawQuery(select, null);
         ContentValues values = new ContentValues();
         values.put(Params.KEY_NAME, cvData.getName());
         values.put(Params.KEY_EMAIL, cvData.getEmailAddress());
@@ -51,12 +54,14 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put(Params.KEY_PROJECTCONTRIBUTIONS, cvData.getWorkExpListString());
         values.put(Params.KEY_OTHERSKILLS, cvData.getSkillsOthersListString());
 
+        if (insertNum1)
+            db.insert(Params.TABLE_NAME1, null, values);
+        else
+            db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
+                    new String[]{String.valueOf(cursor.moveToLast())});
 
-        db.insert(Params.TABLE_NAME1, null, values);
         Log.d("dev", "Successfully inserted" + cvData.getName());
         db.close();
-
-
     }
 
     public List<UserCv> getAllCv() {
@@ -90,9 +95,10 @@ public class MyDbHelper extends SQLiteOpenHelper {
         return CvList;
     }
 
-  /*  public int updateContact(CvUser cvData){
+    public void updateContact(UserCv cvData) {
         SQLiteDatabase db = this.getWritableDatabase();
-
+        String select = "SELECT * FROM " + Params.TABLE_NAME1;
+        Cursor cursor = db.rawQuery(select, null);
         ContentValues values = new ContentValues();
         values.put(Params.KEY_NAME, cvData.getName());
         values.put(Params.KEY_EMAIL, cvData.getEmailAddress());
@@ -102,29 +108,12 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put(Params.KEY_NATIONALITY, cvData.getNationality());
         values.put(Params.KEY_ADDRESS, cvData.getAddress());
         values.put(Params.KEY_LANGUAGE, cvData.getLanguage());
-        values.put(Params.KEY_SCHOOL_NAME, cvData.getSchoolName());
-        values.put(Params.KEY_COLLEGE_NAME, cvData.getCollegeName());
-        values.put(Params.KEY_SCORE_PERCENTAGE, cvData.getPercentage());
-        values.put(Params.KEY_YEAR_OF_PASSING, cvData.getPassingYear());
-        values.put(Params.KEY_DESIGNATION, cvData.getDesignation());
-        values.put(Params.KEY_ORGANISATION_NAME, cvData.getOrganisationName());
-        values.put(Params.KEY_WORKING_PERIOD, cvData.getWorkingPeriod());
-        values.put(Params.KEY_FIELD_OF_INTEREST, cvData.getInterestedField());
-        values.put(Params.KEY_SKILLS, cvData.getSkills());
-        values.put(Params.KEY_HOBBY, cvData.getHobby());
-        values.put(Params.KEY_STRENGTH, cvData.getStrength());
-        values.put(Params.KEY_ACHIEVEMENT, cvData.getAchievement());
-        values.put(Params.KEY_CARRIER_OBJECTIVE, cvData.getCarrierObjective());
-        values.put(Params.KEY_TITLE, cvData.getTitle());
-        values.put(Params.KEY_PERIOD,cvData.getPeriod());
-        values.put(Params.KEY_ROLE, cvData.getRole());
-        values.put(Params.KEY_DESCRIPTION, cvData.getDescription());
-        values.put(Params.KEY_TEAM_SIZE, cvData.getTeamSize());
 
         //Lets update now
-        return db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
-                new String[]{String.valueOf(cvData.getId())});
-    }*/
+        db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
+                new String[]{String.valueOf(cursor.moveToLast())});
+        db.close();
+    }
 
     public int getCount(){
         String query = "SELECT  * FROM " + Params.TABLE_NAME1;
@@ -133,5 +122,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
         return cursor.getCount();
 
     }
+
 
 }

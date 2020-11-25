@@ -108,11 +108,8 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         }
 
         if (msg.equals("MainActivity")) {
-
             nextToEducation.setVisibility(View.GONE);
-
             updatePersonalDetails.setVisibility(View.VISIBLE);
-
             MyDbHelper db = new MyDbHelper(PersonalDetailsActivity.this);
             CvList = db.getAllCv();
             UserCv demoitem = new UserCv();

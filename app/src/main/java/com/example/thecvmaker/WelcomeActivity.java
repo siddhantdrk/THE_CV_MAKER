@@ -31,16 +31,18 @@ public class WelcomeActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private String mUsername;
     private TextView UserNameText;
+    private Toolbar myToolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        Toolbar myToolbar = findViewById(R.id.welcome_toolbar);
-        setSupportActionBar(myToolbar);
-        mFirebaseAuth = FirebaseAuth.getInstance();
         initViews();
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+
+        setSupportActionBar(myToolbar);
         createCvButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +94,7 @@ public class WelcomeActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -107,6 +110,7 @@ public class WelcomeActivity extends AppCompatActivity {
         createCvButton = findViewById(R.id.create_cv_btn);
         updateCvButton = findViewById(R.id.update_cv_btn);
         UserNameText = findViewById(R.id.user_name);
+        myToolbar = findViewById(R.id.welcome_toolbar);
 
     }
 
@@ -118,6 +122,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 Toast.makeText(this, "Signed In Successfully!!", Toast.LENGTH_SHORT).show();
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Please Check your SigIn Details or Internet Connectivity and Retry!!", Toast.LENGTH_LONG).show();
+                finish();
             }
         }
     }
