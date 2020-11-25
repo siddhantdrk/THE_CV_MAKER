@@ -111,16 +111,15 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             nextToEducation.setVisibility(View.GONE);
             updatePersonalDetails.setVisibility(View.VISIBLE);
             MyDbHelper db = new MyDbHelper(PersonalDetailsActivity.this);
-            CvList = db.getAllCv();
-            UserCv demoitem = new UserCv();
-            demoitem = CvList.get(0);
-            EditTextFullName.setText(demoitem.getName());
-            editTextDOB.setText(demoitem.getDob());
-            editTextLanguage.setText(demoitem.getLanguage());
-            editTextNationality.setText(demoitem.getNationality());
-            editTextEmail.setText(demoitem.getEmailAddress());
-            editTextAddress.setText(demoitem.getAddress());
-            editTextPhone.setText(demoitem.getPhoneNumber());
+            UserCv cvToUpdate = new UserCv();
+            cvToUpdate = db.getCv();
+            EditTextFullName.setText(cvToUpdate.getName());
+            editTextDOB.setText(cvToUpdate.getDob());
+            editTextLanguage.setText(cvToUpdate.getLanguage());
+            editTextNationality.setText(cvToUpdate.getNationality());
+            editTextEmail.setText(cvToUpdate.getEmailAddress());
+            editTextAddress.setText(cvToUpdate.getAddress());
+            editTextPhone.setText(cvToUpdate.getPhoneNumber());
         }
 
 

@@ -63,7 +63,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public UserCv getAllCv() {
+    public UserCv getCv() {
         // List<UserCv> CvList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -85,8 +85,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         Cv.setWorkExpListString(cursor.getString(9));
         Cv.setProjectContributionListString(cursor.getString(10));
         Cv.setSkillsOthersListString(cursor.getString(11));
-
-
+        db.close();
         return Cv;
     }
 
