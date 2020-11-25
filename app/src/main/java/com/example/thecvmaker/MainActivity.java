@@ -40,15 +40,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        PICK_PHOTO);
-
-
-            }
-        });
         personalDetails.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, PersonalDetailsActivity.class);
             intent.putExtra("FromActivity", "MainActivity");
@@ -85,42 +76,5 @@ public class MainActivity extends AppCompatActivity {
         OtherSkills = findViewById(R.id.other_skills_txt);
         image = findViewById(R.id.upload_user_photo);
         GeneratePdfBtn = findViewById(R.id.generate_pdf_btn);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == PICK_PHOTO) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, PICK_PHOTO);
-            } else {
-
-                Toast.makeText(getApplicationContext(), "You don't have permission to access this media", Toast.LENGTH_SHORT).show();
-            }
-            return;
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode == RESULT_OK && data != null) {
-            Uri selectedImage = data.getData();
-            // String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            try {
-                InputStream inputStream = getContentResolver().openInputStream(selectedImage);
-
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                image.setImageBitmap(bitmap);
-
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-
-        }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }
