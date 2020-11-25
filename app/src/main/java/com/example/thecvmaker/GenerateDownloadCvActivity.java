@@ -69,6 +69,7 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
     CircleImageView image;
     Bitmap scaleBitmap;
     Bitmap bitmap;
+    private boolean isImageSelected=false;
 
 
     @Override
@@ -96,7 +97,11 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
-                createMyPDF(view);
+                if(isImageSelected) {
+                    createMyPDF(view);
+                }else{
+                    Toast.makeText(GenerateDownloadCvActivity.this,"Please select image",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -313,7 +318,7 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
                 BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
                 bitmap = drawable.getBitmap();
                 scaleBitmap = Bitmap.createScaledBitmap(bitmap, 160, 160, false);
-
+                isImageSelected=true;
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
