@@ -120,6 +120,21 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             editTextEmail.setText(cvToUpdate.getEmailAddress());
             editTextAddress.setText(cvToUpdate.getAddress());
             editTextPhone.setText(cvToUpdate.getPhoneNumber());
+
+            updatePersonalDetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    setPersonalDetails();
+                    if (isAllDetailsFilled()) {
+                        userCV = new UserCv();
+                        setUserCVPersonalDetails();
+                        db.updatePersonDetails(userCV);
+                        Toast.makeText(PersonalDetailsActivity.this, "Personal Details Updated!!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(PersonalDetailsActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
         }
 
 
