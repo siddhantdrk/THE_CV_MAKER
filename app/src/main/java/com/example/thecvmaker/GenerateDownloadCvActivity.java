@@ -68,6 +68,7 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
     Bitmap scaleBitmap;
     Bitmap bitmap;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
