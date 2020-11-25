@@ -6,7 +6,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
@@ -139,19 +141,42 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         PdfDocument.Page myPage = myPdfDocument.startPage(myPageInfo);
 
         Paint myPaint = new Paint();
-        myPaint.setTextSize(12);
+        myPaint.setTextSize(16);
+        int x=10,y = 80;
 
         Canvas canvas = myPage.getCanvas();
-        canvas.drawBitmap(scaleBitmap,200,10,myPaint);
+        canvas.drawBitmap(scaleBitmap,360,40,myPaint);
 
-        String myPersonalString =userCv.getName()+"\n"+""+userCv.getEmailAddress()+"\n"+userCv.getPhoneNumber()+"\n"+userCv.getNationality()
+        Paint namePaint = new Paint();
+        namePaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
+        namePaint.setTextSize(24);
+        namePaint.setColor(Color.BLACK);
+        canvas.drawText(userCv.getName(),x,y,namePaint);
+        y += namePaint.descent() - namePaint.ascent();
+
+
+
+        String myPersonalString =userCv.getEmailAddress()+"\n"+userCv.getPhoneNumber()+"\n"+userCv.getNationality()
                 +"\n"+userCv.getDob()+"\n"+userCv.getGender()+"\n"+userCv.getLanguage()+"\n"+userCv.getAddress()+"\n"+" ";
 
-        int x=10,y = 25;
         for (String line : myPersonalString.split("\n")) {
             myPage.getCanvas().drawText(line, x, y, myPaint);
             y += myPaint.descent() - myPaint.ascent();
         }
+        int yWork = y;
+
+        Paint headingPaint = new Paint();
+        headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
+        headingPaint.setTextSize(16);
+        headingPaint.setColor(Color.BLUE);
+        canvas.drawText("Education",x,y,headingPaint);
+        y += 2;
+
+        Paint eduLinePaint = new Paint();
+        eduLinePaint.setColor(Color.BLACK);
+        eduLinePaint.setStrokeWidth(2f);
+        canvas.drawLine(10,y,100,y,eduLinePaint);
+        y += namePaint.descent() - namePaint.ascent();
 
         eduCount=0;
         for(int i=0; i<noOfEducationList; i++)
@@ -167,20 +192,38 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
             eduCount++;
         }
 
+        canvas.drawText("Work Experience",330,yWork,headingPaint);
+        yWork += 2;
+
+        Paint workLinePaint = new Paint();
+        workLinePaint.setColor(Color.BLACK);
+        workLinePaint.setStrokeWidth(2f);
+        canvas.drawLine(330,yWork,480,yWork,workLinePaint);
+        yWork += namePaint.descent() - namePaint.ascent();
+
         workCount=0;
         for(int i=0; i<noOfWorkExperienceList; i++)
         {
-            //int x = 10, y = 25;
             String myWorkExperienceString =  WorkExperienceList.get(workCount).getStart_date() +" - "+WorkExperienceList.get(workCount).getEnd_date()
                     +"\n"+WorkExperienceList.get(workCount).getCompany() +"\n"+WorkExperienceList.get(workCount).getPosition()
                     +"\n"+WorkExperienceList.get(workCount).getDescription()+"\n"+" ";
 
             for (String line : myWorkExperienceString.split("\n")) {
-                myPage.getCanvas().drawText(line, x, y, myPaint);
-                y += myPaint.descent() - myPaint.ascent();
+                myPage.getCanvas().drawText(line, 330, yWork, myPaint);
+                yWork += myPaint.descent() - myPaint.ascent();
             }
             workCount++;
         }
+
+        int ySkill= yWork;
+        canvas.drawText("Project Contribution",x,y,headingPaint);
+        y += 2;
+
+        Paint ProLinePaint = new Paint();
+        ProLinePaint.setColor(Color.BLACK);
+        ProLinePaint.setStrokeWidth(2f);
+        canvas.drawLine(10,y,180,y,ProLinePaint);
+        y += namePaint.descent() - namePaint.ascent();
 
         proCount =0;
         for(int i=0; i<noOfProjectContributionList; i++)
@@ -197,15 +240,24 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
             proCount++;
         }
 
+        canvas.drawText("Skills",330,ySkill,headingPaint);
+        ySkill += 2;
+
+        Paint skillLinePaint = new Paint();
+        skillLinePaint.setColor(Color.BLACK);
+        skillLinePaint.setStrokeWidth(2f);
+        canvas.drawLine(330,ySkill,400,ySkill,skillLinePaint);
+        ySkill += namePaint.descent() - namePaint.ascent();
+
         skillCount=0;
         for(int i=0; i<noOfOthersSkillsList; i++)
         {
-            //int x = 10, y = 25;
+
             String myOthersSkillsString =  OtherSkillList.get(skillCount).getHobby()+"\n"+OtherSkillList.get(skillCount).getSkill_description()+"\n"+" ";
 
             for (String line : myOthersSkillsString.split("\n")) {
-                myPage.getCanvas().drawText(line, x, y, myPaint);
-                y += myPaint.descent() - myPaint.ascent();
+                myPage.getCanvas().drawText(line, 330, ySkill, myPaint);
+                ySkill += myPaint.descent() - myPaint.ascent();
             }
             skillCount++;
         }
@@ -228,7 +280,6 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
     private void initViews() {
         GeneratePreviewCvBtn = findViewById(R.id.generate_cv_btn);
         DownloadCvBtn = findViewById(R.id.download_cv_btn);
-        Test = (TextView) findViewById(R.id.test);
     }
 
 
@@ -261,7 +312,7 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
                 image.setImageBitmap(bitmap);
                 BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
                 bitmap = drawable.getBitmap();
-                scaleBitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
+                scaleBitmap = Bitmap.createScaledBitmap(bitmap, 160, 160, false);
 
 
             } catch (FileNotFoundException e) {
