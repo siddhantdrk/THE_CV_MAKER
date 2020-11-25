@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MyDbHelper extends SQLiteOpenHelper {
 
     private final boolean insertNum1 = true;
@@ -64,35 +61,31 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<UserCv> getAllCv() {
-        List<UserCv> CvList = new ArrayList<>();
+    public UserCv getAllCv() {
+        // List<UserCv> CvList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
         // Generate the query to read from the database
         String select = "SELECT * FROM " + Params.TABLE_NAME1;
         Cursor cursor = db.rawQuery(select, null);
         //Loop through now
-        if (cursor.moveToFirst()) {
-            do {
-                UserCv Cv = new UserCv();
+        cursor.moveToLast();
+        UserCv Cv = new UserCv();
+        Cv.setName(cursor.getString(0));
+        Cv.setEmailAddress(cursor.getString(1));
+        Cv.setPhoneNumber(cursor.getString(2));
+        Cv.setDob(cursor.getString(3));
+        Cv.setGender(cursor.getString(4));
+        Cv.setNationality(cursor.getString(5));
+        Cv.setAddress(cursor.getString(6));
+        Cv.setLanguage(cursor.getString(7));
+        Cv.setEducationListString(cursor.getString(8));
+        Cv.setWorkExpListString(cursor.getString(9));
+        Cv.setProjectContributionListString(cursor.getString(10));
+        Cv.setSkillsOthersListString(cursor.getString(11));
 
-                Cv.setName(cursor.getString(0));
-                Cv.setEmailAddress(cursor.getString(1));
-                Cv.setPhoneNumber(cursor.getString(2));
-                Cv.setDob(cursor.getString(3));
-                Cv.setGender(cursor.getString(4));
-                Cv.setNationality(cursor.getString(5));
-                Cv.setAddress(cursor.getString(6));
-                Cv.setLanguage(cursor.getString(7));
-                Cv.setEducationListString(cursor.getString(8));
-                Cv.setWorkExpListString(cursor.getString(9));
-                Cv.setProjectContributionListString(cursor.getString(10));
-                Cv.setSkillsOthersListString(cursor.getString(11));
 
-                CvList.add(Cv);
-            } while (cursor.moveToNext());
-        }
-        return CvList;
+        return Cv;
     }
 
     public void updateContact(UserCv cvData) {
