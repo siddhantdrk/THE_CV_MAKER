@@ -27,12 +27,23 @@
             android:orientation="vertical"
             android:padding="32dp">
 
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/upload_user_photo"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_80sdp"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_120sdp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/cvlogo" />
+                android:src="@drawable/icons8_test_account_96"
+                app:civ_border_color="@color/colorPrimary"
+                app:civ_border_width="@dimen/_2sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="Upload Profile Image"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp" />
 
 
             <com.google.android.material.button.MaterialButton
