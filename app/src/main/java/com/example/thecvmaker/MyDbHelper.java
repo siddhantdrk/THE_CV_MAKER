@@ -21,7 +21,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 + Params.KEY_EMAIL + " TEXT, " + Params.KEY_PHONE_NUMBER + " TEXT, " + Params.KEY_DOB + " TEXT,"
                 + Params.KEY_GENDER + " TEXT," + Params.KEY_NATIONALITY + " TEXT, " + Params.KEY_ADDRESS + " TEXT,"
                 + Params.KEY_LANGUAGE + " TEXT, " + Params.KEY_EDUCATION + " TEXT, " + Params.KEY_WORKEXPERIENCE +
-                " TEXT, " + Params.KEY_PROJECTCONTRIBUTIONS + " TEXT, " + Params.KEY_OTHERSKILLS + " TEXT" + ")";
+                " TEXT, " + Params.KEY_PROJECTCONTRIBUTIONS + " TEXT, " + Params.KEY_OTHERSKILLS + " TEXT, " + Params.KEY_IMAGE + " BLOB);";
 
         Log.d("dbharry", "Query being run is : "+ create);
         db.execSQL(create);
@@ -32,7 +32,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     }
 
-    public void addCv(UserCv cvData, int count) {
+    public void addCv(UserCv cvData, int count, byte[] Image) {
         SQLiteDatabase db = this.getWritableDatabase();
         String select = "SELECT * FROM " + Params.TABLE_NAME1;
         Cursor cursor = db.rawQuery(select, null);
@@ -49,6 +49,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put(Params.KEY_WORKEXPERIENCE, cvData.getWorkExpListString());
         values.put(Params.KEY_PROJECTCONTRIBUTIONS, cvData.getWorkExpListString());
         values.put(Params.KEY_OTHERSKILLS, cvData.getSkillsOthersListString());
+        values.put(Params.KEY_IMAGE, Image);
 
         if (count == 0) {
             db.insert(Params.TABLE_NAME1, null, values);

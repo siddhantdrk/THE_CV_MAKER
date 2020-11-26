@@ -29,6 +29,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.thecvmaker.Utils.DbBitmapUtility;
 import com.example.thecvmaker.models.EducationItem;
 import com.example.thecvmaker.models.ProjectContributionItem;
 import com.example.thecvmaker.models.SkillsItem;
@@ -40,6 +41,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -97,7 +99,6 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         });
 
         MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
-        db.addCv(userCv, db.getCount());
 
         ActivityCompat.requestPermissions(GenerateDownloadCvActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
         DownloadCvBtn.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +107,13 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (isImageSelected) {
                     enterPdfFileName();
+                    byte[] imageByte;
+                    try {
+                        imageByte = DbBitmapUtility.getBytes(scaleBitmap);
+                        db.addCv(userCv, db.getCount(), imageByte);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     Toast.makeText(GenerateDownloadCvActivity.this, "Please select image", Toast.LENGTH_LONG).show();
                 }

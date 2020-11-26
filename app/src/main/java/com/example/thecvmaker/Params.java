@@ -20,4 +20,5 @@ public class Params {
     public static final String KEY_WORKEXPERIENCE = "workexperienceListString";
     public static final String KEY_PROJECTCONTRIBUTIONS = "contributionListString";
     public static final String KEY_OTHERSKILLS = "otherskillsListString";
+    public static final String KEY_IMAGE = "profileimage";
 }
