@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -153,6 +154,21 @@ public class EducationActivity extends AppCompatActivity {
                     }
                 }
             });
+        nextToWorkExperience.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EducationActivity.this, WorkExperienceActivity.class);
+                if (EducationList.size() != 0) {
+                    String EducationListString = new Gson().toJson(EducationList);
+                    userCv.setEducationListString(EducationListString);
+                    intent.putExtra("FromActivity", "EducationActivity");
+                    intent.putExtra("SharedUserCv", userCv);
+                    startActivityForResult(intent, 500);
+                } else {
+                    Toast.makeText(EducationActivity.this, "Please add your education details !", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
             //Dummy WorkExperience List
             EducationList.add(new EducationItem());
@@ -268,9 +284,17 @@ public class EducationActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 500) {
+            finish();
+        }
+    }
+
     private void setEducationRecyclerview() {
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         recyclerViewAdapter = new EducationRvAdapter(EducationActivity.this, EducationList);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
@@ -308,6 +332,7 @@ public class EducationActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.education_rv_container);
         updateEducation = findViewById(R.id.update_education);
     }
+
 
     public void ResetEducationalDetails() {
         eduStartDateEdt.setText("");

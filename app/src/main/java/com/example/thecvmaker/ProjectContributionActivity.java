@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -145,7 +146,7 @@ public class ProjectContributionActivity extends AppCompatActivity {
                     userCv.setProjectContributionListString(ProjectContributionListString);
                     intent.putExtra("SharedUserCv", userCv);
                     intent.putExtra("FromActivity", "ProjectContributionActivity");
-                    startActivity(intent);
+                    startActivityForResult(intent, 500);
                 } else {
                     Toast.makeText(ProjectContributionActivity.this, "Please add your Project and Contribution details !", Toast.LENGTH_LONG).show();
                 }
@@ -169,6 +170,14 @@ public class ProjectContributionActivity extends AppCompatActivity {
                 proProjectName.getText() != null && proProjectName.getText().length() != 0 &&
                 proCategory.getText() != null && proCategory.getText().length() != 0 &&
                 proDescriptionRole.getText() != null && proDescriptionRole.getText().length() != 0;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 500) {
+            finish();
+        }
     }
 
     private void initViews() {

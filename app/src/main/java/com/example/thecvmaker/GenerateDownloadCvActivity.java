@@ -1,6 +1,7 @@
 package com.example.thecvmaker;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -15,13 +16,16 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.InputType;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -45,7 +49,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class GenerateDownloadCvActivity extends AppCompatActivity {
 
-    private MaterialButton GeneratePreviewCvBtn, DownloadCvBtn;
+    private MaterialButton GeneratePreviewCvBtn, DownloadCvBtn, BackToHomeBtn;
     private UserCv userCv;
     private TextView Test;
     private String StartDate;
@@ -70,7 +74,7 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
     Bitmap scaleBitmap;
     Bitmap bitmap;
     private boolean isImageSelected=false;
-
+    private String m_Text,fileName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,17 +101,27 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
-                if(isImageSelected) {
-                    createMyPDF(view);
-                }else{
-                    Toast.makeText(GenerateDownloadCvActivity.this,"Please select image",Toast.LENGTH_LONG).show();
+                MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
+                db.addCv(userCv);
+                if (isImageSelected) {
+                    enterPdfFileName();
+                } else {
+                    Toast.makeText(GenerateDownloadCvActivity.this, "Please select image", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        BackToHomeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
         // here we retrieving data of education detail
         String extractEducationString = userCv.getEducationListString();
-        Type EducationListType = new TypeToken<ArrayList<EducationItem>>(){}.getType();
+        Type EducationListType = new TypeToken<ArrayList<EducationItem>>() {
+        }.getType();
         EductionList = new Gson().fromJson(extractEducationString, EducationListType);
         //Test.setText(EductionList.get(0).getEduSchoolInstitute());
         noOfEducationList = EductionList.size();
@@ -131,23 +145,48 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         }.getType();
         OtherSkillList = new Gson().fromJson(extractOtherSkillString, OtherSkillListType);
         noOfOthersSkillsList = OtherSkillList.size();
+    }
 
+    private void enterPdfFileName() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter name for pdf");
         MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
         db.addCv(userCv);
 
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
 
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                fileName = "/" + input.getText().toString() + ".pdf";
+                createMyPDF();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void createMyPDF(View view) {
+    public void createMyPDF() {
 
         PdfDocument myPdfDocument = new PdfDocument();
-        PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder( 595,842,1).create();
+        PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
         PdfDocument.Page myPage = myPdfDocument.startPage(myPageInfo);
 
         Paint myPaint = new Paint();
         myPaint.setTextSize(16);
-        int x=10,y = 80;
+        int x = 10, y = 80;
 
         Canvas canvas = myPage.getCanvas();
         canvas.drawBitmap(scaleBitmap,360,40,myPaint);
@@ -267,10 +306,10 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
             skillCount++;
         }
 
-
         myPdfDocument.finishPage(myPage);
 
-        String myFilePath = Environment.getExternalStorageDirectory().getPath() + "/myPDFFile.pdf";
+        String myFilePath = Environment.getExternalStorageDirectory().getPath() + fileName;
+        Toast.makeText(this, myFilePath, Toast.LENGTH_SHORT).show();
         File myFile = new File(myFilePath);
         try {
             myPdfDocument.writeTo(new FileOutputStream(myFile));
@@ -285,6 +324,7 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
     private void initViews() {
         GeneratePreviewCvBtn = findViewById(R.id.generate_cv_btn);
         DownloadCvBtn = findViewById(R.id.download_cv_btn);
+        BackToHomeBtn = findViewById(R.id.back_to_home_btn);
     }
 
 

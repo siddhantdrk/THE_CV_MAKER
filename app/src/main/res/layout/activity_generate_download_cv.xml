@@ -53,6 +53,15 @@
                 android:text="Download cv"
                 app:cornerRadius="4dp" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/back_to_home_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="Back To Home"
+                app:cornerRadius="4dp" />
+
         </LinearLayout>
     </ScrollView>
 

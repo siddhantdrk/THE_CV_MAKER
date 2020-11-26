@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
@@ -98,7 +99,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
                         Intent intent = new Intent(PersonalDetailsActivity.this, EducationActivity.class);
                         intent.putExtra("SharedUserCv", userCV);
                         intent.putExtra("FromActivity", "PersonalDetailsActivity");
-                        startActivity(intent);
+                        startActivityForResult(intent, 500);
                     } else {
                         Toast.makeText(PersonalDetailsActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
                     }
@@ -141,6 +142,15 @@ public class PersonalDetailsActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 500) {
+            finish();
+        }
+    }
+
 
     private void initViews() {
         EditTextFullName = findViewById(R.id.full_name_edt);
