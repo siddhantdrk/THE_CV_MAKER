@@ -22,7 +22,9 @@ import com.example.thecvmaker.adapter.EducationRvAdapter;
 import com.example.thecvmaker.models.EducationItem;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -41,6 +43,8 @@ public class EducationActivity extends AppCompatActivity {
     private UserCv userCv;
     private DatePickerDialog.OnDateSetListener mDateSetListener1;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
+    private UserCv educationToupdate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +59,20 @@ public class EducationActivity extends AppCompatActivity {
         } else {
             nextToWorkExperience.setVisibility(View.GONE);
             updateEducation.setVisibility(View.VISIBLE);
+            MyDbHelper db = new MyDbHelper(EducationActivity.this);
+            educationToupdate = db.getCv();
+            String extractEducationString = userCv.getEducationListString();
+            Type EducationListType = new TypeToken<ArrayList<EducationItem>>() {
+            }.getType();
+            EducationList = new Gson().fromJson(extractEducationString, EducationListType);
+
+            setEducationRecyclerview();
 
             updateEducation.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View view) {
-                    MyDbHelper db = new MyDbHelper(EducationActivity.this);
+
                     if (isAllDetailsFilled()) {
                         db.updateEducationDetails(userCv);
                         Toast.makeText(EducationActivity.this, "Education details successfully updated", Toast.LENGTH_SHORT);
