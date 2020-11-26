@@ -9,7 +9,6 @@ import android.util.Log;
 
 public class MyDbHelper extends SQLiteOpenHelper {
 
-    private boolean insertNum1 = true;
 
     public MyDbHelper(Context context) {
         super(context, Params.KEY_DATABASE, null, Params.KEY_DATABASE_VERSION);
@@ -33,7 +32,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     }
 
-    public void addCv(UserCv cvData) {
+    public void addCv(UserCv cvData, int count) {
         SQLiteDatabase db = this.getWritableDatabase();
         String select = "SELECT * FROM " + Params.TABLE_NAME1;
         Cursor cursor = db.rawQuery(select, null);
@@ -51,16 +50,13 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put(Params.KEY_PROJECTCONTRIBUTIONS, cvData.getWorkExpListString());
         values.put(Params.KEY_OTHERSKILLS, cvData.getSkillsOthersListString());
 
-        if (insertNum1) {
+        if (count == 0) {
             db.insert(Params.TABLE_NAME1, null, values);
-            insertNum1 = false;
         } else {
             db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
                     new String[]{String.valueOf(cursor.moveToLast())});
         }
-
         Log.d("dev", "Successfully inserted" + cvData.getName());
-        db.close();
     }
 
     public UserCv getCv() {
@@ -106,7 +102,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
         //Lets update now
         db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
                 new String[]{String.valueOf(cursor.moveToLast())});
-        db.close();
     }
 
     public void updateEducationDetails(UserCv cvData) {
@@ -118,7 +113,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
         db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
                 new String[]{String.valueOf(cursor.moveToLast())});
 
-        db.close();
     }
 
     public void updateWorkExperienceDetails(UserCv cvData) {
@@ -129,7 +123,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put(Params.KEY_EDUCATION, cvData.getWorkExpListString());
         db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
                 new String[]{String.valueOf(cursor.moveToLast())});
-        db.close();
     }
 
     public void updateProjectDetails(UserCv cvData) {
@@ -140,7 +133,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put(Params.KEY_EDUCATION, cvData.getProjectContributionListString());
         db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
                 new String[]{String.valueOf(cursor.moveToLast())});
-        db.close();
     }
 
     public void updateSkillsDetails(UserCv cvData) {
@@ -151,7 +143,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put(Params.KEY_EDUCATION, cvData.getSkillsOthersListString());
         db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
                 new String[]{String.valueOf(cursor.moveToLast())});
-        db.close();
     }
 
     public int getCount() {
@@ -159,7 +150,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         return cursor.getCount();
-
     }
 
 

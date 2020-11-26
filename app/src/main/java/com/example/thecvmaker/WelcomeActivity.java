@@ -77,19 +77,18 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
             }
         };
-        MyDbHelper db = new MyDbHelper(WelcomeActivity.this);
 
 
         updateCvButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MyDbHelper db = new MyDbHelper(WelcomeActivity.this);
                 if (db.getCount() == 0) {
                     Toast.makeText(WelcomeActivity.this, "First Make Your Cv", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
-
             }
         });
     }

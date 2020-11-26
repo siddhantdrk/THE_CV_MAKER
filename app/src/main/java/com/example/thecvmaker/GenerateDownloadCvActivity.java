@@ -96,13 +96,14 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
             }
         });
 
+        MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
+        db.addCv(userCv, db.getCount());
+
         ActivityCompat.requestPermissions(GenerateDownloadCvActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
         DownloadCvBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
-                MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
-                db.addCv(userCv);
                 if (isImageSelected) {
                     enterPdfFileName();
                 } else {
@@ -150,9 +151,6 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
     private void enterPdfFileName() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter name for pdf");
-        MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
-        db.addCv(userCv);
-
         // Set up the input
         final EditText input = new EditText(this);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
