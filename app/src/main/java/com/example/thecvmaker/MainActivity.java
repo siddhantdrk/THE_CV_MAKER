@@ -25,6 +25,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.thecvmaker.Utils.DbBitmapUtility;
 import com.example.thecvmaker.models.EducationItem;
 import com.example.thecvmaker.models.ProjectContributionItem;
 import com.example.thecvmaker.models.SkillsItem;
@@ -65,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
     int eduCount=0;
     Bitmap scaleBitmap;
     Bitmap bitmap;
-    private boolean isImageSelected=false;
-    private String m_Text,fileName;
-    MyDbHelper db;
+    private final boolean isImageSelected = false;
+    private String m_Text, fileName;
+    private MyDbHelper db;
     UserCv userCv;
 
     @Override
@@ -101,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("FromActivity", "MainActivity");
             startActivity(intent);
         });
+
+        MyDbHelper dbImage = new MyDbHelper(MainActivity.this);
+        Bitmap bitmap = DbBitmapUtility.getImage(dbImage.getImageByte());
+        image.setImageBitmap(bitmap);
 
 //        GeneratePdfBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override

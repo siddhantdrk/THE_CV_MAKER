@@ -153,5 +153,13 @@ public class MyDbHelper extends SQLiteOpenHelper {
         return cursor.getCount();
     }
 
-
+    public byte[] getImageByte() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String select = "SELECT * FROM " + Params.TABLE_NAME1;
+        Cursor cursor = db.rawQuery(select, null);
+        cursor.moveToLast();
+        byte[] bytes = cursor.getBlob(13);
+        db.close();
+        return bytes;
+    }
 }

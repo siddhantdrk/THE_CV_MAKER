@@ -182,7 +182,7 @@ public class EducationActivity extends AppCompatActivity {
                         userCv.setEducationListString(EducationListString);
                         intent.putExtra("FromActivity", "EducationActivity");
                         intent.putExtra("SharedUserCv", userCv);
-                        startActivity(intent);
+                        startActivityForResult(intent, 500);
                     } else {
                         Toast.makeText(EducationActivity.this, "Please add your education details !", Toast.LENGTH_LONG).show();
                     }

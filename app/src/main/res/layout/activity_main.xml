@@ -27,24 +27,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
                 android:background="@android:color/white"
-                android:paddingTop="@dimen/_8sdp"
-                android:paddingBottom="@dimen/_8sdp">
+                android:paddingTop="@dimen/_32sdp"
+                android:paddingBottom="@dimen/_32sdp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/upload_user_photo"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_120sdp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/cvlogo" />
+                    android:src="@drawable/icons8_test_account_96"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="@dimen/_2sdp" />
 
             </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-48dp"
+                android:text="Update Profile Image"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp" />
 
             <TextView
                 android:id="@+id/personal_details_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:background="@android:color/white"
                 android:drawablePadding="@dimen/_8sdp"
                 android:drawableTint="@color/design_default_color_primary"
