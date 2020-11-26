@@ -21,7 +21,9 @@ import com.example.thecvmaker.adapter.EducationRvAdapter;
 import com.example.thecvmaker.models.EducationItem;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -45,118 +47,225 @@ public class EducationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_education);
-        initViews();
-        EducationList = new ArrayList<>();
 
-        Intent intent = getIntent();
-        if (intent.getStringExtra("FromActivity").equals("PersonalDetailsActivity")) {
-            userCv = intent.getParcelableExtra("SharedUserCv");
-        } else {
-            nextToWorkExperience.setVisibility(View.GONE);
-            updateEducation.setVisibility(View.VISIBLE);
+
+        Intent intent1 = getIntent();
+        if (intent1.getStringExtra("FromActivity").equals("PersonalDetailsActivity")) {
+            initViews();
+            EducationList = new ArrayList<>();
+
+            Intent intent = getIntent();
+            if (intent.getStringExtra("FromActivity").equals("PersonalDetailsActivity")) {
+                userCv = intent.getParcelableExtra("SharedUserCv");
+            }
+
+
+            eduStartDateEdt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Calendar calendar = Calendar.getInstance();
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+                    int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                    DatePickerDialog dialog = new DatePickerDialog(EducationActivity.this,
+                            mDateSetListener1, year, month, day);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                    dialog.show();
+                }
+            });
+
+            mDateSetListener1 = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    month = month + 1;
+                    String date = day + "/" + month + "/" + year;
+                    eduStartDateEdt.setText(date);
+                }
+            };
+
+            eduEndDateEdt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Calendar calendar = Calendar.getInstance();
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+                    int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                    DatePickerDialog dialog = new DatePickerDialog(EducationActivity.this,
+                            mDateSetListener2, year, month, day);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                    if (!eduCurrentCheckBox.isChecked()) {
+                        dialog.show();
+
+                    }
+                }
+            });
+
+            mDateSetListener2 = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    month = month + 1;
+                    String date = day + "/" + month + "/" + year;
+                    eduEndDateEdt.setText(date);
+                }
+            };
+
+            eduCurrentCheckBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (eduCurrentCheckBox.isChecked()) {
+                        eduEndDateEdt.setText("currently enrolled");
+                        eduEndDateEdt.setHint("currently enrolled");
+                    } else {
+                        eduEndDateEdt.setHint("Select");
+                        eduEndDateEdt.setText("");
+                    }
+                }
+            });
+
+            addEducationBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (isAllDetailsFilled()) {
+                        setEducationalArrayAdapterDetails();
+                        ResetEducationalDetails();
+                    } else {
+                        Toast.makeText(EducationActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
+            nextToWorkExperience.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(EducationActivity.this, WorkExperienceActivity.class);
+                    if (EducationList.size() != 0) {
+                        String EducationListString = new Gson().toJson(EducationList);
+                        userCv.setEducationListString(EducationListString);
+                        intent.putExtra("FromActivity", "EducationActivity");
+                        intent.putExtra("SharedUserCv", userCv);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(EducationActivity.this, "Please add your education details !", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
+            //Dummy WorkExperience List
+            EducationList.add(new EducationItem());
+            EducationList.add(new EducationItem());
+            EducationList.add(new EducationItem());
+
+            setEducationRecyclerview();
+
         }
 
-        eduStartDateEdt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if (intent1.getStringExtra("FromActivity").equals("MainActivity")) {
 
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
+            //nextToWorkExperience.setVisibility(View.GONE);
+            // updateEducation.setVisibility(View.VISIBLE);
+            initViews();
+            MyDbHelper db = new MyDbHelper(EducationActivity.this);
+            UserCv Cv = db.getCv();
 
-                DatePickerDialog dialog = new DatePickerDialog(EducationActivity.this,
-                        mDateSetListener1, year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                dialog.show();
-            }
-        });
+            String extractEducationString = Cv.getEducationListString();
+            Type EducationListType = new TypeToken<ArrayList<EducationItem>>() {
+            }.getType();
+            EducationList = new Gson().fromJson(extractEducationString, EducationListType);
+            //Test.setText(EductionList.get(0).getEduSchoolInstitute());
+            // noOfEducationList = EductionList.size();
 
-        mDateSetListener1 = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String date = day + "/" + month + "/" + year;
-                eduStartDateEdt.setText(date);
-            }
-        };
 
-        eduEndDateEdt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            eduStartDateEdt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                    Calendar calendar = Calendar.getInstance();
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+                    int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(EducationActivity.this,
-                        mDateSetListener2, year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                if(!eduCurrentCheckBox.isChecked()){
+                    DatePickerDialog dialog = new DatePickerDialog(EducationActivity.this,
+                            mDateSetListener1, year, month, day);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                     dialog.show();
+                }
+            });
+
+            mDateSetListener1 = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    month = month + 1;
+                    String date = day + "/" + month + "/" + year;
+                    eduStartDateEdt.setText(date);
+                }
+            };
+
+            eduEndDateEdt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Calendar calendar = Calendar.getInstance();
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+                    int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                    DatePickerDialog dialog = new DatePickerDialog(EducationActivity.this,
+                            mDateSetListener2, year, month, day);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                    if (!eduCurrentCheckBox.isChecked()) {
+                        dialog.show();
+
+                    }
+                }
+            });
+
+            mDateSetListener2 = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    month = month + 1;
+                    String date = day + "/" + month + "/" + year;
+                    eduEndDateEdt.setText(date);
+                }
+            };
+
+            eduCurrentCheckBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (eduCurrentCheckBox.isChecked()) {
+                        eduEndDateEdt.setText("currently enrolled");
+                        eduEndDateEdt.setHint("currently enrolled");
+                    } else {
+                        eduEndDateEdt.setHint("Select");
+                        eduEndDateEdt.setText("");
+                    }
+                }
+            });
+
+
+            updateEducation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MyDbHelper db = new MyDbHelper(EducationActivity.this);
+                    if (isAllDetailsFilled()) {
+                        db.updateEducationDetails(Cv);
+                        Toast.makeText(EducationActivity.this, "Education details successfully updated", Toast.LENGTH_SHORT);
+                    } else {
+                        Toast.makeText(EducationActivity.this, "Please Fill All the details", Toast.LENGTH_SHORT);
+                    }
+
 
                 }
-            }
-        });
+            });
+            setEducationRecyclerview();
 
-        mDateSetListener2 = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String date = day + "/" + month + "/" + year;
-                eduEndDateEdt.setText(date);
-            }
-        };
 
-        eduCurrentCheckBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(eduCurrentCheckBox.isChecked()) {
-                    eduEndDateEdt.setText("currently enrolled");
-                    eduEndDateEdt.setHint("currently enrolled");
-                }
-                else{
-                    eduEndDateEdt.setHint("Select");
-                    eduEndDateEdt.setText("");
-                }
-            }
-        });
+        }
 
-        addEducationBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isAllDetailsFilled()) {
-                    setEducationalArrayAdapterDetails();
-                    ResetEducationalDetails();
-                } else {
-                    Toast.makeText(EducationActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
 
-        nextToWorkExperience.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EducationActivity.this, WorkExperienceActivity.class);
-                if (EducationList.size() != 0) {
-                    String EducationListString = new Gson().toJson(EducationList);
-                    userCv.setEducationListString(EducationListString);
-                    intent.putExtra("FromActivity", "EducationActivity");
-                    intent.putExtra("SharedUserCv", userCv);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(EducationActivity.this, "Please add your education details !", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-        //Dummy WorkExperience List
-        EducationList.add(new EducationItem());
-        EducationList.add(new EducationItem());
-        EducationList.add(new EducationItem());
-
-        setEducationRecyclerview();
     }
 
     private void setEducationRecyclerview() {

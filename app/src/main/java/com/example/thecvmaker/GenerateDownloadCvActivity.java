@@ -132,8 +132,8 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         OtherSkillList = new Gson().fromJson(extractOtherSkillString, OtherSkillListType);
         noOfOthersSkillsList = OtherSkillList.size();
 
-//        MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
-//        db.addCv(userCv);
+        MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
+        db.addCv(userCv);
 
 
     }

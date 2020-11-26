@@ -121,6 +121,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             editTextAddress.setText(cvToUpdate.getAddress());
             editTextPhone.setText(cvToUpdate.getPhoneNumber());
 
+
             updatePersonalDetails.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -135,6 +136,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
                     }
                 }
             });
+
         }
 
 

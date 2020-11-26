@@ -17,7 +17,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create = "CREATE TABLE " + Params.TABLE_NAME1 + "("
+        String create = "CREATE TABLE " + Params.TABLE_NAME1 + "(" + Params.KEY_ID + " INTEGER PRIMARY KEY,"
                 + Params.KEY_NAME + " TEXT,"
                 + Params.KEY_EMAIL + " TEXT, " + Params.KEY_PHONE_NUMBER + " TEXT, " + Params.KEY_DOB + " TEXT,"
                 + Params.KEY_GENDER + " TEXT," + Params.KEY_NATIONALITY + " TEXT, " + Params.KEY_ADDRESS + " TEXT,"
@@ -73,18 +73,18 @@ public class MyDbHelper extends SQLiteOpenHelper {
         //Loop through now
         cursor.moveToLast();
         UserCv Cv = new UserCv();
-        Cv.setName(cursor.getString(0));
-        Cv.setEmailAddress(cursor.getString(1));
-        Cv.setPhoneNumber(cursor.getString(2));
-        Cv.setDob(cursor.getString(3));
-        Cv.setGender(cursor.getString(4));
-        Cv.setNationality(cursor.getString(5));
-        Cv.setAddress(cursor.getString(6));
-        Cv.setLanguage(cursor.getString(7));
-        Cv.setEducationListString(cursor.getString(8));
-        Cv.setWorkExpListString(cursor.getString(9));
-        Cv.setProjectContributionListString(cursor.getString(10));
-        Cv.setSkillsOthersListString(cursor.getString(11));
+        Cv.setName(cursor.getString(1));
+        Cv.setEmailAddress(cursor.getString(2));
+        Cv.setPhoneNumber(cursor.getString(3));
+        Cv.setDob(cursor.getString(4));
+        Cv.setGender(cursor.getString(5));
+        Cv.setNationality(cursor.getString(6));
+        Cv.setAddress(cursor.getString(7));
+        Cv.setLanguage(cursor.getString(8));
+        Cv.setEducationListString(cursor.getString(9));
+        Cv.setWorkExpListString(cursor.getString(10));
+        Cv.setProjectContributionListString(cursor.getString(11));
+        Cv.setSkillsOthersListString(cursor.getString(12));
         db.close();
         return Cv;
     }
@@ -117,6 +117,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put(Params.KEY_EDUCATION, cvData.getEducationListString());
         db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
                 new String[]{String.valueOf(cursor.moveToLast())});
+
         db.close();
     }
 
