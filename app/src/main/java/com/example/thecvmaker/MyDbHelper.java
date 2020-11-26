@@ -104,12 +104,12 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(getCount())});
     }
 
-    public void updateEducationDetails(UserCv cvData) {
+    public void updateEducationDetails(String EducationListString) {
         SQLiteDatabase db = this.getWritableDatabase();
         String select = "SELECT * FROM " + Params.TABLE_NAME1;
         Cursor cursor = db.rawQuery(select, null);
         ContentValues values = new ContentValues();
-        values.put(Params.KEY_EDUCATION, cvData.getEducationListString());
+        values.put(Params.KEY_EDUCATION, EducationListString);
         db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
                 new String[]{String.valueOf(getCount())});
 

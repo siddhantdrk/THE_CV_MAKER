@@ -56,30 +56,34 @@ public class EducationActivity extends AppCompatActivity {
 
         if (intent.getStringExtra("FromActivity").equals("PersonalDetailsActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
+
+
         } else {
             nextToWorkExperience.setVisibility(View.GONE);
             updateEducation.setVisibility(View.VISIBLE);
+            ArrayList<EducationItem> EducationListDb;
             MyDbHelper db = new MyDbHelper(EducationActivity.this);
             educationToupdate = db.getCv();
-            String extractEducationString = userCv.getEducationListString();
+            String extractEducationString = educationToupdate.getEducationListString();
             Type EducationListType = new TypeToken<ArrayList<EducationItem>>() {
             }.getType();
-            EducationList = new Gson().fromJson(extractEducationString, EducationListType);
-
-            setEducationRecyclerview();
+            EducationListDb = new Gson().fromJson(extractEducationString, EducationListType);
+            setEducationRecyclerview(EducationListDb);
 
             updateEducation.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
 
-                    if (isAllDetailsFilled()) {
-                        db.updateEducationDetails(userCv);
-                        Toast.makeText(EducationActivity.this, "Education details successfully updated", Toast.LENGTH_SHORT);
+                    if (EducationList.size() != 0) {
+                        setEducationalArrayAdapterDetails();
+                        String EducationListString = new Gson().toJson(EducationList);
+                        // userCv.setEducationListString(EducationListString);
+                        db.updateEducationDetails(EducationListString);
+                        Toast.makeText(EducationActivity.this, "Education Details Updated", Toast.LENGTH_SHORT);
                     } else {
-                        Toast.makeText(EducationActivity.this, "Please Fill All the details", Toast.LENGTH_SHORT);
+                        Toast.makeText(EducationActivity.this, "Please add your education details !", Toast.LENGTH_LONG).show();
                     }
-
 
                 }
             });
@@ -179,11 +183,13 @@ public class EducationActivity extends AppCompatActivity {
                     }
                 }
             });
-            //Dummy WorkExperience List
-            EducationList.add(new EducationItem());
-            EducationList.add(new EducationItem());
-            EducationList.add(new EducationItem());
-            setEducationRecyclerview();
+        //Dummy WorkExperience List
+        EducationList.add(new EducationItem());
+        EducationList.add(new EducationItem());
+        EducationList.add(new EducationItem());
+        setEducationRecyclerview(EducationList);
+
+
     }
 
     @Override
@@ -194,10 +200,10 @@ public class EducationActivity extends AppCompatActivity {
         }
     }
 
-    private void setEducationRecyclerview() {
+    private void setEducationRecyclerview(ArrayList<EducationItem> MyList) {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        recyclerViewAdapter = new EducationRvAdapter(EducationActivity.this, EducationList);
+        recyclerViewAdapter = new EducationRvAdapter(EducationActivity.this, MyList);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
