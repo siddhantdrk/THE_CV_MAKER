@@ -7,6 +7,7 @@
     tools:context=".EducationActivity">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/_16sdp"
@@ -28,7 +29,6 @@
                 android:clipToPadding="false"
                 android:paddingStart="0dp"
                 android:paddingEnd="@dimen/_24sdp"
-                android:layout_above="@id/add_education_btn"
                 android:layout_below="@id/education_input_container" />
 
             <LinearLayout
@@ -152,9 +152,9 @@
                 android:id="@+id/add_education_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@id/education_rv_container"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:drawableStart="@drawable/ic_baseline_add_24"
                 android:drawableTint="@color/purple_700"
                 android:text="Add Other Education"

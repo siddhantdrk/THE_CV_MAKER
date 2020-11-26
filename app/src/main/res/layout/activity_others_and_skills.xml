@@ -19,8 +19,8 @@
             android:id="@+id/skills_hobbies_rv_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_80sdp"
             tools:listitem="@layout/skills_others_item"
-            android:layout_above="@id/add_skill_btn"
             android:layout_below="@id/experience_input_container" />
 
         <LinearLayout
@@ -78,9 +78,9 @@
             android:id="@+id/add_skill_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@id/skills_hobbies_rv_container"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="-80dp"
             android:drawableStart="@drawable/ic_baseline_add_24"
             android:drawableTint="@color/purple_700"
             android:text="Add Skill &amp; Others"
