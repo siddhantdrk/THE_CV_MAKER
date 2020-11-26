@@ -1,14 +1,43 @@
 package com.example.thecvmaker;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.text.InputType;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import com.example.thecvmaker.models.EducationItem;
+import com.example.thecvmaker.models.ProjectContributionItem;
+import com.example.thecvmaker.models.SkillsItem;
+import com.example.thecvmaker.models.WorkExpItem;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -22,7 +51,24 @@ public class MainActivity extends AppCompatActivity {
     CircleImageView image;
     MaterialButton GeneratePdfBtn;
     Uri selectedImage;
-
+    private List<EducationItem> EductionList;
+    private List<WorkExpItem> WorkExperienceList;
+    private List<ProjectContributionItem> ProjectContributionList;
+    private List<SkillsItem> OtherSkillList;
+    private int noOfEducationList;
+    private int noOfWorkExperienceList;
+    private int noOfProjectContributionList;
+    private int noOfOthersSkillsList;
+    int skillCount=0;
+    int proCount =0;
+    int workCount=0;
+    int eduCount=0;
+    Bitmap scaleBitmap;
+    Bitmap bitmap;
+    private boolean isImageSelected=false;
+    private String m_Text,fileName;
+    MyDbHelper db;
+    UserCv userCv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +102,53 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+//        GeneratePdfBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                MyDbHelper db = new MyDbHelper(MainActivity.this);
+//                UserCv userCv = db.getCv();
+//            }
+//        });
+
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
         GeneratePdfBtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
-                MyDbHelper db = new MyDbHelper(MainActivity.this);
-                UserCv userCv = db.getCv();
+                db = new MyDbHelper(MainActivity.this);
+                userCv = db.getCv();
+                enterPdfFileName();
             }
         });
+
+        db = new MyDbHelper(MainActivity.this);
+        userCv = db.getCv();
+        String extractEducationString = userCv.getEducationListString();
+        Type EducationListType = new TypeToken<ArrayList<EducationItem>>() {
+        }.getType();
+        EductionList = new Gson().fromJson(extractEducationString, EducationListType);
+        //Test.setText(EductionList.get(0).getEduSchoolInstitute());
+        noOfEducationList = EductionList.size();
+
+        // here we retrieving data of workExperience detail
+        String extractWorkExperienceString = userCv.getWorkExpListString();
+        Type WorkExperienceListType = new TypeToken<ArrayList<WorkExpItem>>(){}.getType();
+        WorkExperienceList = new Gson().fromJson(extractWorkExperienceString, WorkExperienceListType);
+        noOfWorkExperienceList = WorkExperienceList.size();
+
+        // here we retrieving data of projectContribution detail
+        String extractProjectContributionString = userCv.getProjectContributionListString();
+        Type ProjectContributionListType = new TypeToken<ArrayList<ProjectContributionItem>>() {
+        }.getType();
+        ProjectContributionList = new Gson().fromJson(extractProjectContributionString, ProjectContributionListType);
+        noOfProjectContributionList = ProjectContributionList.size();
+
+        // here we retrieving data of othersSkills detail
+        String extractOtherSkillString = userCv.getSkillsOthersListString();
+        Type OtherSkillListType = new TypeToken<ArrayList<SkillsItem>>() {
+        }.getType();
+        OtherSkillList = new Gson().fromJson(extractOtherSkillString, OtherSkillListType);
+        noOfOthersSkillsList = OtherSkillList.size();
     }
 
     public void initViews() {
@@ -73,5 +159,176 @@ public class MainActivity extends AppCompatActivity {
         OtherSkills = findViewById(R.id.other_skills_txt);
         image = findViewById(R.id.upload_user_photo);
         GeneratePdfBtn = findViewById(R.id.generate_pdf_btn);
+    }
+
+    private void enterPdfFileName() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter name for pdf");
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                fileName = "/" + input.getText().toString() + ".pdf";
+                createMyPDF();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void createMyPDF() {
+
+        PdfDocument myPdfDocument = new PdfDocument();
+        PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+        PdfDocument.Page myPage = myPdfDocument.startPage(myPageInfo);
+
+        Paint myPaint = new Paint();
+        myPaint.setTextSize(16);
+        int x = 10, y = 80;
+
+        Canvas canvas = myPage.getCanvas();
+//        canvas.drawBitmap(scaleBitmap,360,40,myPaint);
+
+        Paint namePaint = new Paint();
+        namePaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
+        namePaint.setTextSize(24);
+        namePaint.setColor(Color.BLACK);
+        canvas.drawText(userCv.getName(),x,y,namePaint);
+        y += namePaint.descent() - namePaint.ascent();
+
+
+
+        String myPersonalString =userCv.getEmailAddress()+"\n"+userCv.getPhoneNumber()+"\n"+userCv.getNationality()
+                +"\n"+userCv.getDob()+"\n"+userCv.getGender()+"\n"+userCv.getLanguage()+"\n"+userCv.getAddress()+"\n"+" ";
+
+        for (String line : myPersonalString.split("\n")) {
+            myPage.getCanvas().drawText(line, x, y, myPaint);
+            y += myPaint.descent() - myPaint.ascent();
+        }
+        int yWork = y;
+
+        Paint headingPaint = new Paint();
+        headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
+        headingPaint.setTextSize(16);
+        headingPaint.setColor(Color.BLUE);
+        canvas.drawText("Education",x,y,headingPaint);
+        y += 2;
+
+        Paint eduLinePaint = new Paint();
+        eduLinePaint.setColor(Color.BLACK);
+        eduLinePaint.setStrokeWidth(2f);
+        canvas.drawLine(10,y,100,y,eduLinePaint);
+        y += namePaint.descent() - namePaint.ascent();
+
+        eduCount=0;
+        for(int i=0; i<noOfEducationList; i++)
+        {
+            String myEducationalString =  EductionList.get(eduCount).getEduStartDate()+" - "+ EductionList.get(eduCount).getEduEndDate()
+                    +"\n"+ EductionList.get(eduCount).getEduSchoolInstitute()+"\n"+ EductionList.get(eduCount).getEduDegreeTitle()
+                    +"\n"+ EductionList.get(eduCount).getEduDescription()+"\n"+" ";
+
+            for (String line : myEducationalString.split("\n")) {
+                myPage.getCanvas().drawText(line, x, y, myPaint);
+                y += myPaint.descent() - myPaint.ascent();
+            }
+            eduCount++;
+        }
+
+        canvas.drawText("Work Experience",330,yWork,headingPaint);
+        yWork += 2;
+
+        Paint workLinePaint = new Paint();
+        workLinePaint.setColor(Color.BLACK);
+        workLinePaint.setStrokeWidth(2f);
+        canvas.drawLine(330,yWork,480,yWork,workLinePaint);
+        yWork += namePaint.descent() - namePaint.ascent();
+
+        workCount=0;
+        for(int i=0; i<noOfWorkExperienceList; i++)
+        {
+            String myWorkExperienceString =  WorkExperienceList.get(workCount).getStart_date() +" - "+WorkExperienceList.get(workCount).getEnd_date()
+                    +"\n"+WorkExperienceList.get(workCount).getCompany() +"\n"+WorkExperienceList.get(workCount).getPosition()
+                    +"\n"+WorkExperienceList.get(workCount).getDescription()+"\n"+" ";
+
+            for (String line : myWorkExperienceString.split("\n")) {
+                myPage.getCanvas().drawText(line, 330, yWork, myPaint);
+                yWork += myPaint.descent() - myPaint.ascent();
+            }
+            workCount++;
+        }
+
+        int ySkill= yWork;
+        canvas.drawText("Project Contribution",x,y,headingPaint);
+        y += 2;
+
+        Paint ProLinePaint = new Paint();
+        ProLinePaint.setColor(Color.BLACK);
+        ProLinePaint.setStrokeWidth(2f);
+        canvas.drawLine(10,y,180,y,ProLinePaint);
+        y += namePaint.descent() - namePaint.ascent();
+
+        proCount =0;
+        for(int i=0; i<noOfProjectContributionList; i++)
+        {
+            //int x = 10, y = 25;
+            String myProjectContributionString =  ProjectContributionList.get(proCount).getProjectStartDate()+" - "+ProjectContributionList.get(proCount).getProjectEndDate()
+                    +"\n"+ProjectContributionList.get(proCount).getProjectTitle()+"\n"+ProjectContributionList.get(proCount).getProjectCategory()
+                    +"\n"+ProjectContributionList.get(proCount).getProjectDescription()+"\n"+" ";
+
+            for (String line : myProjectContributionString.split("\n")) {
+                myPage.getCanvas().drawText(line, x, y, myPaint);
+                y += myPaint.descent() - myPaint.ascent();
+            }
+            proCount++;
+        }
+
+        canvas.drawText("Skills",330,ySkill,headingPaint);
+        ySkill += 2;
+
+        Paint skillLinePaint = new Paint();
+        skillLinePaint.setColor(Color.BLACK);
+        skillLinePaint.setStrokeWidth(2f);
+        canvas.drawLine(330,ySkill,400,ySkill,skillLinePaint);
+        ySkill += namePaint.descent() - namePaint.ascent();
+
+        skillCount=0;
+        for(int i=0; i<noOfOthersSkillsList; i++)
+        {
+
+            String myOthersSkillsString =  OtherSkillList.get(skillCount).getHobby()+"\n"+OtherSkillList.get(skillCount).getSkill_description()+"\n"+" ";
+
+            for (String line : myOthersSkillsString.split("\n")) {
+                myPage.getCanvas().drawText(line, 330, ySkill, myPaint);
+                ySkill += myPaint.descent() - myPaint.ascent();
+            }
+            skillCount++;
+        }
+
+        myPdfDocument.finishPage(myPage);
+
+        String myFilePath = Environment.getExternalStorageDirectory().getPath() + fileName;
+        Toast.makeText(this, myFilePath, Toast.LENGTH_SHORT).show();
+        File myFile = new File(myFilePath);
+        try {
+            myPdfDocument.writeTo(new FileOutputStream(myFile));
+        } catch (Exception e) {
+            e.printStackTrace();
+            //myEditText.setText("Error");
+        }
+
+        myPdfDocument.close();
     }
 }
