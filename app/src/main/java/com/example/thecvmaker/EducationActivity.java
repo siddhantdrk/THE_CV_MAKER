@@ -56,6 +56,11 @@ public class EducationActivity extends AppCompatActivity {
 
         if (intent.getStringExtra("FromActivity").equals("PersonalDetailsActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
+            //Dummy WorkExperience List
+            EducationList.add(new EducationItem());
+            EducationList.add(new EducationItem());
+            EducationList.add(new EducationItem());
+            setEducationRecyclerview(EducationList);
 
 
         } else {
@@ -183,11 +188,6 @@ public class EducationActivity extends AppCompatActivity {
                     }
                 }
             });
-        //Dummy WorkExperience List
-        EducationList.add(new EducationItem());
-        EducationList.add(new EducationItem());
-        EducationList.add(new EducationItem());
-        setEducationRecyclerview(EducationList);
 
 
     }
