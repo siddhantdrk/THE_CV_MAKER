@@ -42,6 +42,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
     private String Nationality;
     private String Gender;
     private String Language;
+    private MyDbHelper db;
 
     private UserCv userCV;
     List<UserCv> CvList;
@@ -111,7 +112,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         if (msg.equals("MainActivity")) {
             nextToEducation.setVisibility(View.GONE);
             updatePersonalDetails.setVisibility(View.VISIBLE);
-            MyDbHelper db = new MyDbHelper(PersonalDetailsActivity.this);
+            db = new MyDbHelper(PersonalDetailsActivity.this);
             UserCv cvToUpdate = new UserCv();
             cvToUpdate = db.getCv();
             EditTextFullName.setText(cvToUpdate.getName());
@@ -121,26 +122,32 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             editTextEmail.setText(cvToUpdate.getEmailAddress());
             editTextAddress.setText(cvToUpdate.getAddress());
             editTextPhone.setText(cvToUpdate.getPhoneNumber());
-
-
-            updatePersonalDetails.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    setPersonalDetails();
-                    if (isAllDetailsFilled()) {
-                        userCV = new UserCv();
-                        setUserCVPersonalDetails();
-                        db.updatePersonDetails(userCV);
-                        Toast.makeText(PersonalDetailsActivity.this, "Personal Details Updated!!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(PersonalDetailsActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-
+            if (cvToUpdate.getGender().equals("Male")) {
+                RadioButton maleRadioButton = findViewById(R.id.male_rd_btn);
+                maleRadioButton.setChecked(true);
+            } else if (cvToUpdate.getGender().equals("Female")) {
+                RadioButton femaleRadioButton = findViewById(R.id.female_rd_btn);
+                femaleRadioButton.setChecked(true);
+            } else {
+                RadioButton otherRadioButton = findViewById(R.id.other_rd_btn);
+                otherRadioButton.setChecked(true);
+            }
         }
 
-
+        updatePersonalDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setPersonalDetails();
+                if (isAllDetailsFilled()) {
+                    userCV = new UserCv();
+                    setUserCVPersonalDetails();
+                    db.updatePersonDetails(userCV);
+                    Toast.makeText(PersonalDetailsActivity.this, "Personal Details Updated!!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(PersonalDetailsActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     @Override
