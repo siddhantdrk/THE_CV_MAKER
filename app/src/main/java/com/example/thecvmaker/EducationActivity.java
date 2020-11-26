@@ -55,6 +55,21 @@ public class EducationActivity extends AppCompatActivity {
         } else {
             nextToWorkExperience.setVisibility(View.GONE);
             updateEducation.setVisibility(View.VISIBLE);
+
+            updateEducation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MyDbHelper db = new MyDbHelper(EducationActivity.this);
+                    if (isAllDetailsFilled()) {
+                        db.updateEducationDetails(userCv);
+                        Toast.makeText(EducationActivity.this, "Education details successfully updated", Toast.LENGTH_SHORT);
+                    } else {
+                        Toast.makeText(EducationActivity.this, "Please Fill All the details", Toast.LENGTH_SHORT);
+                    }
+
+
+                }
+            });
         }
 
 
