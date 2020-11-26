@@ -54,7 +54,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
             db.insert(Params.TABLE_NAME1, null, values);
         } else {
             db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
-                    new String[]{String.valueOf(cursor.moveToLast())});
+                    new String[]{String.valueOf(getCount())});
         }
         Log.d("dev", "Successfully inserted" + cvData.getName());
     }
@@ -101,7 +101,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
 
         //Lets update now
         db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
-                new String[]{String.valueOf(cursor.moveToLast())});
+                new String[]{String.valueOf(getCount())});
     }
 
     public void updateEducationDetails(UserCv cvData) {
@@ -111,7 +111,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(Params.KEY_EDUCATION, cvData.getEducationListString());
         db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
-                new String[]{String.valueOf(cursor.moveToLast())});
+                new String[]{String.valueOf(getCount())});
 
     }
 
@@ -122,7 +122,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(Params.KEY_EDUCATION, cvData.getWorkExpListString());
         db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
-                new String[]{String.valueOf(cursor.moveToLast())});
+                new String[]{String.valueOf(getCount())});
     }
 
     public void updateProjectDetails(UserCv cvData) {
@@ -132,7 +132,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(Params.KEY_EDUCATION, cvData.getProjectContributionListString());
         db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
-                new String[]{String.valueOf(cursor.moveToLast())});
+                new String[]{String.valueOf(getCount())});
     }
 
     public void updateSkillsDetails(UserCv cvData) {
@@ -142,7 +142,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(Params.KEY_EDUCATION, cvData.getSkillsOthersListString());
         db.update(Params.TABLE_NAME1, values, Params.KEY_ID + "=?",
-                new String[]{String.valueOf(cursor.moveToLast())});
+                new String[]{String.valueOf(getCount())});
     }
 
     public int getCount() {
