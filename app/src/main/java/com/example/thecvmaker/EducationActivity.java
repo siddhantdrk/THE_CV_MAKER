@@ -44,7 +44,8 @@ public class EducationActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener1;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
     private UserCv educationToupdate;
-
+    boolean checkIntent = false;
+    private ArrayList<EducationItem> EducationListDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,15 +65,16 @@ public class EducationActivity extends AppCompatActivity {
 
 
         } else {
+            checkIntent = false;
             nextToWorkExperience.setVisibility(View.GONE);
             updateEducation.setVisibility(View.VISIBLE);
-            ArrayList<EducationItem> EducationListDb;
             MyDbHelper db = new MyDbHelper(EducationActivity.this);
             educationToupdate = db.getCv();
             String extractEducationString = educationToupdate.getEducationListString();
             Type EducationListType = new TypeToken<ArrayList<EducationItem>>() {
             }.getType();
             EducationListDb = new Gson().fromJson(extractEducationString, EducationListType);
+            Toast.makeText(this, "" + EducationListDb.size(), Toast.LENGTH_SHORT).show();
             setEducationRecyclerview(EducationListDb);
 
             updateEducation.setOnClickListener(new View.OnClickListener() {
@@ -80,12 +82,11 @@ public class EducationActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if (EducationList.size() != 0) {
-                        setEducationalArrayAdapterDetails();
-                        String EducationListString = new Gson().toJson(EducationList);
+                    if (EducationListDb.size() != 0) {
+                        String EducationListString = new Gson().toJson(EducationListDb);
                         // userCv.setEducationListString(EducationListString);
                         db.updateEducationDetails(EducationListString);
-                        Toast.makeText(EducationActivity.this, "Education Details Updated", Toast.LENGTH_SHORT);
+                        Toast.makeText(EducationActivity.this, "Education Details Updated" + EducationListDb.size(), Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(EducationActivity.this, "Please add your education details !", Toast.LENGTH_LONG).show();
                     }
@@ -165,7 +166,10 @@ public class EducationActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (isAllDetailsFilled()) {
-                        setEducationalArrayAdapterDetails();
+                        if (checkIntent)
+                            setEducationalArrayAdapterDetails(EducationList);
+                        else
+                            setEducationalArrayAdapterDetails(EducationListDb);
                         ResetEducationalDetails();
                     } else {
                         Toast.makeText(EducationActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
@@ -206,7 +210,7 @@ public class EducationActivity extends AppCompatActivity {
                 && eduDescriptionEdt.getText() != null && eduDescriptionEdt.getText().length() != 0 && eduDegreeSpinner.getSelectedItemPosition() != 0;
     }
 
-    private void setEducationalArrayAdapterDetails() {
+    private void setEducationalArrayAdapterDetails(ArrayList<EducationItem> EducationList) {
         educationItem = new EducationItem();
         educationItem.setEduStartDate(eduStartDateEdt.getText().toString());
         if (eduCurrentCheckBox.isChecked()) {
