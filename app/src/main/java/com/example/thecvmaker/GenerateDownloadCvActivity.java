@@ -208,15 +208,15 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
 
 
 
-        String myPersonalString ="Email:  "+userCv.getEmailAddress()+"\n"+"Mob:  "+userCv.getPhoneNumber()+"\n"+"Nationality:  "+userCv.getNationality()
-                +"\n"+"DoB:  "+userCv.getDob()+"\n"+"Gender:  "+userCv.getGender()+"\n"+"Language(s):  "+userCv.getLanguage()+"\n"+"Address:  "+userCv.getAddress()+"\n"+" ";
+        String myPersonalString =userCv.getEmailAddress()+"\n"+userCv.getPhoneNumber()+"\n"+userCv.getNationality()
+                +"\n"+userCv.getDob()+"\n"+userCv.getGender()+"\n"+userCv.getLanguage()+"\n"+userCv.getAddress()+"\n"+" ";
 
         for (String line : myPersonalString.split("\n")) {
             myPage.getCanvas().drawText(line, x, y, myPaint);
             y += myPaint.descent() - myPaint.ascent();
-            if(y>800){
-                x=300;y=300;
-            }
+//            if(y>800){
+//                x=300;y=300;
+//            }
         }
         int yWork = y;
 
@@ -225,11 +225,11 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         headingPaint.setTextSize(26);
         headingPaint.setColor(Color.BLUE);
         canvas.drawText("Education",x,y,headingPaint);
-        y += 2;
+        y += 5;
 
         Paint eduLinePaint = new Paint();
         eduLinePaint.setColor(Color.BLACK);
-        eduLinePaint.setStrokeWidth(2f);
+        eduLinePaint.setStrokeWidth(1f);
         canvas.drawLine(x,y,x+240,y,eduLinePaint);
         y += namePaint.descent() - namePaint.ascent();
         if(y>800){
@@ -239,7 +239,7 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         // Vertical Line
         Paint verticalLine = new Paint();
         verticalLine.setColor(Color.BLACK);
-        verticalLine.setStrokeWidth(2f);
+        verticalLine.setStrokeWidth(1f);
         canvas.drawLine(290,230,290,670,eduLinePaint);
 
         eduCount=0;
@@ -260,10 +260,10 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         }
 
         canvas.drawText("Work Experience",x,y,headingPaint);
-        y += 2;
+        y += 5;
         Paint workLinePaint = new Paint();
         workLinePaint.setColor(Color.BLACK);
-        workLinePaint.setStrokeWidth(2f);
+        workLinePaint.setStrokeWidth(1f);
         canvas.drawLine(x,y,x+240,y,workLinePaint);
         y += namePaint.descent() - namePaint.ascent();
         if(y>800){
@@ -289,11 +289,11 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
 
         int ySkill= yWork;
         canvas.drawText("Project Contribution",x,y,headingPaint);
-        y += 2;
+        y += 5;
 
         Paint ProLinePaint = new Paint();
         ProLinePaint.setColor(Color.BLACK);
-        ProLinePaint.setStrokeWidth(2f);
+        ProLinePaint.setStrokeWidth(1f);
         canvas.drawLine(x,y,x+240,y,ProLinePaint);
         y += namePaint.descent() - namePaint.ascent();
         if(y>800){
@@ -318,14 +318,14 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         }
 
         canvas.drawText("Skills",x,y,headingPaint);
-        y += 2;
+        y += 5;
         if(y>800){
             x=300;y=300;
         }
 
         Paint skillLinePaint = new Paint();
         skillLinePaint.setColor(Color.BLACK);
-        skillLinePaint.setStrokeWidth(2f);
+        skillLinePaint.setStrokeWidth(1f);
         canvas.drawLine(x,y,x+240,y,skillLinePaint);
         y += namePaint.descent() - namePaint.ascent();
         if(y>800){

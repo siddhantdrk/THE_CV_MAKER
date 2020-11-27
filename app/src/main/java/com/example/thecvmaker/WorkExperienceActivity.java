@@ -147,7 +147,7 @@ public class WorkExperienceActivity extends AppCompatActivity {
                     userCv.setWorkExpListString(WorkExpListString);
                     intent.putExtra("FromActivity", "WorkExperienceActivity");
                     intent.putExtra("SharedUserCv", userCv);
-                    startActivityForResult(intent, 500);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(WorkExperienceActivity.this, "please add your experience details !", Toast.LENGTH_SHORT).show();
                 }
@@ -159,14 +159,6 @@ public class WorkExperienceActivity extends AppCompatActivity {
         WorkExperienceList.add(new WorkExpItem());
         WorkExperienceList.add(new WorkExpItem());
         setWorkExpRecyclerview();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 500) {
-            finish();
-        }
     }
 
     private void setWorkExpRecyclerview() {

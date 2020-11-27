@@ -70,7 +70,7 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
                     userCv.setSkillsOthersListString(OthersAndSkillsListString);
                     intent.putExtra("SharedUserCv", userCv);
                     intent.putExtra("FromActivity", "OthersAndSkillsActivity");
-                    startActivityForResult(intent, 500);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(OthersAndSkillsActivity.this, "Please add your Project and Contribution details !", Toast.LENGTH_LONG).show();
                 }
@@ -115,11 +115,4 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
         recyclerViewSkills.setAdapter(skillsRvAdapter);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 500) {
-            finish();
-        }
-    }
 }

@@ -100,7 +100,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
                         Intent intent = new Intent(PersonalDetailsActivity.this, EducationActivity.class);
                         intent.putExtra("SharedUserCv", userCV);
                         intent.putExtra("FromActivity", "PersonalDetailsActivity");
-                        startActivityForResult(intent, 500);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(PersonalDetailsActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
                     }
@@ -148,14 +148,6 @@ public class PersonalDetailsActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 500) {
-            finish();
-        }
     }
 
 

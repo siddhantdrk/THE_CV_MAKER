@@ -182,7 +182,7 @@ public class EducationActivity extends AppCompatActivity {
                         userCv.setEducationListString(EducationListString);
                         intent.putExtra("FromActivity", "EducationActivity");
                         intent.putExtra("SharedUserCv", userCv);
-                        startActivityForResult(intent, 500);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(EducationActivity.this, "Please add your education details !", Toast.LENGTH_LONG).show();
                     }
@@ -192,13 +192,6 @@ public class EducationActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 500) {
-            finish();
-        }
-    }
 
     private void setEducationRecyclerview(ArrayList<EducationItem> MyList) {
         recyclerView.setHasFixedSize(true);

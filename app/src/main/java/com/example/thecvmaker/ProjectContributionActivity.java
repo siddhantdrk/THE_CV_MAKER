@@ -146,7 +146,7 @@ public class ProjectContributionActivity extends AppCompatActivity {
                     userCv.setProjectContributionListString(ProjectContributionListString);
                     intent.putExtra("SharedUserCv", userCv);
                     intent.putExtra("FromActivity", "ProjectContributionActivity");
-                    startActivityForResult(intent, 500);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(ProjectContributionActivity.this, "Please add your Project and Contribution details !", Toast.LENGTH_LONG).show();
                 }
@@ -172,13 +172,6 @@ public class ProjectContributionActivity extends AppCompatActivity {
                 proDescriptionRole.getText() != null && proDescriptionRole.getText().length() != 0;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 500) {
-            finish();
-        }
-    }
 
     private void initViews() {
 
