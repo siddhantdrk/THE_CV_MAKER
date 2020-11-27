@@ -99,8 +99,6 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         });
 
         MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
-    //    MyDbHelper db = new MyDbHelper(GenerateDownloadCvActivity.this);
-   //     db.addCv(userCv, db.getCount());
 
         ActivityCompat.requestPermissions(GenerateDownloadCvActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
         DownloadCvBtn.setOnClickListener(new View.OnClickListener() {
