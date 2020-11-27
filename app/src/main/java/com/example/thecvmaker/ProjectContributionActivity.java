@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +20,9 @@ import com.example.thecvmaker.adapter.ProjectContributionRvAdapter;
 import com.example.thecvmaker.models.ProjectContributionItem;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -40,6 +41,9 @@ public class ProjectContributionActivity extends AppCompatActivity {
     private RecyclerView projectContributionRecyclerView;
     private ProjectContributionRvAdapter projectContributionRvAdapter;
     private MaterialButton updateProjectDetails;
+    boolean checkIntent = false;
+    private UserCv projectContributionToUpdate;
+    private List<ProjectContributionItem> projectContributionListDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +51,43 @@ public class ProjectContributionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_project_contribution);
 
         initViews();
+        ProjectContributionItemList = new ArrayList<>();
 
         Intent intent = getIntent();
         if (intent.getStringExtra("FromActivity").equals("WorkExperienceActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
+            ProjectContributionItemList.add(new ProjectContributionItem());
+            setProjectContributionRecyclerView(ProjectContributionItemList);
         } else {
             nextToOthersSkills.setVisibility(View.GONE);
             updateProjectDetails.setVisibility(View.VISIBLE);
+            checkIntent = true;
+            MyDbHelper db = new MyDbHelper(ProjectContributionActivity.this);
+            projectContributionToUpdate = db.getCv();
+            String extractProjectContributionString = projectContributionToUpdate.getProjectContributionListString();
+            Type projectContributionListType = new TypeToken<ArrayList<ProjectContributionItem>>() {
+            }.getType();
+            projectContributionListDb = new Gson().fromJson(extractProjectContributionString, projectContributionListType);
+            Toast.makeText(this, "" + projectContributionListDb.size(), Toast.LENGTH_SHORT).show();
+            setProjectContributionRecyclerView(projectContributionListDb);
+
+            updateProjectDetails.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+                    if (projectContributionListDb.size() != 0) {
+                        String ProjectContributionListString = new Gson().toJson(projectContributionListDb);
+                        // userCv.setEducationListString(EducationListString);
+                        db.updateProjectDetails(ProjectContributionListString);
+                        Toast.makeText(ProjectContributionActivity.this, "Education Details Updated" + projectContributionListDb.size(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ProjectContributionActivity.this, "Please add your education details !", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            });
         }
-        ProjectContributionItemList = new ArrayList<>();
 
         proStartDateEdt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +159,13 @@ public class ProjectContributionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(isAllDetailsFilled()) {
-                    setProjectContributionArrayAdapterDetails();
+                    if (checkIntent) {
+                        setProjectContributionArrayAdapterDetails(projectContributionListDb);
+                        setProjectContributionRecyclerView(projectContributionListDb);
+                    } else {
+                        setProjectContributionArrayAdapterDetails(ProjectContributionItemList);
+                        setProjectContributionRecyclerView(ProjectContributionItemList);
+                    }
                     ResetProjectContributionDetails();
                 } else {
                     Toast.makeText(ProjectContributionActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
@@ -135,7 +173,6 @@ public class ProjectContributionActivity extends AppCompatActivity {
             }
         });
 
-        setProjectContributionRecyclerView();
 
         nextToOthersSkills.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,12 +189,9 @@ public class ProjectContributionActivity extends AppCompatActivity {
                 }
             }
         });
-
-        ProjectContributionItemList.add(new ProjectContributionItem());
-
     }
 
-    private void setProjectContributionRecyclerView() {
+    private void setProjectContributionRecyclerView(List<ProjectContributionItem> ProjectContributionItemList) {
         projectContributionRecyclerView.setHasFixedSize(true);
         projectContributionRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         projectContributionRvAdapter = new ProjectContributionRvAdapter(ProjectContributionActivity.this, ProjectContributionItemList);
@@ -187,7 +221,7 @@ public class ProjectContributionActivity extends AppCompatActivity {
         updateProjectDetails = findViewById(R.id.update_project_details_contribution);
     }
 
-    private void setProjectContributionArrayAdapterDetails() {
+    private void setProjectContributionArrayAdapterDetails(List<ProjectContributionItem> ProjectContributionItemList) {
         ProjectContributionItem proItem = new ProjectContributionItem();
         proItem.setProjectStartDate(proStartDateEdt.getText().toString());
         if (current_working.isChecked()) {

@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +21,9 @@ import com.example.thecvmaker.models.EducationItem;
 import com.example.thecvmaker.models.WorkExpItem;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -46,6 +47,9 @@ public class WorkExperienceActivity extends AppCompatActivity {
     private UserCv userCv;
     private MaterialButton nextToProjectContribution;
     private MaterialButton updateWorkExperience;
+    boolean checkIntent = false;
+    private UserCv workExpToUpdate;
+    private List<WorkExpItem> workExpListDb;
 
 
     @Override
@@ -58,9 +62,39 @@ public class WorkExperienceActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getStringExtra("FromActivity").equals("EducationActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
+            //Dummy WorkExperience List
+            WorkExperienceList.add(new WorkExpItem());
+            WorkExperienceList.add(new WorkExpItem());
+            setWorkExpRecyclerview(WorkExperienceList);
         } else {
+            checkIntent = true;
             nextToProjectContribution.setVisibility(View.GONE);
             updateWorkExperience.setVisibility(View.VISIBLE);
+            MyDbHelper db = new MyDbHelper(WorkExperienceActivity.this);
+            workExpToUpdate = db.getCv();
+            String extractWorkExpString = workExpToUpdate.getWorkExpListString();
+            Type workExpListType = new TypeToken<ArrayList<WorkExpItem>>() {
+            }.getType();
+            workExpListDb = new Gson().fromJson(extractWorkExpString, workExpListType);
+            Toast.makeText(this, "" + workExpListDb.size(), Toast.LENGTH_SHORT).show();
+            setWorkExpRecyclerview(workExpListDb);
+
+            updateWorkExperience.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+                    if (workExpListDb.size() != 0) {
+                        String workExpListString = new Gson().toJson(workExpListDb);
+                        // userCv.setEducationListString(EducationListString);
+                        db.updateWorkExperienceDetails(workExpListString);
+                        Toast.makeText(WorkExperienceActivity.this, "Education Details Updated" + workExpListDb.size(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(WorkExperienceActivity.this, "Please add your education details !", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            });
         }
 
         StartDateWorkExp.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +165,13 @@ public class WorkExperienceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (isAllDetailsFilled()) {
-                    setWorkExperienceArrayAdapterDetails();
+                    if (checkIntent) {
+                        setWorkExperienceArrayAdapterDetails(workExpListDb);
+                        setWorkExpRecyclerview(workExpListDb);
+                    } else {
+                        setWorkExperienceArrayAdapterDetails(WorkExperienceList);
+                        setWorkExpRecyclerview(WorkExperienceList);
+                    }
                     ResetWorkExpDetails();
                 } else {
                     Toast.makeText(WorkExperienceActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
@@ -154,14 +194,9 @@ public class WorkExperienceActivity extends AppCompatActivity {
 
             }
         });
-
-//        //Dummy WorkExperience List
-        WorkExperienceList.add(new WorkExpItem());
-        WorkExperienceList.add(new WorkExpItem());
-        setWorkExpRecyclerview();
     }
 
-    private void setWorkExpRecyclerview() {
+    private void setWorkExpRecyclerview(List<WorkExpItem> WorkExperienceList) {
         workExpRecyclerView.setHasFixedSize(true);
         workExpRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         workExperienceRvAdapter = new WorkExperienceRvAdapter(WorkExperienceActivity.this, WorkExperienceList);
@@ -189,7 +224,7 @@ public class WorkExperienceActivity extends AppCompatActivity {
         updateWorkExperience = findViewById(R.id.update_work_experience);
     }
 
-    private void setWorkExperienceArrayAdapterDetails() {
+    private void setWorkExperienceArrayAdapterDetails(List<WorkExpItem> WorkExperienceList) {
         expItem = new WorkExpItem();
         expItem.setStart_date(StartDateWorkExp.getText().toString());
         if (current_working.isChecked()) {

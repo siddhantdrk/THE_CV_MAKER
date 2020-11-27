@@ -13,7 +13,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -166,10 +165,13 @@ public class EducationActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (isAllDetailsFilled()) {
-                        if (checkIntent)
+                        if (checkIntent) {
                             setEducationalArrayAdapterDetails(EducationList);
-                        else
+                            setEducationRecyclerview(EducationList);
+                        } else {
                             setEducationalArrayAdapterDetails(EducationListDb);
+                            setEducationRecyclerview(EducationListDb);
+                        }
                         ResetEducationalDetails();
                     } else {
                         Toast.makeText(EducationActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
