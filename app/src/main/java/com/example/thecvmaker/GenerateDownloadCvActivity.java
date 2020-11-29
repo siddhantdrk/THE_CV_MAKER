@@ -123,7 +123,8 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         BackToHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent1 = new Intent(GenerateDownloadCvActivity.this, WelcomeActivity.class);
+                startActivityForResult(intent1, 500);
             }
         });
 
@@ -155,6 +156,7 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
         OtherSkillList = new Gson().fromJson(extractOtherSkillString, OtherSkillListType);
         noOfOthersSkillsList = OtherSkillList.size();
     }
+
 
     private void enterPdfFileName() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -400,12 +402,14 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
                 BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
                 bitmap = drawable.getBitmap();
                 scaleBitmap = Bitmap.createScaledBitmap(bitmap, 160, 160, false);
-                isImageSelected=true;
+                isImageSelected = true;
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
 
+        } else if (requestCode == 500) {
+            finishAffinity();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
