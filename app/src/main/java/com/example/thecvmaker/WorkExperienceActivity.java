@@ -57,12 +57,11 @@ public class WorkExperienceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_experience);
         initViews();
-        WorkExperienceList = new ArrayList<>();
-
         Intent intent = getIntent();
         if (intent.getStringExtra("FromActivity").equals("EducationActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
             //Dummy WorkExperience List
+            WorkExperienceList = new ArrayList<>();
             WorkExperienceList.add(new WorkExpItem());
             WorkExperienceList.add(new WorkExpItem());
             setWorkExpRecyclerview(WorkExperienceList);

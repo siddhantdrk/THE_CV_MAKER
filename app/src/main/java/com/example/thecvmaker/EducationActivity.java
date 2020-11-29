@@ -26,6 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class EducationActivity extends AppCompatActivity {
 
@@ -35,7 +36,7 @@ public class EducationActivity extends AppCompatActivity {
     private TextView addEducationBtn;
     private MaterialButton nextToWorkExperience;
     private MaterialButton updateEducation;
-    private ArrayList<EducationItem> EducationList;
+    boolean checkIntent = true;
     private RecyclerView recyclerView;
     private EducationRvAdapter recyclerViewAdapter;
     private EducationItem educationItem;
@@ -43,20 +44,20 @@ public class EducationActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener1;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
     private UserCv educationToupdate;
-    boolean checkIntent = false;
-    private ArrayList<EducationItem> EducationListDb;
+    private List<EducationItem> EducationList;
+    private List<EducationItem> EducationListDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_education);
         initViews();
-        EducationList = new ArrayList<>();
         Intent intent = getIntent();
 
         if (intent.getStringExtra("FromActivity").equals("PersonalDetailsActivity")) {
             userCv = intent.getParcelableExtra("SharedUserCv");
             //Dummy WorkExperience List
+            EducationList = new ArrayList<>();
             EducationList.add(new EducationItem());
             EducationList.add(new EducationItem());
             EducationList.add(new EducationItem());
@@ -199,7 +200,7 @@ public class EducationActivity extends AppCompatActivity {
     }
 
 
-    private void setEducationRecyclerview(ArrayList<EducationItem> MyList) {
+    private void setEducationRecyclerview(List<EducationItem> MyList) {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         recyclerViewAdapter = new EducationRvAdapter(EducationActivity.this, MyList);
@@ -212,7 +213,7 @@ public class EducationActivity extends AppCompatActivity {
                 && eduDescriptionEdt.getText() != null && eduDescriptionEdt.getText().length() != 0 && eduDegreeSpinner.getSelectedItemPosition() != 0;
     }
 
-    private void setEducationalArrayAdapterDetails(ArrayList<EducationItem> EducationList) {
+    private void setEducationalArrayAdapterDetails(List<EducationItem> EducationList) {
         educationItem = new EducationItem();
         educationItem.setEduStartDate(eduStartDateEdt.getText().toString());
         if (eduCurrentCheckBox.isChecked()) {
