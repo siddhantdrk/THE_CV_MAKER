@@ -47,7 +47,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         values.put(Params.KEY_LANGUAGE, cvData.getLanguage());
         values.put(Params.KEY_EDUCATION, cvData.getEducationListString());
         values.put(Params.KEY_WORKEXPERIENCE, cvData.getWorkExpListString());
-        values.put(Params.KEY_PROJECTCONTRIBUTIONS, cvData.getWorkExpListString());
+        values.put(Params.KEY_PROJECTCONTRIBUTIONS, cvData.getProjectContributionListString());
         values.put(Params.KEY_OTHERSKILLS, cvData.getSkillsOthersListString());
         values.put(Params.KEY_IMAGE, Image);
 
