@@ -50,15 +50,21 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int PICK_PHOTO = 1;
     TextView personalDetails;
     TextView educationalDetails;
     TextView workExperience;
     TextView projectDetailContributions;
     TextView OtherSkills;
-    private static final int PICK_PHOTO = 1;
     CircleImageView image;
     MaterialButton GeneratePdfBtn;
     Uri selectedImage;
+    int skillCount = 0;
+    int proCount = 0;
+    int workCount = 0;
+    int eduCount = 0;
+    Bitmap scaleBitmap;
+    Bitmap bitmap;
     private List<EducationItem> EductionList;
     private List<WorkExpItem> WorkExperienceList;
     private List<ProjectContributionItem> ProjectContributionList;
@@ -67,16 +73,9 @@ public class MainActivity extends AppCompatActivity {
     private int noOfWorkExperienceList;
     private int noOfProjectContributionList;
     private int noOfOthersSkillsList;
-    int skillCount=0;
-    int proCount =0;
-    int workCount=0;
-    int eduCount=0;
-    Bitmap scaleBitmap;
-    Bitmap bitmap;
     private boolean isImageSelected = false;
     private String m_Text, fileName;
     private MyDbHelper db;
-    UserCv userCv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         PICK_PHOTO);
-                isImageSelected=true;
+                isImageSelected = true;
             }
         });
 
@@ -129,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 db = new MyDbHelper(MainActivity.this);
-                userCv = db.getCv();
-                if(isImageSelected){
+                UserCv userCv = db.getCv();
+                if (isImageSelected) {
                     byte[] imageByte;
                     try {
                         imageByte = DbBitmapUtility.getBytes(scaleBitmap);
@@ -138,15 +137,53 @@ public class MainActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }else{
-                    scaleBitmap=bitmap;
+                } else {
+                    scaleBitmap = bitmap;
                 }
-                enterPdfFileName();
+                enterPdfFileName(userCv);
+            }
+        });
+    }
+
+    public void initViews() {
+        personalDetails = findViewById(R.id.personal_details_txt);
+        educationalDetails = findViewById(R.id.educational_details_txt);
+        workExperience = findViewById(R.id.work_experience_txt);
+        projectDetailContributions = findViewById(R.id.project_con_txt);
+        OtherSkills = findViewById(R.id.other_skills_txt);
+        image = findViewById(R.id.upload_user_photo);
+        GeneratePdfBtn = findViewById(R.id.generate_pdf_btn);
+    }
+
+    private void enterPdfFileName(UserCv userCv) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter name for pdf");
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                fileName = "/" + input.getText().toString() + ".pdf";
+                createMyPDF(userCv);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
             }
         });
 
-        db = new MyDbHelper(MainActivity.this);
-        userCv = db.getCv();
+        builder.show();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void createMyPDF(UserCv userCv) {
         String extractEducationString = userCv.getEducationListString();
         Type EducationListType = new TypeToken<ArrayList<EducationItem>>() {
         }.getType();
@@ -156,7 +193,8 @@ public class MainActivity extends AppCompatActivity {
 
         // here we retrieving data of workExperience detail
         String extractWorkExperienceString = userCv.getWorkExpListString();
-        Type WorkExperienceListType = new TypeToken<ArrayList<WorkExpItem>>(){}.getType();
+        Type WorkExperienceListType = new TypeToken<ArrayList<WorkExpItem>>() {
+        }.getType();
         WorkExperienceList = new Gson().fromJson(extractWorkExperienceString, WorkExperienceListType);
         noOfWorkExperienceList = WorkExperienceList.size();
 
@@ -173,48 +211,6 @@ public class MainActivity extends AppCompatActivity {
         }.getType();
         OtherSkillList = new Gson().fromJson(extractOtherSkillString, OtherSkillListType);
         noOfOthersSkillsList = OtherSkillList.size();
-    }
-
-    public void initViews() {
-        personalDetails = findViewById(R.id.personal_details_txt);
-        educationalDetails = findViewById(R.id.educational_details_txt);
-        workExperience = findViewById(R.id.work_experience_txt);
-        projectDetailContributions = findViewById(R.id.project_con_txt);
-        OtherSkills = findViewById(R.id.other_skills_txt);
-        image = findViewById(R.id.upload_user_photo);
-        GeneratePdfBtn = findViewById(R.id.generate_pdf_btn);
-    }
-
-    private void enterPdfFileName() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter name for pdf");
-        // Set up the input
-        final EditText input = new EditText(this);
-        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        builder.setView(input);
-
-        // Set up the buttons
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                fileName = "/" + input.getText().toString() + ".pdf";
-                createMyPDF();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void createMyPDF() {
-
 
         PdfDocument myPdfDocument = new PdfDocument();
         PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
@@ -227,19 +223,18 @@ public class MainActivity extends AppCompatActivity {
         int x = 40, y = 80;
 
         Canvas canvas = myPage.getCanvas();
-        canvas.drawBitmap(scaleBitmap,360,70,myPaint);
+        canvas.drawBitmap(scaleBitmap, 360, 70, myPaint);
 
         Paint namePaint = new Paint();
-        namePaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
+        namePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         namePaint.setTextSize(36);
         namePaint.setColor(Color.BLACK);
-        canvas.drawText(userCv.getName(),x,y,namePaint);
+        canvas.drawText(userCv.getName(), x, y, namePaint);
         y += namePaint.descent() - namePaint.ascent();
 
 
-
-        String myPersonalString =userCv.getEmailAddress()+"\n"+userCv.getPhoneNumber()+"\n"+userCv.getNationality()
-                +"\n"+userCv.getDob()+"\n"+userCv.getGender()+"\n"+userCv.getLanguage()+"\n"+userCv.getAddress()+"\n"+" ";
+        String myPersonalString = userCv.getEmailAddress() + "\n" + userCv.getPhoneNumber() + "\n" + userCv.getNationality()
+                + "\n" + userCv.getDob() + "\n" + userCv.getGender() + "\n" + userCv.getLanguage() + "\n" + userCv.getAddress() + "\n" + " ";
 
         for (String line : myPersonalString.split("\n")) {
             myPage.getCanvas().drawText(line, x, y, myPaint);
@@ -251,90 +246,90 @@ public class MainActivity extends AppCompatActivity {
         int yWork = y;
 
         Paint headingPaint = new Paint();
-        headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
+        headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         headingPaint.setTextSize(26);
         headingPaint.setColor(Color.BLUE);
-        canvas.drawText("Education",x,y,headingPaint);
+        canvas.drawText("Education", x, y, headingPaint);
         y += 5;
 
         Paint eduLinePaint = new Paint();
         eduLinePaint.setColor(Color.BLACK);
         eduLinePaint.setStrokeWidth(1f);
-        canvas.drawLine(x,y,x+240,y,eduLinePaint);
+        canvas.drawLine(x, y, x + 240, y, eduLinePaint);
         y += namePaint.descent() - namePaint.ascent();
-        if(y>800){
-            x=300;y=300;
+        if (y > 800) {
+            x = 300;
+            y = 300;
         }
 
         // Vertical Line and border
         Paint verticalLine = new Paint();
         verticalLine.setColor(Color.BLACK);
         verticalLine.setStrokeWidth(1f);
-        canvas.drawLine(290,230,290,790,eduLinePaint);
+        canvas.drawLine(290, 230, 290, 790, eduLinePaint);
         //border
-        canvas.drawLine(10,10,10,832,eduLinePaint);
-        canvas.drawLine(585,10,585,832,eduLinePaint);
-        canvas.drawLine(10,10,585,10,eduLinePaint);
-        canvas.drawLine(10,832,585,832,eduLinePaint);
+        canvas.drawLine(10, 10, 10, 832, eduLinePaint);
+        canvas.drawLine(585, 10, 585, 832, eduLinePaint);
+        canvas.drawLine(10, 10, 585, 10, eduLinePaint);
+        canvas.drawLine(10, 832, 585, 832, eduLinePaint);
 
-        canvas.drawLine(12,12,12,830,eduLinePaint);
-        canvas.drawLine(583,12,583,830,eduLinePaint);
-        canvas.drawLine(12,12,583,12,eduLinePaint);
-        canvas.drawLine(12,830,583,830,eduLinePaint);
+        canvas.drawLine(12, 12, 12, 830, eduLinePaint);
+        canvas.drawLine(583, 12, 583, 830, eduLinePaint);
+        canvas.drawLine(12, 12, 583, 12, eduLinePaint);
+        canvas.drawLine(12, 830, 583, 830, eduLinePaint);
 
-        int tName=0;  // To detect name of company, college etc...
-        eduCount=0;
-        for(int i=0; i<noOfEducationList; i++)
-        {
-            String myEducationalString =  EductionList.get(eduCount).getEduStartDate()+" - "+ EductionList.get(eduCount).getEduEndDate()
-                    +"\n"+ EductionList.get(eduCount).getEduSchoolInstitute()+"\n"+ EductionList.get(eduCount).getEduDegreeTitle()
-                    +"\n"+ EductionList.get(eduCount).getEduDescription()+"\n"+" ";
-            tName=1;
+        int tName = 0;  // To detect name of company, college etc...
+        eduCount = 0;
+        for (int i = 0; i < noOfEducationList; i++) {
+            String myEducationalString = EductionList.get(eduCount).getEduStartDate() + " - " + EductionList.get(eduCount).getEduEndDate()
+                    + "\n" + EductionList.get(eduCount).getEduSchoolInstitute() + "\n" + EductionList.get(eduCount).getEduDegreeTitle()
+                    + "\n" + EductionList.get(eduCount).getEduDescription() + "\n" + " ";
+            tName = 1;
             for (String line : myEducationalString.split("\n")) {
-                if(tName==2){
-                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
+                if (tName == 2) {
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
                     myPage.getCanvas().drawText(line, x, y, myPaint);
-                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.NORMAL));
-                }
-                else myPage.getCanvas().drawText(line, x, y, myPaint);
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+                } else myPage.getCanvas().drawText(line, x, y, myPaint);
                 y += myPaint.descent() - myPaint.ascent();
-                if(y>800){
-                    x=300;y=300;
+                if (y > 800) {
+                    x = 300;
+                    y = 300;
                 }
                 tName++;
             }
             eduCount++;
         }
 
-        canvas.drawText("Work Experience",x,y,headingPaint);
+        canvas.drawText("Work Experience", x, y, headingPaint);
         y += 5;
         Paint workLinePaint = new Paint();
         workLinePaint.setColor(Color.BLACK);
         workLinePaint.setStrokeWidth(1f);
-        canvas.drawLine(x,y,x+240,y,workLinePaint);
+        canvas.drawLine(x, y, x + 240, y, workLinePaint);
         y += namePaint.descent() - namePaint.ascent();
-        if(y>800){
-            x=300;y=300;
+        if (y > 800) {
+            x = 300;
+            y = 300;
         }
 
 
-        workCount=0;
-        for(int i=0; i<noOfWorkExperienceList; i++)
-        {
-            String myWorkExperienceString =  WorkExperienceList.get(workCount).getStart_date() +" - "+WorkExperienceList.get(workCount).getEnd_date()
-                    +"\n"+"Company: "+WorkExperienceList.get(workCount).getCompany() +"\n"+WorkExperienceList.get(workCount).getPosition()
-                    +"\n"+WorkExperienceList.get(workCount).getDescription()+"\n"+" ";
-            tName=1;
+        workCount = 0;
+        for (int i = 0; i < noOfWorkExperienceList; i++) {
+            String myWorkExperienceString = WorkExperienceList.get(workCount).getStart_date() + " - " + WorkExperienceList.get(workCount).getEnd_date()
+                    + "\n" + "Company: " + WorkExperienceList.get(workCount).getCompany() + "\n" + WorkExperienceList.get(workCount).getPosition()
+                    + "\n" + WorkExperienceList.get(workCount).getDescription() + "\n" + " ";
+            tName = 1;
             for (String line : myWorkExperienceString.split("\n")) {
-                if(tName==2){
-                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
+                if (tName == 2) {
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
                     myPage.getCanvas().drawText(line, x, y, myPaint);
-                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.NORMAL));
-                }
-                else myPage.getCanvas().drawText(line, x, y, myPaint);
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+                } else myPage.getCanvas().drawText(line, x, y, myPaint);
                 y += myPaint.descent() - myPaint.ascent();
-                if(y>800){
-                    x=300;y=300;
+                if (y > 800) {
+                    x = 300;
+                    y = 300;
                 }
                 tName++;
             }
@@ -342,73 +337,74 @@ public class MainActivity extends AppCompatActivity {
             workCount++;
         }
 
-        int ySkill= yWork;
-        canvas.drawText("Project Contribution",x,y,headingPaint);
+        int ySkill = yWork;
+        canvas.drawText("Project Contribution", x, y, headingPaint);
         y += 5;
 
         Paint ProLinePaint = new Paint();
         ProLinePaint.setColor(Color.BLACK);
         ProLinePaint.setStrokeWidth(1f);
-        canvas.drawLine(x,y,x+240,y,ProLinePaint);
+        canvas.drawLine(x, y, x + 240, y, ProLinePaint);
         y += namePaint.descent() - namePaint.ascent();
-        if(y>800){
-            x=300;y=300;
+        if (y > 800) {
+            x = 300;
+            y = 300;
         }
-        proCount =0;
-        for(int i=0; i<noOfProjectContributionList; i++)
-        {
+        proCount = 0;
+        for (int i = 0; i < noOfProjectContributionList; i++) {
             //int x = 10, y = 25;
-            String myProjectContributionString =  ProjectContributionList.get(proCount).getProjectStartDate()+" - "+ProjectContributionList.get(proCount).getProjectEndDate()
-                    +"\n"+ProjectContributionList.get(proCount).getProjectTitle()+"\n"+ProjectContributionList.get(proCount).getProjectCategory()
-                    +"\n"+ProjectContributionList.get(proCount).getProjectDescription()+"\n"+" ";
-            tName=1;
+            String myProjectContributionString = ProjectContributionList.get(proCount).getProjectStartDate() + " - " + ProjectContributionList.get(proCount).getProjectEndDate()
+                    + "\n" + ProjectContributionList.get(proCount).getProjectTitle() + "\n" + ProjectContributionList.get(proCount).getProjectCategory()
+                    + "\n" + ProjectContributionList.get(proCount).getProjectDescription() + "\n" + " ";
+            tName = 1;
             for (String line : myProjectContributionString.split("\n")) {
-                if(tName==2){
-                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
+                if (tName == 2) {
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
                     myPage.getCanvas().drawText(line, x, y, myPaint);
-                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.NORMAL));
-                }
-                else myPage.getCanvas().drawText(line, x, y, myPaint);
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+                } else myPage.getCanvas().drawText(line, x, y, myPaint);
                 y += myPaint.descent() - myPaint.ascent();
-                if(y>800){
-                    x=300;y=300;
+                if (y > 800) {
+                    x = 300;
+                    y = 300;
                 }
                 tName++;
             }
             proCount++;
         }
 
-        canvas.drawText("Skills",x,y,headingPaint);
+        canvas.drawText("Skills", x, y, headingPaint);
         y += 5;
-        if(y>800){
-            x=300;y=300;
+        if (y > 800) {
+            x = 300;
+            y = 300;
         }
 
         Paint skillLinePaint = new Paint();
         skillLinePaint.setColor(Color.BLACK);
         skillLinePaint.setStrokeWidth(1f);
-        canvas.drawLine(x,y,x+240,y,skillLinePaint);
+        canvas.drawLine(x, y, x + 240, y, skillLinePaint);
         y += namePaint.descent() - namePaint.ascent();
-        if(y>800){
-            x=300;y=300;
+        if (y > 800) {
+            x = 300;
+            y = 300;
         }
 
-        skillCount=0;
-        for(int i=0; i<noOfOthersSkillsList; i++)
-        {
+        skillCount = 0;
+        for (int i = 0; i < noOfOthersSkillsList; i++) {
 
-            String myOthersSkillsString =  OtherSkillList.get(skillCount).getHobby()+"\n"+OtherSkillList.get(skillCount).getSkill_description()+"\n"+" ";
-            tName=1;
+            String myOthersSkillsString = OtherSkillList.get(skillCount).getHobby() + "\n" + OtherSkillList.get(skillCount).getSkill_description() + "\n" + " ";
+            tName = 1;
             for (String line : myOthersSkillsString.split("\n")) {
-                if(tName==1){
-                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
+                if (tName == 1) {
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
                     myPage.getCanvas().drawText(line, x, y, myPaint);
-                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.NORMAL));
-                }
-                else myPage.getCanvas().drawText(line, x, y, myPaint);
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+                } else myPage.getCanvas().drawText(line, x, y, myPaint);
                 y += myPaint.descent() - myPaint.ascent();
-                if(y>800){
-                    x=300;y=300;
+                if (y > 800) {
+                    x = 300;
+                    y = 300;
                 }
                 tName++;
             }
@@ -460,7 +456,7 @@ public class MainActivity extends AppCompatActivity {
                 BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
                 bitmap = drawable.getBitmap();
                 scaleBitmap = Bitmap.createScaledBitmap(bitmap, 160, 160, false);
-                isImageSelected=true;
+                isImageSelected = true;
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
