@@ -84,6 +84,7 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (isAllDetailsFilled()) {
+                    ResetSkills();
                     if (checkIntent) {
                         setSkills(skillsListDb);
                         setSkillsRecyclerview(skillsListDb);
