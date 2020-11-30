@@ -403,7 +403,6 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        GeneratePreviewCvBtn = findViewById(R.id.generate_cv_btn);
         DownloadCvBtn = findViewById(R.id.download_cv_btn);
         BackToHomeBtn = findViewById(R.id.back_to_home_btn);
     }
