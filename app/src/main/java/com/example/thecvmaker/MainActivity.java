@@ -215,20 +215,23 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void createMyPDF() {
 
+
         PdfDocument myPdfDocument = new PdfDocument();
         PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
         PdfDocument.Page myPage = myPdfDocument.startPage(myPageInfo);
-
+//        if(y>800){
+//            x=290;y=300;
+//        }
         Paint myPaint = new Paint();
         myPaint.setTextSize(16);
-        int x = 10, y = 80;
+        int x = 40, y = 80;
 
         Canvas canvas = myPage.getCanvas();
-        canvas.drawBitmap(scaleBitmap,360,40,myPaint);
+        canvas.drawBitmap(scaleBitmap,360,70,myPaint);
 
         Paint namePaint = new Paint();
         namePaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
-        namePaint.setTextSize(24);
+        namePaint.setTextSize(36);
         namePaint.setColor(Color.BLACK);
         canvas.drawText(userCv.getName(),x,y,namePaint);
         y += namePaint.descent() - namePaint.ascent();
@@ -241,69 +244,116 @@ public class MainActivity extends AppCompatActivity {
         for (String line : myPersonalString.split("\n")) {
             myPage.getCanvas().drawText(line, x, y, myPaint);
             y += myPaint.descent() - myPaint.ascent();
+//            if(y>800){
+//                x=300;y=300;
+//            }
         }
         int yWork = y;
 
         Paint headingPaint = new Paint();
         headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
-        headingPaint.setTextSize(16);
+        headingPaint.setTextSize(26);
         headingPaint.setColor(Color.BLUE);
         canvas.drawText("Education",x,y,headingPaint);
-        y += 2;
+        y += 5;
 
         Paint eduLinePaint = new Paint();
         eduLinePaint.setColor(Color.BLACK);
-        eduLinePaint.setStrokeWidth(2f);
-        canvas.drawLine(10,y,100,y,eduLinePaint);
+        eduLinePaint.setStrokeWidth(1f);
+        canvas.drawLine(x,y,x+240,y,eduLinePaint);
         y += namePaint.descent() - namePaint.ascent();
+        if(y>800){
+            x=300;y=300;
+        }
 
+        // Vertical Line and border
+        Paint verticalLine = new Paint();
+        verticalLine.setColor(Color.BLACK);
+        verticalLine.setStrokeWidth(1f);
+        canvas.drawLine(290,230,290,790,eduLinePaint);
+        //border
+        canvas.drawLine(10,10,10,832,eduLinePaint);
+        canvas.drawLine(585,10,585,832,eduLinePaint);
+        canvas.drawLine(10,10,585,10,eduLinePaint);
+        canvas.drawLine(10,832,585,832,eduLinePaint);
+
+        canvas.drawLine(12,12,12,830,eduLinePaint);
+        canvas.drawLine(583,12,583,830,eduLinePaint);
+        canvas.drawLine(12,12,583,12,eduLinePaint);
+        canvas.drawLine(12,830,583,830,eduLinePaint);
+
+        int tName=0;  // To detect name of company, college etc...
         eduCount=0;
         for(int i=0; i<noOfEducationList; i++)
         {
             String myEducationalString =  EductionList.get(eduCount).getEduStartDate()+" - "+ EductionList.get(eduCount).getEduEndDate()
                     +"\n"+ EductionList.get(eduCount).getEduSchoolInstitute()+"\n"+ EductionList.get(eduCount).getEduDegreeTitle()
                     +"\n"+ EductionList.get(eduCount).getEduDescription()+"\n"+" ";
-
+            tName=1;
             for (String line : myEducationalString.split("\n")) {
-                myPage.getCanvas().drawText(line, x, y, myPaint);
+                if(tName==2){
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
+                    myPage.getCanvas().drawText(line, x, y, myPaint);
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.NORMAL));
+                }
+                else myPage.getCanvas().drawText(line, x, y, myPaint);
                 y += myPaint.descent() - myPaint.ascent();
+                if(y>800){
+                    x=300;y=300;
+                }
+                tName++;
             }
             eduCount++;
         }
 
-        canvas.drawText("Work Experience",330,yWork,headingPaint);
-        yWork += 2;
-
+        canvas.drawText("Work Experience",x,y,headingPaint);
+        y += 5;
         Paint workLinePaint = new Paint();
         workLinePaint.setColor(Color.BLACK);
-        workLinePaint.setStrokeWidth(2f);
-        canvas.drawLine(330,yWork,480,yWork,workLinePaint);
-        yWork += namePaint.descent() - namePaint.ascent();
+        workLinePaint.setStrokeWidth(1f);
+        canvas.drawLine(x,y,x+240,y,workLinePaint);
+        y += namePaint.descent() - namePaint.ascent();
+        if(y>800){
+            x=300;y=300;
+        }
+
 
         workCount=0;
         for(int i=0; i<noOfWorkExperienceList; i++)
         {
             String myWorkExperienceString =  WorkExperienceList.get(workCount).getStart_date() +" - "+WorkExperienceList.get(workCount).getEnd_date()
-                    +"\n"+WorkExperienceList.get(workCount).getCompany() +"\n"+WorkExperienceList.get(workCount).getPosition()
+                    +"\n"+"Company: "+WorkExperienceList.get(workCount).getCompany() +"\n"+WorkExperienceList.get(workCount).getPosition()
                     +"\n"+WorkExperienceList.get(workCount).getDescription()+"\n"+" ";
-
+            tName=1;
             for (String line : myWorkExperienceString.split("\n")) {
-                myPage.getCanvas().drawText(line, 330, yWork, myPaint);
-                yWork += myPaint.descent() - myPaint.ascent();
+                if(tName==2){
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
+                    myPage.getCanvas().drawText(line, x, y, myPaint);
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.NORMAL));
+                }
+                else myPage.getCanvas().drawText(line, x, y, myPaint);
+                y += myPaint.descent() - myPaint.ascent();
+                if(y>800){
+                    x=300;y=300;
+                }
+                tName++;
             }
+
             workCount++;
         }
 
         int ySkill= yWork;
         canvas.drawText("Project Contribution",x,y,headingPaint);
-        y += 2;
+        y += 5;
 
         Paint ProLinePaint = new Paint();
         ProLinePaint.setColor(Color.BLACK);
-        ProLinePaint.setStrokeWidth(2f);
-        canvas.drawLine(10,y,180,y,ProLinePaint);
+        ProLinePaint.setStrokeWidth(1f);
+        canvas.drawLine(x,y,x+240,y,ProLinePaint);
         y += namePaint.descent() - namePaint.ascent();
-
+        if(y>800){
+            x=300;y=300;
+        }
         proCount =0;
         for(int i=0; i<noOfProjectContributionList; i++)
         {
@@ -311,32 +361,56 @@ public class MainActivity extends AppCompatActivity {
             String myProjectContributionString =  ProjectContributionList.get(proCount).getProjectStartDate()+" - "+ProjectContributionList.get(proCount).getProjectEndDate()
                     +"\n"+ProjectContributionList.get(proCount).getProjectTitle()+"\n"+ProjectContributionList.get(proCount).getProjectCategory()
                     +"\n"+ProjectContributionList.get(proCount).getProjectDescription()+"\n"+" ";
-
+            tName=1;
             for (String line : myProjectContributionString.split("\n")) {
-                myPage.getCanvas().drawText(line, x, y, myPaint);
+                if(tName==2){
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
+                    myPage.getCanvas().drawText(line, x, y, myPaint);
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.NORMAL));
+                }
+                else myPage.getCanvas().drawText(line, x, y, myPaint);
                 y += myPaint.descent() - myPaint.ascent();
+                if(y>800){
+                    x=300;y=300;
+                }
+                tName++;
             }
             proCount++;
         }
 
-        canvas.drawText("Skills",330,ySkill,headingPaint);
-        ySkill += 2;
+        canvas.drawText("Skills",x,y,headingPaint);
+        y += 5;
+        if(y>800){
+            x=300;y=300;
+        }
 
         Paint skillLinePaint = new Paint();
         skillLinePaint.setColor(Color.BLACK);
-        skillLinePaint.setStrokeWidth(2f);
-        canvas.drawLine(330,ySkill,400,ySkill,skillLinePaint);
-        ySkill += namePaint.descent() - namePaint.ascent();
+        skillLinePaint.setStrokeWidth(1f);
+        canvas.drawLine(x,y,x+240,y,skillLinePaint);
+        y += namePaint.descent() - namePaint.ascent();
+        if(y>800){
+            x=300;y=300;
+        }
 
         skillCount=0;
         for(int i=0; i<noOfOthersSkillsList; i++)
         {
 
             String myOthersSkillsString =  OtherSkillList.get(skillCount).getHobby()+"\n"+OtherSkillList.get(skillCount).getSkill_description()+"\n"+" ";
-
+            tName=1;
             for (String line : myOthersSkillsString.split("\n")) {
-                myPage.getCanvas().drawText(line, 330, ySkill, myPaint);
-                ySkill += myPaint.descent() - myPaint.ascent();
+                if(tName==1){
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.BOLD));
+                    myPage.getCanvas().drawText(line, x, y, myPaint);
+                    myPaint.setTypeface(Typeface.create(Typeface.DEFAULT,Typeface.NORMAL));
+                }
+                else myPage.getCanvas().drawText(line, x, y, myPaint);
+                y += myPaint.descent() - myPaint.ascent();
+                if(y>800){
+                    x=300;y=300;
+                }
+                tName++;
             }
             skillCount++;
         }

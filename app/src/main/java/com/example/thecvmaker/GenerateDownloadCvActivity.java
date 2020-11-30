@@ -210,8 +210,8 @@ public class GenerateDownloadCvActivity extends AppCompatActivity {
 
 
 
-        String myPersonalString ="Email: "+userCv.getEmailAddress()+"\n"+"Mob: "+userCv.getPhoneNumber()+"\n"+"Nationality: "+userCv.getNationality()
-                +"\n"+"DoB: "+userCv.getDob()+"\n"+"Gender: "+userCv.getGender()+"\n"+"Language(s): "+userCv.getLanguage()+"\n"+"Address: "+userCv.getAddress()+"\n"+" ";
+        String myPersonalString =userCv.getEmailAddress()+"\n"+userCv.getPhoneNumber()+"\n"+userCv.getNationality()
+                +"\n"+userCv.getDob()+"\n"+userCv.getGender()+"\n"+userCv.getLanguage()+"\n"+userCv.getAddress()+"\n"+" ";
 
         for (String line : myPersonalString.split("\n")) {
             myPage.getCanvas().drawText(line, x, y, myPaint);
