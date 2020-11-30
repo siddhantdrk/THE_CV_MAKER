@@ -84,7 +84,6 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (isAllDetailsFilled()) {
-                    ResetSkills();
                     if (checkIntent) {
                         setSkills(skillsListDb);
                         setSkillsRecyclerview(skillsListDb);
@@ -92,6 +91,7 @@ public class OthersAndSkillsActivity extends AppCompatActivity {
                         setSkills(skills_List);
                         setSkillsRecyclerview(skills_List);
                     }
+                    ResetSkills();
                 } else {
                     Toast.makeText(OthersAndSkillsActivity.this, "Please check and fill all the Details", Toast.LENGTH_LONG).show();
                 }
